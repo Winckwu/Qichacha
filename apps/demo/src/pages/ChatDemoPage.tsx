@@ -296,6 +296,168 @@ const analyzeUserPattern = (userInput: string, conversationHistory: Message[]): 
   };
 };
 
+// 任务复杂度分析
+interface TaskComplexity {
+  level: 'low' | 'medium' | 'high';
+  score: number;
+  factors: {
+    scope: number;          // 范围广度 (0-1)
+    analyticalDepth: number; // 分析深度 (0-1)
+    dependencies: number;    // 依赖复杂度 (0-1)
+  };
+  reasoning: string;
+}
+
+const analyzeTaskComplexity = (userInput: string): TaskComplexity => {
+  const input = userInput.toLowerCase();
+  const inputLength = userInput.length;
+
+  // 1. 范围广度分析
+  let scope = 0.3; // 默认
+  if (input.includes('多个') || input.includes('所有') || input.includes('全面')) scope = 0.8;
+  else if (input.includes('比较') || input.includes('对比') || input.includes('分析')) scope = 0.6;
+  else if (inputLength > 150) scope = 0.7;
+
+  // 2. 分析深度
+  let analyticalDepth = 0.3;
+  if (input.includes('深入') || input.includes('详细') || input.includes('为什么')) analyticalDepth = 0.8;
+  else if (input.includes('分析') || input.includes('评估') || input.includes('研究')) analyticalDepth = 0.6;
+  else if (input.includes('如何') || input.includes('怎样')) analyticalDepth = 0.5;
+
+  // 3. 依赖复杂度
+  let dependencies = 0.2;
+  const hasSequentialKeywords = input.includes('首先') || input.includes('然后') || input.includes('最后');
+  const hasMultipleSteps = input.match(/步骤|阶段|环节/g);
+  if (hasSequentialKeywords && hasMultipleSteps) dependencies = 0.7;
+  else if (hasSequentialKeywords || hasMultipleSteps) dependencies = 0.5;
+
+  // 计算总体复杂度
+  const score = (scope * 0.4 + analyticalDepth * 0.4 + dependencies * 0.2);
+
+  let level: 'low' | 'medium' | 'high';
+  let reasoning: string;
+
+  if (score >= 0.6) {
+    level = 'high';
+    reasoning = '该任务涉及多个维度或需要深入分析，建议进行结构化分解';
+  } else if (score >= 0.4) {
+    level = 'medium';
+    reasoning = '该任务有一定复杂度，可以考虑分步处理';
+  } else {
+    level = 'low';
+    reasoning = '这是一个相对简单直接的任务';
+  }
+
+  return {
+    level,
+    score,
+    factors: { scope, analyticalDepth, dependencies },
+    reasoning
+  };
+};
+
+// 脚手架建议 - 基于任务复杂度和用户模式
+interface ScaffoldingSuggestion {
+  level: 'full' | 'moderate' | 'minimal' | 'none';
+  template?: string;
+  tips: string[];
+  shouldDisplay: boolean;
+}
+
+const generateScaffoldingSuggestion = (
+  taskComplexity: TaskComplexity,
+  userPattern: UserPattern,
+  decompositionScore: number
+): ScaffoldingSuggestion => {
+  // 根据模式和任务复杂度决定支持级别
+  let level: 'full' | 'moderate' | 'minimal' | 'none' = 'none';
+  const tips: string[] = [];
+  let shouldDisplay = false;
+
+  // Pattern F/E/C: 需要更多支持
+  if (['F', 'E', 'C'].includes(userPattern) && taskComplexity.level !== 'low') {
+    level = 'full';
+    shouldDisplay = true;
+  }
+  // Pattern D/B: 中等支持
+  else if (['D', 'B'].includes(userPattern) && taskComplexity.level === 'high') {
+    level = 'moderate';
+    shouldDisplay = true;
+  }
+  // Pattern A: 最小支持，仅在非常复杂时
+  else if (userPattern === 'A' && taskComplexity.level === 'high' && decompositionScore < 0.5) {
+    level = 'minimal';
+    shouldDisplay = true;
+  }
+
+  // 生成具体建议
+  if (level === 'full') {
+    tips.push('💡 建议将任务分解为以下步骤：');
+    if (taskComplexity.factors.scope > 0.6) {
+      tips.push('1️⃣ 明确任务边界和范围');
+    }
+    if (taskComplexity.factors.analyticalDepth > 0.6) {
+      tips.push('2️⃣ 确定分析框架或方法论');
+    }
+    tips.push('3️⃣ 将大任务拆分为可管理的子任务');
+    tips.push('4️⃣ 逐步完成各子任务');
+    tips.push('5️⃣ 综合结果并验证完整性');
+  } else if (level === 'moderate') {
+    tips.push('💡 建议考虑以下关键点：');
+    tips.push('• 先明确核心目标');
+    tips.push('• 识别主要步骤');
+    tips.push('• 在各阶段进行验证');
+  } else if (level === 'minimal') {
+    tips.push('💡 提示：这是一个复杂任务，考虑分步处理？');
+  }
+
+  return {
+    level,
+    template: level !== 'none' ? generateDecompositionTemplate(taskComplexity) : undefined,
+    tips,
+    shouldDisplay
+  };
+};
+
+// 生成分解模板
+const generateDecompositionTemplate = (complexity: TaskComplexity): string => {
+  if (complexity.level === 'high') {
+    return `
+【任务分解建议】
+
+🎯 阶段1: 明确与规划
+  • 清晰定义任务目标
+  • 识别成功标准
+  • 评估所需资源
+
+📋 阶段2: 结构化分解
+  • 将任务拆分为独立子任务
+  • 确定子任务间的依赖关系
+  • 排列执行顺序
+
+⚡ 阶段3: 执行与监控
+  • 按顺序完成各子任务
+  • 定期检查进度
+  • 及时调整策略
+
+✅ 阶段4: 整合与验证
+  • 综合各部分结果
+  • 验证整体质量
+  • 确认满足初始目标
+    `.trim();
+  } else if (complexity.level === 'medium') {
+    return `
+【简化分解建议】
+
+1. 明确目标和范围
+2. 识别2-3个主要步骤
+3. 逐步完成并验证
+4. 整合最终结果
+    `.trim();
+  }
+  return '';
+};
+
 // 生成置信度详情 - 增强版，包含推理透明度
 const generateConfidenceDetails = (
   pattern: UserPattern,
@@ -374,6 +536,12 @@ export default function ChatDemoPage() {
     evaluation: 5,
     regulation: 5
   });
+  const [scaffoldingSuggestion, setScaffoldingSuggestion] = useState<ScaffoldingSuggestion>({
+    level: 'none',
+    tips: [],
+    shouldDisplay: false
+  });
+  const [showScaffolding, setShowScaffolding] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -424,6 +592,16 @@ export default function ChatDemoPage() {
     setPatternConfidence(analysis.confidence);
     setCurrentFeatures(analysis.features);
     setMetacognitiveScores(analysis.metacognitiveScores);
+
+    // 分析任务复杂度并生成脚手架建议
+    const complexity = analyzeTaskComplexity(inputValue);
+    const scaffolding = generateScaffoldingSuggestion(
+      complexity,
+      analysis.detectedPattern,
+      analysis.features.decompositionScore
+    );
+    setScaffoldingSuggestion(scaffolding);
+    setShowScaffolding(scaffolding.shouldDisplay);
 
     // 模拟AI思考时间
     await new Promise(resolve => setTimeout(resolve, 500 + Math.random() * 1000));
@@ -670,6 +848,84 @@ export default function ChatDemoPage() {
           </div>
         </CardContent>
       </Card>
+
+      {/* Adaptive Scaffolding Support */}
+      {showScaffolding && scaffoldingSuggestion.shouldDisplay && (
+        <Card className="border-2 border-orange-200 bg-gradient-to-r from-orange-50 to-amber-50">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <Sparkles className="h-5 w-5 text-orange-600" />
+                <CardTitle className="text-orange-900">自适应脚手架支持</CardTitle>
+              </div>
+              <button
+                onClick={() => setShowScaffolding(false)}
+                className="text-xs text-orange-700 hover:text-orange-900 underline"
+              >
+                关闭
+              </button>
+            </div>
+            <CardDescription>
+              根据您的模式（{PATTERN_INFO[detectedPattern].name}）和任务复杂度提供个性化指导
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {/* 支持级别指示 */}
+              <div className="flex items-center justify-between p-3 rounded-lg bg-white/60 border border-orange-200">
+                <div>
+                  <div className="text-sm font-medium text-orange-900">支持强度</div>
+                  <div className="text-xs text-orange-700 mt-1">
+                    {scaffoldingSuggestion.level === 'full' && '完整支持 - 详细分步指导'}
+                    {scaffoldingSuggestion.level === 'moderate' && '中等支持 - 关键要点提示'}
+                    {scaffoldingSuggestion.level === 'minimal' && '最小支持 - 简要提醒'}
+                  </div>
+                </div>
+                <Badge className={cn(
+                  'text-white',
+                  scaffoldingSuggestion.level === 'full' && 'bg-orange-600',
+                  scaffoldingSuggestion.level === 'moderate' && 'bg-amber-600',
+                  scaffoldingSuggestion.level === 'minimal' && 'bg-yellow-600'
+                )}>
+                  {scaffoldingSuggestion.level.toUpperCase()}
+                </Badge>
+              </div>
+
+              {/* 建议内容 */}
+              <div className="space-y-2">
+                {scaffoldingSuggestion.tips.map((tip, index) => (
+                  <div
+                    key={index}
+                    className="text-sm text-orange-900 leading-relaxed p-2 rounded bg-white/40"
+                  >
+                    {tip}
+                  </div>
+                ))}
+              </div>
+
+              {/* 详细模板（仅在full/moderate时显示） */}
+              {scaffoldingSuggestion.template && (
+                <details className="mt-4">
+                  <summary className="cursor-pointer text-sm font-medium text-orange-900 hover:text-orange-700">
+                    📖 查看详细分解模板
+                  </summary>
+                  <pre className="mt-3 text-xs text-orange-800 bg-white/60 p-4 rounded-lg border border-orange-200 whitespace-pre-wrap">
+                    {scaffoldingSuggestion.template}
+                  </pre>
+                </details>
+              )}
+
+              {/* 说明文字 */}
+              <div className="mt-4 pt-4 border-t border-orange-200">
+                <p className="text-xs text-orange-700">
+                  💡 <strong>为什么看到这个？</strong> 基于您当前的元认知模式，系统判断您可能需要
+                  结构化支持来更好地完成这个任务。这个建议会随着您能力的提升而逐渐减少（渐进式淡出）。
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       <div className="grid gap-6 lg:grid-cols-3">
         {/* Chat Messages */}
