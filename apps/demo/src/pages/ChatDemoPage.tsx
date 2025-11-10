@@ -12,53 +12,97 @@ import {
 import { cn, formatDate, getConfidenceColor } from '@/lib/utils';
 import { ChevronDown, ChevronUp, Send, Sparkles, Loader2, Brain, TrendingUp, TrendingDown, AlertTriangle } from 'lucide-react';
 
-// AI响应生成器 - 根据用户输入和模式生成回复
+// AI响应生成器 - 根据用户输入和模式生成回复 (Based on MCA Framework)
 const generateAIResponse = (userInput: string, pattern: UserPattern, _conversationHistory: Message[]): string => {
   const input = userInput.toLowerCase();
 
-  // 模式A: 深思熟虑型 - 详细、准确的回复
+  // 模式A: 战略分解者 - 详细、结构化的分析回复
   if (pattern === 'A') {
     if (input.includes('什么') || input.includes('如何') || input.includes('为什么')) {
-      return `根据您的问题"${userInput}"，让我为您详细分析：这个问题涉及多个层面的考量。首先，我们需要理解其基本概念；其次，要考虑实际应用场景；最后，还需要权衡不同方案的利弊。基于现有知识，我建议您从基础原理入手，逐步深入理解。`;
+      return `关于"${userInput}"，让我进行系统性分析：
+
+**核心概念**：这个问题涉及几个关键维度...
+
+**方法论**：建议采用以下分析框架：
+1. 首先明确问题边界和目标
+2. 识别关键影响因素
+3. 评估各因素的相互关系
+4. 制定验证标准
+
+**潜在风险**：需要注意的假设和限制条件包括...
+
+建议您在采用这个分析时，根据具体情况调整框架。`;
     }
-    return `感谢您的输入。我注意到您提到了"${userInput}"，这是一个值得深入探讨的话题。让我从多个角度为您分析：从理论基础来看，这涉及到核心概念的理解；从实践角度来说，需要结合具体场景；综合考虑，我建议采取循序渐进的方式。`;
+    return `针对"${userInput}"，这确实是个值得深入探讨的话题。从多个层面分析：理论基础、实践应用、权衡取舍。建议采用结构化方法逐步推进，保持对关键假设的验证。`;
   }
 
-  // 模式B: 平衡型 - 适度依赖AI
+  // 模式B: 效率迭代者 - 快速回复但提示验证
   if (pattern === 'B') {
     if (input.includes('帮我') || input.includes('能否')) {
-      return `好的，关于"${userInput}"，我可以为您提供一些参考建议。不过建议您也可以自己尝试思考一下，结合我的建议和您自己的理解，会得到更好的效果。`;
+      return `好的，关于"${userInput}"，这里是快速方案：[具体建议]。建议您快速测试一下，如果不符合预期我们可以立即调整。记得验证关键步骤。`;
     }
-    return `理解您的问题。针对"${userInput}"，这里有一些要点供您参考。建议您在使用这些信息时，结合自己的实际情况进行调整和验证。`;
+    return `针对"${userInput}"，直接给您可行方案：[解决方案]。这个方案在类似场景中效果不错。如有问题请随时反馈，我们快速迭代优化。`;
   }
 
-  // 模式C: 过度依赖型 - 简单直接的回复
+  // 模式C: 学习探索者 - 深度解释和多方案对比
   if (pattern === 'C') {
-    if (input.includes('帮我') || input.includes('给我')) {
-      return `好的，针对"${userInput}"，答案是这样的。您可以直接使用这个方案，应该可以解决您的问题。`;
+    if (input.includes('为什么') || input.includes('原理') || input.includes('如何')) {
+      return `很好的学习型问题！关于"${userInput}"，让我详细解释：
+
+**方法A**：传统方法是...（优点：...，缺点：...）
+**方法B**：另一种思路是...（优点：...，缺点：...）
+**方法C**：近期流行的做法是...（优点：...，缺点：...）
+
+**对比分析**：这三种方法的适用场景各不相同...
+
+**深入学习**：如果想进一步理解，建议探索以下方面...
+
+您想先尝试哪种方法？我可以提供更详细的指导。`;
     }
-    return `收到您的请求。关于"${userInput}"，我建议您采用这个方法。按照步骤执行就可以了。`;
+    return `针对"${userInput}"，让我提供几种不同的思路供您探索：[多个方案]。每种方法背后的原理是...。建议您实验对比，看哪种更符合您的需求。过程中有任何发现欢迎讨论！`;
   }
 
-  // 模式D: 探索尝试型 - 鼓励性回复
+  // 模式D: 验证谨慎者 - 附带可验证信息和参考依据
   if (pattern === 'D') {
-    if (input.includes('试试') || input.includes('测试')) {
-      return `很高兴看到您愿意探索！关于"${userInput}"，这是一个很好的尝试方向。我建议您可以先从简单的场景开始，然后逐步增加复杂度。在尝试过程中，记得及时验证结果哦。`;
-    }
-    return `您的想法很有创意！针对"${userInput}"，我可以提供一些思路供您参考。建议您在实践中不断调整，找到最适合的方案。如果遇到问题，随时可以再来讨论。`;
+    return `关于"${userInput}"，这是我的分析：[具体内容]
+
+**信息来源**：此结论基于...
+**验证建议**：您可以通过以下方式交叉验证：
+  • 检查点1：...
+  • 检查点2：...
+
+**潜在误差**：需要注意的是，这个分析的可靠性受...因素影响
+
+**替代方案**：如果这个方案不合适，可以考虑...
+
+建议您在采纳前验证关键假设是否符合您的实际情况。`;
   }
 
-  // 模式E: 知识盲区型 - 基础引导型回复
+  // 模式E: 务实完成者 - 直接、简洁的答案
   if (pattern === 'E') {
-    return `我理解您想了解"${userInput}"。让我先从最基础的概念开始解释：这个概念的核心是...。建议您先掌握这个基础知识，然后我们再进行下一步的学习。您可以先试着理解这个部分，有任何疑问都可以继续问我。`;
+    if (input.includes('帮我') || input.includes('快速')) {
+      return `针对"${userInput}"，直接答案：[具体方案]。按这个步骤执行即可：1)... 2)... 3)...。应该能快速解决您的问题。`;
+    }
+    return `关于"${userInput}"，最直接的做法是：[答案]。这是标准解决方案，直接应用就可以。如果遇到问题再联系我。`;
   }
 
-  // 模式F: 低效交互型 - 引导性回复
+  // 模式F: 无批判依赖者 - 强制引导性回复，避免直接给答案
   if (pattern === 'F') {
-    if (input.length < 5) {
-      return `我注意到您的输入"${userInput}"比较简短。为了更好地帮助您，能否提供更多细节呢？比如具体的场景、您的目标、或者遇到的具体问题？这样我就能给您更有针对性的建议。`;
+    if (input.length < 10) {
+      return `⚠️ 我注意到您的输入"${userInput}"比较简短。在我提供建议前，请先思考并回答：
+
+1. 这个问题的目标是什么？
+2. 您已经尝试过什么方法？
+3. 您期望的结果是什么样的？
+
+提供这些信息后，我能给您更有针对性的帮助，同时也帮助您更好地理解问题本质。`;
     }
-    return `感谢您提供更多信息。基于"${userInput}"，我建议您可以尝试以下方法。同时，如果能够更系统地描述您的需求，我可以提供更精准的帮助。`;
+    return `关于"${userInput}"，在给出答案前，我想先引导您思考：
+
+**分析问题**：这个任务可以分解为哪几个步骤？
+**评估方案**：有哪些可能的解决路径？
+
+请先尝试回答这两个问题，然后我会基于您的思考提供更深入的建议。这样能帮助您建立独立分析能力，而不只是获得一个答案。`;
   }
 
   return `收到您的消息："${userInput}"。让我为您分析一下这个问题。`;
@@ -201,44 +245,50 @@ const analyzeUserPattern = (userInput: string, conversationHistory: Message[]): 
   const features = extractBehavioralFeatures(userInput, conversationHistory);
   const metacognitiveScores = calculateMetacognitiveScores(features, userInput);
 
-  // 定义模式原型（理想特征向量）
+  // 定义模式原型（理想特征向量）- Based on MCA Framework Chapter 5
   const prototypes: Record<UserPattern, BehavioralFeatures> = {
-    A: { // 战略思考者：高分解、高验证、中等迭代、高战略性、低时间压力
+    A: { // Pattern A: Strategic Decomposition & Control
+      // 战略分解者：高分解、高验证、中高迭代、高战略性、低时间压力
       decompositionScore: 0.8,
       verificationIntensity: 0.9,
       iterationCount: 2,
       strategicQuestionRatio: 0.9,
       timePressureIndicator: 0.2
     },
-    B: { // 快速学习者：中等分解、中等验证、高迭代、混合问题、中等时间压力
+    B: { // Pattern B: Efficiency-Focused Iteration
+      // 效率迭代者：中等分解、中等验证、高迭代、混合问题、中等时间压力
       decompositionScore: 0.5,
       verificationIntensity: 0.6,
       iterationCount: 3,
       strategicQuestionRatio: 0.6,
       timePressureIndicator: 0.5
     },
-    C: { // 过度依赖：低分解、低验证、低迭代、低战略性、高时间压力
+    C: { // Pattern C: Learning-Oriented Exploration
+      // 学习探索者：低中分解、低中验证、非常高迭代、探索性问题
+      decompositionScore: 0.4,
+      verificationIntensity: 0.4,
+      iterationCount: 5,
+      strategicQuestionRatio: 0.7,
+      timePressureIndicator: 0.3
+    },
+    D: { // Pattern D: Verification-Driven Caution
+      // 验证谨慎者：中等分解、非常高验证、低迭代（完善后提交）、谨慎问题
+      decompositionScore: 0.5,
+      verificationIntensity: 0.9,
+      iterationCount: 1,
+      strategicQuestionRatio: 0.6,
+      timePressureIndicator: 0.4
+    },
+    E: { // Pattern E: Task Completion Pragmatism
+      // 务实完成者：低分解、低验证、低迭代（快速接受）、战术性问题、时间压力
       decompositionScore: 0.2,
       verificationIntensity: 0.2,
       iterationCount: 0,
       strategicQuestionRatio: 0.3,
       timePressureIndicator: 0.8
     },
-    D: { // 探索尝试：中等分解、中等验证、非常高迭代、探索性问题
-      decompositionScore: 0.6,
-      verificationIntensity: 0.5,
-      iterationCount: 4,
-      strategicQuestionRatio: 0.7,
-      timePressureIndicator: 0.3
-    },
-    E: { // 知识盲区：低分解、低验证、低迭代、基础问题
-      decompositionScore: 0.3,
-      verificationIntensity: 0.3,
-      iterationCount: 1,
-      strategicQuestionRatio: 0.4,
-      timePressureIndicator: 0.6
-    },
-    F: { // 低效沟通：极低分解、极低验证、无迭代、指令式
+    F: { // Pattern F: Uncritical Reliance
+      // 无批判依赖者：极低分解、极低验证、无迭代、指令式、高时间压力
       decompositionScore: 0.1,
       verificationIntensity: 0.1,
       iterationCount: 0,
@@ -279,12 +329,12 @@ const analyzeUserPattern = (userInput: string, conversationHistory: Message[]): 
   const confidence = Math.max(0.5, Math.min(0.95, 1 - (minDistance / 3) * 0.45));
 
   const reasoningMap: Record<UserPattern, string> = {
-    A: '用户展现出深思熟虑的特征，提问详细且有深度，显示出较强的思考能力和系统性规划。',
-    B: '用户表现出平衡的学习态度，既寻求帮助也保持独立思考，迭代改进意识强。',
-    C: '用户倾向于直接获取答案，较少进行独立分析和验证，可能过度依赖AI辅助。',
-    D: '用户展现出探索精神，愿意尝试和实验，通过多次迭代寻找最佳方案。',
-    E: '用户在该领域可能存在知识盲区，提问较为基础，需要从基本概念开始引导。',
-    F: '用户的表达较为简短或模糊，元认知参与度低，可能需要结构化引导提高交互效率。'
+    A: '展现出系统性分解和战略思考的特征，主动进行任务规划和验证，具有强大的元认知能力。',
+    B: '优先效率和快速迭代，通过多轮优化达到目标，在速度和质量之间保持平衡。',
+    C: '表现出学习探索的倾向，通过反复尝试和对比来建立深度理解，重视过程学习。',
+    D: '展现出谨慎的验证意识，在接受AI输出前进行详细检查，防范错误的意识强。',
+    E: '采用务实的任务完成策略，快速接受AI建议以提高效率，适合常规低风险场景。',
+    F: '元认知参与度较低，缺乏任务分解和验证习惯，存在过度依赖和技能退化风险。'
   };
 
   return {

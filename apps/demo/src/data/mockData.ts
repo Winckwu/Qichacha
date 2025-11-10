@@ -60,7 +60,7 @@ export interface CalibrationData {
   totalSamples: number;
 }
 
-// Pattern descriptions
+// Pattern descriptions (Based on MCA Framework - Chapter 5)
 export const PATTERN_INFO: Record<UserPattern, {
   name: string;
   description: string;
@@ -68,70 +68,70 @@ export const PATTERN_INFO: Record<UserPattern, {
   color: string;
 }> = {
   A: {
-    name: '战略思考者',
-    description: '具有强大的元认知能力，善于分解任务和验证结果',
+    name: '战略分解者',
+    description: '系统性任务分解与主动控制，展现强大元认知能力',
     characteristics: [
-      '频繁进行任务分解',
-      '主动验证AI响应',
-      '保持高独立性比率',
-      '设定明确目标'
+      '主动进行任务分解',
+      '持续监控与验证',
+      '战略性思考和规划',
+      '保持高独立性比率'
     ],
     color: 'blue'
   },
   B: {
-    name: '快速学习者',
-    description: '快速适应新工具，平衡独立思考与AI辅助',
+    name: '效率迭代者',
+    description: '优先速度和实用性，通过快速迭代优化结果',
     characteristics: [
-      '适度使用AI辅助',
-      '快速掌握新概念',
-      '保持学习进步',
-      '灵活调整策略'
+      '快速获取初始输出',
+      '基于评估进行迭代',
+      '平衡效率与质量',
+      '适度验证关键内容'
     ],
     color: 'green'
   },
   C: {
-    name: '过度依赖者',
-    description: '过度依赖AI，缺乏独立验证',
+    name: '学习探索者',
+    description: '将AI作为学习工具，通过探索建立深度理解',
     characteristics: [
-      '频繁请求AI帮助',
-      '很少验证结果',
-      '独立性比率低',
-      '技能退化风险'
+      '主动测试AI边界',
+      '寻求深度解释',
+      '探索多种方法',
+      '重视过程学习'
     ],
     color: 'orange'
   },
   D: {
-    name: '探索实验者',
-    description: '喜欢探索和实验，但缺乏系统性',
+    name: '验证谨慎者',
+    description: '保持健康怀疑态度，广泛验证AI输出',
     characteristics: [
-      '高频率交互',
-      '多样化任务尝试',
-      '缺乏系统规划',
-      '验证不充分'
+      '详细验证所有输出',
+      '交叉检查信息源',
+      '在接受前完善',
+      '防范错误的意识强'
     ],
     color: 'purple'
   },
   E: {
-    name: '困境挣扎者',
-    description: '遇到困难时过度求助，缺乏问题分解能力',
+    name: '务实完成者',
+    description: '优先任务完成，最小化验证投入',
     characteristics: [
-      '复杂任务时高度依赖',
-      '缺乏任务分解',
-      '验证率极低',
-      '需要引导干预'
+      '快速接受AI建议',
+      '很少进行验证',
+      '关注结果而非过程',
+      '适合常规低风险任务'
     ],
-    color: 'red'
+    color: 'amber'
   },
   F: {
-    name: '抗拒协作者',
-    description: '过度独立，拒绝AI辅助',
+    name: '无批判依赖者',
+    description: '完全信任AI输出，缺乏元认知参与，技能退化风险高',
     characteristics: [
-      '很少使用AI',
-      '高独立性',
-      '可能错失效率',
-      '需要鼓励协作'
+      '无任务分解习惯',
+      '从不验证AI输出',
+      '被动接受所有建议',
+      '存在严重技能退化风险'
     ],
-    color: 'gray'
+    color: 'red'
   }
 };
 
