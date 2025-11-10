@@ -30,8 +30,8 @@ describe('RuleBasedClassifier', () => {
     ...overrides,
   });
 
-  describe('Pattern A: Strategic Thinker', () => {
-    it('should classify as Pattern A for strategic thinkers', () => {
+  describe('Pattern A: Strategic Decomposer', () => {
+    it('should classify as Pattern A for strategic decomposers', () => {
       const features = createFeatures({
         taskDecompositionObserved: true,
         verificationRate: 0.8,
@@ -45,7 +45,7 @@ describe('RuleBasedClassifier', () => {
 
       expect(result.pattern).toBe('A');
       expect(result.confidence).toBeGreaterThan(0.7);
-      expect(result.reasoning).toContain('Strategic Thinker');
+      expect(result.reasoning).toContain('Strategic Decomposer');
     });
 
     it('should give high score for task decomposition', () => {
@@ -59,8 +59,8 @@ describe('RuleBasedClassifier', () => {
     });
   });
 
-  describe('Pattern B: Iterative Learner', () => {
-    it('should classify as Pattern B for iterative learners', () => {
+  describe('Pattern B: Efficiency-Focused Iterator', () => {
+    it('should classify as Pattern B for efficiency-focused iterators', () => {
       const features = createFeatures({
         iterationPropensity: 0.7,
         revisionFrequency: 5,
@@ -72,12 +72,12 @@ describe('RuleBasedClassifier', () => {
       const result = classifier.classify(features);
 
       expect(result.pattern).toBe('B');
-      expect(result.reasoning).toContain('Iterative Learner');
+      expect(result.reasoning).toContain('Efficiency-Focused Iterator');
     });
   });
 
-  describe('Pattern C: Calibrated Delegator', () => {
-    it('should classify as Pattern C for calibrated delegators', () => {
+  describe('Pattern C: Learning-Oriented Explorer', () => {
+    it('should classify as Pattern C for learning-oriented explorers', () => {
       const features = createFeatures({
         trustCalibrationMentions: 2,
         capabilityAwareness: true,
@@ -90,12 +90,12 @@ describe('RuleBasedClassifier', () => {
       const result = classifier.classify(features);
 
       expect(result.pattern).toBe('C');
-      expect(result.reasoning).toContain('Calibrated Delegator');
+      expect(result.reasoning).toContain('Learning-Oriented Explorer');
     });
   });
 
-  describe('Pattern D: Efficient User', () => {
-    it('should classify as Pattern D for efficient users', () => {
+  describe('Pattern D: Verification-Driven Cautious', () => {
+    it('should classify as Pattern D for verification-driven cautious users', () => {
       const features = createFeatures({
         independenceRatio: 0.5,
         verificationRate: 0.4,
@@ -108,12 +108,12 @@ describe('RuleBasedClassifier', () => {
       const result = classifier.classify(features);
 
       expect(result.pattern).toBe('D');
-      expect(result.reasoning).toContain('Efficient User');
+      expect(result.reasoning).toContain('Verification-Driven Cautious');
     });
   });
 
-  describe('Pattern E: Over-Reliant', () => {
-    it('should classify as Pattern E for over-reliant users', () => {
+  describe('Pattern E: Task Completion Pragmatist', () => {
+    it('should classify as Pattern E for task completion pragmatists', () => {
       const features = createFeatures({
         independenceRatio: 0.25,
         verificationRate: 0.2,
@@ -125,12 +125,12 @@ describe('RuleBasedClassifier', () => {
       const result = classifier.classify(features);
 
       expect(result.pattern).toBe('E');
-      expect(result.reasoning).toContain('Over-Reliant');
+      expect(result.reasoning).toContain('Task Completion Pragmatist');
     });
   });
 
-  describe('Pattern F: Uncritical Acceptor', () => {
-    it('should classify as Pattern F for uncritical acceptors', () => {
+  describe('Pattern F: Uncritical Reliance', () => {
+    it('should classify as Pattern F for uncritical reliance users', () => {
       const features = createFeatures({
         verificationRate: 0.05,
         timeBeforeAI: 0.2,
@@ -143,7 +143,7 @@ describe('RuleBasedClassifier', () => {
 
       expect(result.pattern).toBe('F');
       expect(result.confidence).toBeGreaterThan(0.6);
-      expect(result.reasoning).toContain('Uncritical Acceptor');
+      expect(result.reasoning).toContain('Uncritical Reliance');
       expect(result.reasoning).some(r => r.includes('🚨'));
     });
   });

@@ -37,8 +37,8 @@ export class RuleBasedClassifier {
   }
 
   /**
-   * Pattern A: Strategic Thinker
-   * High metacognition, systematic verification, task decomposition
+   * Pattern A: Strategic Decomposer (战略分解者)
+   * High metacognition, systematic task decomposition, active monitoring
    */
   private scorePatternA(f: BehavioralFeatures): number {
     let score = 0;
@@ -54,8 +54,8 @@ export class RuleBasedClassifier {
   }
 
   /**
-   * Pattern B: Iterative Learner
-   * Trial and error, frequent revisions, adaptive strategy
+   * Pattern B: Efficiency-Focused Iterator (效率迭代者)
+   * Fast iteration, efficiency priority, balance between speed and quality
    */
   private scorePatternB(f: BehavioralFeatures): number {
     let score = 0;
@@ -70,8 +70,8 @@ export class RuleBasedClassifier {
   }
 
   /**
-   * Pattern C: Calibrated Delegator
-   * Appropriate trust calibration, context-aware AI use
+   * Pattern C: Learning-Oriented Explorer (学习探索者)
+   * Deep understanding through exploration, multiple approaches comparison
    */
   private scorePatternC(f: BehavioralFeatures): number {
     let score = 0;
@@ -86,8 +86,8 @@ export class RuleBasedClassifier {
   }
 
   /**
-   * Pattern D: Efficient User
-   * Balanced AI use, good metacognition
+   * Pattern D: Verification-Driven Cautious (验证谨慎者)
+   * Thorough verification, cross-checking, error prevention awareness
    */
   private scorePatternD(f: BehavioralFeatures): number {
     let score = 0;
@@ -102,8 +102,8 @@ export class RuleBasedClassifier {
   }
 
   /**
-   * Pattern E: Over-Reliant
-   * High AI dependence, limited verification
+   * Pattern E: Task Completion Pragmatist (务实完成者)
+   * Fast acceptance of AI suggestions, efficiency priority, minimal verification
    */
   private scorePatternE(f: BehavioralFeatures): number {
     let score = 0;
@@ -118,8 +118,8 @@ export class RuleBasedClassifier {
   }
 
   /**
-   * Pattern F: Uncritical Acceptor
-   * Blind trust, minimal verification, skill degradation risk
+   * Pattern F: Uncritical Reliance (无批判依赖者)
+   * Lack of metacognitive engagement, no verification, severe skill degradation risk
    */
   private scorePatternF(f: BehavioralFeatures): number {
     let score = 0;
@@ -176,7 +176,7 @@ export class RuleBasedClassifier {
 
     switch (pattern) {
       case 'A':
-        reasoning.push(`Pattern A detected: Strategic Thinker`);
+        reasoning.push(`Pattern A detected: Strategic Decomposer`);
         if (features.taskDecompositionObserved) {
           reasoning.push('✓ Task decomposition observed');
         }
@@ -189,7 +189,7 @@ export class RuleBasedClassifier {
         break;
 
       case 'B':
-        reasoning.push(`Pattern B detected: Iterative Learner`);
+        reasoning.push(`Pattern B detected: Efficiency-Focused Iterator`);
         if (features.iterationPropensity > 0.6) {
           reasoning.push('✓ High iteration propensity');
         }
@@ -202,7 +202,7 @@ export class RuleBasedClassifier {
         break;
 
       case 'C':
-        reasoning.push(`Pattern C detected: Calibrated Delegator`);
+        reasoning.push(`Pattern C detected: Learning-Oriented Explorer`);
         if (features.capabilityAwareness) {
           reasoning.push('✓ Shows AI capability awareness');
         }
@@ -215,14 +215,14 @@ export class RuleBasedClassifier {
         break;
 
       case 'D':
-        reasoning.push(`Pattern D detected: Efficient User`);
-        reasoning.push('✓ Balanced AI usage');
-        reasoning.push('✓ Appropriate verification practices');
-        reasoning.push('✓ Good metacognitive awareness');
+        reasoning.push(`Pattern D detected: Verification-Driven Cautious`);
+        reasoning.push('✓ Thorough verification practices');
+        reasoning.push('✓ Cross-checking information');
+        reasoning.push('✓ Strong error prevention awareness');
         break;
 
       case 'E':
-        reasoning.push(`Pattern E detected: Over-Reliant`);
+        reasoning.push(`Pattern E detected: Task Completion Pragmatist`);
         if (features.independenceRatio < 0.3) {
           reasoning.push(`⚠ Low independence ratio (${Math.round(features.independenceRatio * 100)}%)`);
         }
@@ -235,7 +235,7 @@ export class RuleBasedClassifier {
         break;
 
       case 'F':
-        reasoning.push(`Pattern F detected: Uncritical Acceptor`);
+        reasoning.push(`Pattern F detected: Uncritical Reliance`);
         if (features.verificationRate < 0.1) {
           reasoning.push('🚨 Very low verification rate');
         }
@@ -245,7 +245,7 @@ export class RuleBasedClassifier {
         if (features.independenceRatio < 0.2) {
           reasoning.push('🚨 Critical independence deficit');
         }
-        reasoning.push('⚠ Skill degradation risk detected');
+        reasoning.push('⚠ Severe skill degradation risk detected');
         break;
     }
 
