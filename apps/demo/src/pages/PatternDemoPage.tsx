@@ -14,10 +14,10 @@ export default function PatternDemoPage() {
   const riskLevels: Record<UserPattern, { level: string; color: string; icon: any }> = {
     A: { level: '低风险', color: 'text-green-600', icon: CheckCircle2 },
     B: { level: '低风险', color: 'text-green-600', icon: CheckCircle2 },
-    C: { level: '高风险', color: 'text-red-600', icon: AlertTriangle },
-    D: { level: '中等风险', color: 'text-yellow-600', icon: TrendingUp },
-    E: { level: '极高风险', color: 'text-red-600', icon: AlertTriangle },
-    F: { level: '中等风险', color: 'text-yellow-600', icon: TrendingUp },
+    C: { level: '中等风险', color: 'text-yellow-600', icon: TrendingUp },
+    D: { level: '低风险', color: 'text-green-600', icon: CheckCircle2 },
+    E: { level: '中等风险', color: 'text-yellow-600', icon: TrendingUp },
+    F: { level: '极高风险', color: 'text-red-600', icon: AlertTriangle },
   };
 
   const risk = riskLevels[selectedPattern];
@@ -217,30 +217,30 @@ export default function PatternDemoPage() {
                 )}
                 {selectedPattern === 'C' && (
                   <>
-                    <p className="text-sm text-orange-600">⚠️ 需要减少AI依赖</p>
-                    <p className="text-sm text-orange-600">⚠️ 增加独立验证</p>
-                    <p className="text-sm text-orange-600">⚠️ 建立自主思考习惯</p>
+                    <p className="text-sm">📚 提供多方案对比学习</p>
+                    <p className="text-sm">💡 鼓励深度理解和实验</p>
+                    <p className="text-sm">⚠️ 提醒适时验证结果</p>
                   </>
                 )}
                 {selectedPattern === 'D' && (
                   <>
-                    <p className="text-sm">💡 引导系统化思考</p>
-                    <p className="text-sm">📋 提供任务分解指导</p>
-                    <p className="text-sm">🔍 强化验证环节</p>
+                    <p className="text-sm">✅ 保持谨慎验证习惯</p>
+                    <p className="text-sm">✅ 提供可验证的信息来源</p>
+                    <p className="text-sm">💡 鼓励高质量分析</p>
                   </>
                 )}
                 {selectedPattern === 'E' && (
                   <>
-                    <p className="text-sm text-red-600">🚨 需要紧急干预</p>
-                    <p className="text-sm text-red-600">🚨 分步引导学习</p>
-                    <p className="text-sm text-red-600">🚨 建立基础能力</p>
+                    <p className="text-sm">💡 监控长期技能发展</p>
+                    <p className="text-sm">📊 鼓励适度思考过程</p>
+                    <p className="text-sm">⚖️ 平衡效率与学习</p>
                   </>
                 )}
                 {selectedPattern === 'F' && (
                   <>
-                    <p className="text-sm">💬 鼓励AI协作</p>
-                    <p className="text-sm">📈 展示协作价值</p>
-                    <p className="text-sm">⚖️ 平衡独立与协作</p>
+                    <p className="text-sm text-red-600">🚨 强制性思考引导</p>
+                    <p className="text-sm text-red-600">🚨 保护性摩擦机制</p>
+                    <p className="text-sm text-red-600">🚨 防止技能退化</p>
                   </>
                 )}
               </div>
