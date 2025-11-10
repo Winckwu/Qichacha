@@ -1,0 +1,167 @@
+// Prisma schema for MCA System
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Core Entities
+
+model User {
+  id                 String              @id @default(cuid())
+  email              String              @unique
+  name               String?
+  createdAt          DateTime            @default(now())
+  updatedAt          DateTime            @updatedAt
+
+  // Relations
+  sessions           Session[]
+  patterns           Pattern[]
+  skillAssessments   SkillAssessment[]
+  independenceLogs   IndependenceLog[]
+
+  @@index([email])
+}
+
+model Session {
+  id             String        @id @default(cuid())
+  userId         String
+  startTime      DateTime      @default(now())
+  endTime        DateTime?
+  currentPattern String?       // A-F
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @updatedAt
+
+  // Relations
+  user           User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  interactions   Interaction[]
+
+  @@index([userId])
+  @@index([startTime])
+}
+
+model Interaction {
+  id                String             @id @default(cuid())
+  sessionId         String
+  userMessage       String             @db.Text
+  aiResponse        String             @db.Text
+  confidence        Float?             // 0-1
+  confidenceFactors Json?              // ConfidenceFactors
+  taskType          String?            // 'writing', 'coding', 'analysis'
+  taskComplexity    Float?             // 0-1
+  taskStakes        String?            // 'low', 'medium', 'high'
+  usedAI            Boolean            @default(true)
+  timestamp         DateTime           @default(now())
+
+  // Relations
+  session           Session            @relation(fields: [sessionId], references: [id], onDelete: Cascade)
+  behavioralSignal  BehavioralSignal?
+
+  @@index([sessionId])
+  @@index([timestamp])
+}
+
+model BehavioralSignal {
+  id                        String      @id @default(cuid())
+  interactionId             String      @unique
+
+  // Planning indicators
+  taskDecompositionObserved Boolean     @default(false)
+  explicitGoalStatement     Boolean     @default(false)
+  strategyDiscussion        Boolean     @default(false)
+  timeBeforeAI              Float?      // minutes
+
+  // Monitoring indicators
+  verificationRate          Float?      // 0-1
+  outputReadingTime         Float?      // seconds per 100 words
+  revisionFrequency         Int         @default(0)
+
+  // Evaluation indicators
+  criticalQuestioning       Int         @default(0)
+  trustCalibrationMentions  Int         @default(0)
+  capabilityAwareness       Boolean     @default(false)
+
+  // Regulation indicators
+  strategyAdjustments       Int         @default(0)
+  toolSwitching             Int         @default(0)
+
+  // Task context
+  domainFamiliarity         Float?      // 0-1
+
+  // Longitudinal indicators
+  independenceRatio         Float?      // 0-1
+  iterationPropensity       Float?      // 0-1
+  metacognitiveAwareness    Float?      // 0-1
+
+  createdAt                 DateTime    @default(now())
+
+  // Relations
+  interaction               Interaction @relation(fields: [interactionId], references: [id], onDelete: Cascade)
+
+  @@index([interactionId])
+}
+
+model Pattern {
+  id                String   @id @default(cuid())
+  userId            String
+  pattern           String   // 'A', 'B', 'C', 'D', 'E', 'F'
+  confidence        Float    // 0-1
+  scores            Json     // Record<Pattern, number>
+  reasoning         Json     // string[]
+  timestamp         DateTime @default(now())
+
+  // Relations
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([timestamp])
+}
+
+model SkillAssessment {
+  id                String   @id @default(cuid())
+  userId            String
+  skillType         String   // 'writing', 'coding', 'analysis'
+  score             Float    // 0-1
+  independenceRatio Float    // 0-1
+  timestamp         DateTime @default(now())
+
+  // Relations
+  user              User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([timestamp])
+}
+
+model IndependenceLog {
+  id            String   @id @default(cuid())
+  userId        String
+  date          DateTime
+  taskType      String   // 'writing', 'coding', 'analysis'
+  usedAI        Boolean
+  duration      Int      // minutes
+
+  // Relations
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([date])
+}
+
+model Task {
+  id          String   @id @default(cuid())
+  userId      String
+  title       String
+  description String?  @db.Text
+  type        String   // 'writing', 'coding', 'analysis'
+  complexity  Float    // 0-1
+  stakes      String   // 'low', 'medium', 'high'
+  completed   Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([userId])
+}
