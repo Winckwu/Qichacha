@@ -5,7 +5,10 @@
   "description": "Metacognitive Collaborative Agent System",
   "scripts": {
     "dev": "pnpm --parallel -r dev",
+    "dev:demo": "cd apps/demo && pnpm dev",
     "build": "pnpm -r build",
+    "build:demo": "cd apps/demo && pnpm build",
+    "preview:demo": "cd apps/demo && pnpm preview",
     "lint": "pnpm -r lint",
     "format": "prettier --write \"**/*.{ts,tsx,js,jsx,json,md}\"",
     "type-check": "pnpm -r type-check",
