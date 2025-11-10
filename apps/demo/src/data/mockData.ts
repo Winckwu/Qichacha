@@ -182,25 +182,28 @@ export function generateConversation(pattern: UserPattern): Message[] {
       { user: '让我验证一下你说的这个公式。', ai: '当然，这里是详细推导...', confidence: 0.95 }
     ],
     B: [
-      { user: '这个概念我不太理解，能举个例子吗？', ai: '举个例子...', confidence: 0.85 },
-      { user: '我试着自己实现了一下，你帮我看看对吗？', ai: '让我检查你的实现...', confidence: 0.90 }
+      { user: '帮我快速优化这段代码', ai: '这是优化方案...', confidence: 0.85 },
+      { user: '还不够好，能再改进吗？', ai: '好的，这是第二版改进...', confidence: 0.88 },
+      { user: '这次看起来不错，让我测试一下', ai: '请测试并反馈结果...', confidence: 0.90 }
     ],
     C: [
-      { user: '帮我写这段代码', ai: '这是代码实现...', confidence: 0.75 },
-      { user: '这个怎么做？', ai: '你可以这样做...', confidence: 0.70 },
-      { user: '全部帮我完成吧', ai: '我建议你尝试...', confidence: 0.65 }
+      { user: '这个概念我想深入理解，为什么这样设计？', ai: '让我详细解释背后的原理...', confidence: 0.82 },
+      { user: '如果用另一种方法会怎样？', ai: '很好的探索！我们来对比...', confidence: 0.85 },
+      { user: '我想试试A、B、C三种方案，能都讲讲吗？', ai: '当然，让我详细对比这三种方案...', confidence: 0.88 }
     ],
     D: [
-      { user: '我想试试这个功能', ai: '可以这样尝试...', confidence: 0.82 },
-      { user: '那如果这样呢？', ai: '那样的话...', confidence: 0.78 }
+      { user: '这个结论的依据是什么？', ai: '基于以下数据和文献...', confidence: 0.90 },
+      { user: '我需要验证一下，有其他信息源吗？', ai: '这里有三个可验证的来源...', confidence: 0.92 },
+      { user: '让我交叉检查一下这些数据', ai: '很好的验证思路...', confidence: 0.94 }
     ],
     E: [
-      { user: '这太难了，我不知道怎么办', ai: '让我们分解一下问题...', confidence: 0.68 },
-      { user: '完全不懂，你帮我做吧', ai: '我理解困难，但让我们一步步来...', confidence: 0.60 }
+      { user: '快速帮我完成这个任务', ai: '直接方案如下...', confidence: 0.75 },
+      { user: '好的直接用这个', ai: '按这个步骤执行即可...', confidence: 0.78 }
     ],
     F: [
-      { user: '我自己研究了文档', ai: '很好！有什么问题吗？', confidence: 0.88 },
-      { user: '只是确认一下我的理解对不对', ai: '你的理解是正确的...', confidence: 0.92 }
+      { user: '帮我做', ai: '在我帮助之前，请先思考：你的目标是什么？', confidence: 0.65 },
+      { user: '怎么做？', ai: '先告诉我你已经尝试过什么方法？', confidence: 0.60 },
+      { user: '不会', ai: '让我们一步步分解这个问题...', confidence: 0.58 }
     ]
   };
 
@@ -230,12 +233,12 @@ export function generateConversation(pattern: UserPattern): Message[] {
 // Generate pattern classification
 export function generatePatternData(pattern: UserPattern): PatternData {
   const baseScores: Record<UserPattern, Record<string, number>> = {
-    A: { A: 8.5, B: 6.0, C: 2.0, D: 5.0, E: 1.5, F: 4.0 },
-    B: { A: 6.0, B: 8.0, C: 4.0, D: 5.5, E: 3.0, F: 3.5 },
-    C: { A: 2.5, B: 4.0, C: 9.0, D: 3.0, E: 6.5, F: 1.0 },
-    D: { A: 5.0, B: 5.5, C: 3.5, D: 8.5, E: 4.0, F: 2.5 },
-    E: { A: 1.5, B: 3.0, C: 7.0, D: 4.0, E: 9.0, F: 1.0 },
-    F: { A: 5.5, B: 4.5, C: 1.0, D: 2.0, E: 0.5, F: 9.5 }
+    A: { A: 8.5, B: 6.0, C: 4.0, D: 6.5, E: 2.0, F: 1.5 },
+    B: { A: 6.0, B: 8.0, C: 5.0, D: 5.5, E: 4.5, F: 2.0 },
+    C: { A: 3.0, B: 5.0, C: 9.0, D: 4.5, E: 2.5, F: 1.5 },
+    D: { A: 6.5, B: 5.5, C: 4.0, D: 8.5, E: 3.0, F: 2.0 },
+    E: { A: 2.0, B: 4.5, C: 3.0, D: 3.5, E: 9.0, F: 5.0 },
+    F: { A: 1.5, B: 2.5, C: 2.0, D: 2.0, E: 5.5, F: 9.5 }
   };
 
   const scores = baseScores[pattern];
@@ -243,12 +246,12 @@ export function generatePatternData(pattern: UserPattern): PatternData {
   const confidence = maxScore / 10;
 
   const reasoningMap: Record<UserPattern, string> = {
-    A: '用户展现出优秀的任务分解能力(高)、频繁的验证行为(高)和良好的独立性比率(0.75)，符合战略思考者特征。',
-    B: '用户保持适度的AI使用频率、良好的学习进度和平衡的独立性，展现快速学习者特征。',
-    C: '用户表现出高频率的AI依赖(低独立性0.35)、很少验证行为，存在技能退化风险。',
-    D: '用户展现高交互频率和多样化任务尝试，但缺乏系统性规划和充分验证。',
-    E: '用户在复杂任务中高度依赖AI、缺乏任务分解能力、验证率极低，需要干预引导。',
-    F: '用户很少使用AI辅助、保持极高独立性，可能错失协作效率提升机会。'
+    A: '展现出系统性分解和战略思考的特征，主动进行任务规划和验证，具有强大的元认知能力。',
+    B: '优先效率和快速迭代，通过多轮优化达到目标，在速度和质量之间保持平衡。',
+    C: '表现出学习探索的倾向，通过反复尝试和对比来建立深度理解，重视过程学习。',
+    D: '展现出谨慎的验证意识，在接受AI输出前进行详细检查，防范错误的意识强。',
+    E: '采用务实的任务完成策略，快速接受AI建议以提高效率，适合常规低风险场景。',
+    F: '元认知参与度较低，缺乏任务分解和验证习惯，存在过度依赖和技能退化风险。'
   };
 
   return {
@@ -276,28 +279,28 @@ export function generateSkillMetrics(pattern: UserPattern): SkillMetric[] {
       '任务规划': { level: 0.68, trend: 'improving' }
     },
     C: {
-      '问题分析': { level: 0.45, trend: 'declining' },
-      '独立思考': { level: 0.35, trend: 'declining' },
-      '信息验证': { level: 0.25, trend: 'declining' },
-      '任务规划': { level: 0.40, trend: 'stable' }
+      '问题分析': { level: 0.65, trend: 'improving' },
+      '独立思考': { level: 0.60, trend: 'improving' },
+      '信息验证': { level: 0.55, trend: 'stable' },
+      '任务规划': { level: 0.58, trend: 'improving' }
     },
     D: {
-      '问题分析': { level: 0.60, trend: 'stable' },
-      '独立思考': { level: 0.65, trend: 'stable' },
-      '信息验证': { level: 0.50, trend: 'declining' },
-      '任务规划': { level: 0.45, trend: 'stable' }
+      '问题分析': { level: 0.82, trend: 'stable' },
+      '独立思考': { level: 0.78, trend: 'stable' },
+      '信息验证': { level: 0.90, trend: 'improving' },
+      '任务规划': { level: 0.75, trend: 'stable' }
     },
     E: {
+      '问题分析': { level: 0.50, trend: 'stable' },
+      '独立思考': { level: 0.45, trend: 'declining' },
+      '信息验证': { level: 0.35, trend: 'declining' },
+      '任务规划': { level: 0.40, trend: 'stable' }
+    },
+    F: {
       '问题分析': { level: 0.30, trend: 'declining' },
       '独立思考': { level: 0.25, trend: 'declining' },
       '信息验证': { level: 0.15, trend: 'declining' },
       '任务规划': { level: 0.20, trend: 'declining' }
-    },
-    F: {
-      '问题分析': { level: 0.80, trend: 'stable' },
-      '独立思考': { level: 0.95, trend: 'stable' },
-      '信息验证': { level: 0.70, trend: 'stable' },
-      '任务规划': { level: 0.75, trend: 'stable' }
     }
   };
 
@@ -315,7 +318,7 @@ export function generateSkillMetrics(pattern: UserPattern): SkillMetric[] {
 // Generate independence timeline
 export function generateIndependenceTimeline(pattern: UserPattern): IndependenceLog[] {
   const baseRatios: Record<UserPattern, number> = {
-    A: 0.75, B: 0.65, C: 0.35, D: 0.55, E: 0.25, F: 0.90
+    A: 0.80, B: 0.68, C: 0.58, D: 0.75, E: 0.42, F: 0.18
   };
 
   const logs: IndependenceLog[] = [];
@@ -364,31 +367,31 @@ export function generateCalibrationData(): CalibrationData {
 export const TEST_SCENARIOS = [
   {
     id: 'scenario-1',
-    name: '战略思考者场景',
+    name: '战略分解者场景',
     pattern: 'A' as UserPattern,
-    description: '展示高元认知能力用户的典型交互',
+    description: '展示高元认知能力用户的系统性交互',
     highlights: ['任务分解', '主动验证', '高独立性']
   },
   {
     id: 'scenario-2',
-    name: '快速学习者场景',
+    name: '效率迭代者场景',
     pattern: 'B' as UserPattern,
-    description: '展示平衡学习与AI辅助的用户',
-    highlights: ['适度依赖', '快速进步', '灵活调整']
+    description: '展示快速迭代优化的用户模式',
+    highlights: ['快速迭代', '效率优先', '灵活调整']
   },
   {
     id: 'scenario-3',
-    name: '过度依赖警示',
+    name: '学习探索者场景',
     pattern: 'C' as UserPattern,
-    description: '演示技能退化风险和干预机制',
-    highlights: ['依赖检测', '警告提示', '引导干预']
+    description: '展示深度学习和多方案对比的用户',
+    highlights: ['深度理解', '多方案对比', '探索学习']
   },
   {
     id: 'scenario-4',
-    name: '困境挣扎者救援',
+    name: '务实完成者场景',
     pattern: 'E' as UserPattern,
-    description: '展示对困难用户的支持系统',
-    highlights: ['问题识别', '分解引导', '能力建设']
+    description: '展示快速任务完成的效率优先用户',
+    highlights: ['快速完成', '效率优先', '低验证']
   },
   {
     id: 'scenario-5',
