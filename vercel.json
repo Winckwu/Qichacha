@@ -1,0 +1,16 @@
+{
+  "version": 2,
+  "buildCommand": "cd apps/web && pnpm install && pnpm build",
+  "outputDirectory": "apps/web/dist",
+  "installCommand": "pnpm install",
+  "framework": null,
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://your-api-url.railway.app/api/$1"
+    }
+  ],
+  "env": {
+    "VITE_API_URL": "https://your-api-url.railway.app"
+  }
+}
