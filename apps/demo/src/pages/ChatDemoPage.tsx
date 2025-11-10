@@ -6,7 +6,6 @@ import Progress from '@/components/ui/Progress';
 import {
   generatePatternData,
   PATTERN_INFO,
-  ALL_PATTERNS,
   type UserPattern,
   type Message,
 } from '@/data/mockData';
@@ -14,7 +13,7 @@ import { cn, formatDate, getConfidenceColor } from '@/lib/utils';
 import { ChevronDown, ChevronUp, Send, Sparkles, Loader2, Brain } from 'lucide-react';
 
 // AI响应生成器 - 根据用户输入和模式生成回复
-const generateAIResponse = (userInput: string, pattern: UserPattern, conversationHistory: Message[]): string => {
+const generateAIResponse = (userInput: string, pattern: UserPattern, _conversationHistory: Message[]): string => {
   const input = userInput.toLowerCase();
 
   // 模式A: 深思熟虑型 - 详细、准确的回复
@@ -66,7 +65,7 @@ const generateAIResponse = (userInput: string, pattern: UserPattern, conversatio
 };
 
 // 分析用户输入，识别可能的模式特征
-const analyzeUserPattern = (userInput: string, conversationHistory: Message[]): {
+const analyzeUserPattern = (userInput: string, _conversationHistory: Message[]): {
   detectedPattern: UserPattern;
   confidence: number;
   reasoning: string;
@@ -174,7 +173,7 @@ export default function ChatDemoPage() {
       id: '1',
       role: 'assistant',
       content: '您好！我是AI助手。请随意提问，我会根据您的交互模式提供个性化的回复，并实时分析您的学习行为模式。',
-      timestamp: new Date().toISOString(),
+      timestamp: new Date(),
     }
   ]);
   const [inputValue, setInputValue] = useState('');
@@ -219,7 +218,7 @@ export default function ChatDemoPage() {
       id: Date.now().toString(),
       role: 'user',
       content: inputValue,
-      timestamp: new Date().toISOString(),
+      timestamp: new Date(),
     };
 
     setMessages(prev => [...prev, userMessage]);
@@ -245,7 +244,7 @@ export default function ChatDemoPage() {
       id: (Date.now() + 1).toString(),
       role: 'assistant',
       content: '',
-      timestamp: new Date().toISOString(),
+      timestamp: new Date(),
       confidence: confidenceDetails,
     };
 
