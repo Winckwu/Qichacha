@@ -646,6 +646,17 @@ export default function ChatDemoPage() {
     scrollToBottom();
   }, [messages]);
 
+  // Keyboard accessibility: ESC to close scaffolding
+  useEffect(() => {
+    const handleEscape = (e: KeyboardEvent) => {
+      if (e.key === 'Escape' && showScaffolding) {
+        setShowScaffolding(false);
+      }
+    };
+    window.addEventListener('keydown', handleEscape);
+    return () => window.removeEventListener('keydown', handleEscape);
+  }, [showScaffolding]);
+
   // 模拟打字效果
   const typeMessage = async (text: string, messageId: string) => {
     const words = text.split('');
@@ -761,7 +772,12 @@ export default function ChatDemoPage() {
             </div>
             <Badge className={cn(
               'text-white px-3 py-1',
-              `bg-${patternInfo.color}-600`
+              detectedPattern === 'A' && 'bg-blue-600',
+              detectedPattern === 'B' && 'bg-green-600',
+              detectedPattern === 'C' && 'bg-yellow-600',
+              detectedPattern === 'D' && 'bg-purple-600',
+              detectedPattern === 'E' && 'bg-orange-600',
+              detectedPattern === 'F' && 'bg-red-600'
             )}>
               模式 {detectedPattern}
             </Badge>
@@ -959,7 +975,8 @@ export default function ChatDemoPage() {
               </div>
               <button
                 onClick={() => setShowScaffolding(false)}
-                className="text-xs text-orange-700 hover:text-orange-900 underline"
+                className="text-xs text-orange-700 hover:text-orange-900 underline focus:outline-none focus:ring-2 focus:ring-orange-500 rounded px-2 py-1"
+                aria-label="关闭脚手架建议"
               >
                 关闭
               </button>
@@ -1026,8 +1043,8 @@ export default function ChatDemoPage() {
         </Card>
       )}
 
-      {/* Skill Monitoring System */}
-      {skillMonitoring && (
+      {/* Skill Monitoring System - Only show after 3+ user messages */}
+      {skillMonitoring && messages.filter(m => m.role === 'user').length >= 3 && (
         <Card className="border-2 border-purple-200 bg-gradient-to-r from-purple-50 to-indigo-50">
           <CardHeader>
             <div className="flex items-center justify-between">
@@ -1361,16 +1378,7 @@ export default function ChatDemoPage() {
                   </div>
                 )}
 
-                {detectedPattern === 'A' && (
-                  <div className="mb-3 p-2 rounded-lg bg-green-50 border border-green-200">
-                    <div className="flex items-center justify-between text-xs">
-                      <div className="flex items-center gap-2 text-green-800">
-                        <Sparkles className="h-3 w-3" />
-                        <span><strong>高效模式：</strong>检测到您的深度思考模式，系统已自动精简辅助提示</span>
-                      </div>
-                    </div>
-                  </div>
-                )}
+                {/* Pattern A: No intrusive prompts - respecting advanced users' autonomy */}
 
                 <div className="flex gap-2">
                   <input
@@ -1387,12 +1395,15 @@ export default function ChatDemoPage() {
                     }
                     disabled={isTyping}
                     className="flex-1 rounded-md border border-gray-300 bg-white px-4 py-2.5 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:opacity-50"
+                    aria-label="消息输入框"
+                    aria-describedby="input-hint"
                   />
                   <Button
                     onClick={handleSendMessage}
                     disabled={isTyping || !inputValue.trim() || (detectedPattern === 'F' && inputValue.length < 5)}
                     className="px-6"
                     title={detectedPattern === 'F' && inputValue.length < 5 ? "请输入至少5个字符" : ""}
+                    aria-label={isTyping ? "AI正在回复" : "发送消息"}
                   >
                     {isTyping ? (
                       <Loader2 className="h-4 w-4 animate-spin" />
@@ -1401,7 +1412,7 @@ export default function ChatDemoPage() {
                     )}
                   </Button>
                 </div>
-                <div className="mt-2 flex items-center gap-4 text-xs text-muted-foreground">
+                <div id="input-hint" className="mt-2 flex items-center gap-4 text-xs text-muted-foreground">
                   {detectedPattern === 'A' ? (
                     <span>⚡ 高级用户模式：快速响应，最小干预</span>
                   ) : detectedPattern === 'F' ? (
