@@ -10,7 +10,7 @@ import {
   type Message,
 } from '@/data/mockData';
 import { cn, formatDate, getConfidenceColor } from '@/lib/utils';
-import { ChevronDown, ChevronUp, Send, Sparkles, Loader2, Brain } from 'lucide-react';
+import { ChevronDown, ChevronUp, Send, Sparkles, Loader2, Brain, TrendingUp, TrendingDown, AlertTriangle } from 'lucide-react';
 
 // AI响应生成器 - 根据用户输入和模式生成回复
 const generateAIResponse = (userInput: string, pattern: UserPattern, _conversationHistory: Message[]): string => {
@@ -458,6 +458,97 @@ const generateDecompositionTemplate = (complexity: TaskComplexity): string => {
   return '';
 };
 
+// 技能监控系统 (MCA Section 5.4.4)
+interface SkillTrend {
+  skill: string;
+  baseline: number;       // 基线能力 (0-100)
+  current: number;        // 当前能力 (0-100)
+  trend: 'improving' | 'stable' | 'declining';
+  changePercent: number;  // 变化百分比
+  sessionsTracked: number;
+}
+
+interface SkillMonitoringState {
+  trends: SkillTrend[];
+  degradationAlert: boolean;
+  recommendedPractice: string[];
+}
+
+// 模拟技能趋势数据（在真实系统中应该从数据库读取）
+const generateSkillTrends = (
+  metacognitiveScores: MetacognitiveScores,
+  pattern: UserPattern
+): SkillMonitoringState => {
+  // 根据元认知得分和模式生成趋势
+  const planningBaseline = 70;
+  const monitoringBaseline = 65;
+  const evaluationBaseline = 75;
+  const regulationBaseline = 68;
+
+  const trends: SkillTrend[] = [
+    {
+      skill: 'Task Decomposition',
+      baseline: planningBaseline,
+      current: metacognitiveScores.planning * 10,
+      trend: metacognitiveScores.planning * 10 >= planningBaseline ? 'improving' :
+             metacognitiveScores.planning * 10 >= planningBaseline - 5 ? 'stable' : 'declining',
+      changePercent: ((metacognitiveScores.planning * 10 - planningBaseline) / planningBaseline) * 100,
+      sessionsTracked: 12
+    },
+    {
+      skill: 'Progress Monitoring',
+      baseline: monitoringBaseline,
+      current: metacognitiveScores.monitoring * 10,
+      trend: metacognitiveScores.monitoring * 10 >= monitoringBaseline ? 'improving' :
+             metacognitiveScores.monitoring * 10 >= monitoringBaseline - 5 ? 'stable' : 'declining',
+      changePercent: ((metacognitiveScores.monitoring * 10 - monitoringBaseline) / monitoringBaseline) * 100,
+      sessionsTracked: 12
+    },
+    {
+      skill: 'Output Verification',
+      baseline: evaluationBaseline,
+      current: metacognitiveScores.evaluation * 10,
+      trend: metacognitiveScores.evaluation * 10 >= evaluationBaseline ? 'improving' :
+             metacognitiveScores.evaluation * 10 >= evaluationBaseline - 5 ? 'stable' : 'declining',
+      changePercent: ((metacognitiveScores.evaluation * 10 - evaluationBaseline) / evaluationBaseline) * 100,
+      sessionsTracked: 12
+    },
+    {
+      skill: 'Strategy Adjustment',
+      baseline: regulationBaseline,
+      current: metacognitiveScores.regulation * 10,
+      trend: metacognitiveScores.regulation * 10 >= regulationBaseline ? 'improving' :
+             metacognitiveScores.regulation * 10 >= regulationBaseline - 5 ? 'stable' : 'declining',
+      changePercent: ((metacognitiveScores.regulation * 10 - regulationBaseline) / regulationBaseline) * 100,
+      sessionsTracked: 12
+    }
+  ];
+
+  // 检测技能退化
+  const decliningSkills = trends.filter(t => t.trend === 'declining');
+  const degradationAlert = decliningSkills.length > 0 || pattern === 'C' || pattern === 'F';
+
+  // 生成练习建议
+  const recommendedPractice: string[] = [];
+  if (degradationAlert) {
+    decliningSkills.forEach(skill => {
+      recommendedPractice.push(
+        `练习${skill.skill}：完成3个独立任务以恢复能力（当前比基线低${Math.abs(skill.changePercent).toFixed(1)}%）`
+      );
+    });
+
+    if (pattern === 'C' || pattern === 'F') {
+      recommendedPractice.push('⚠️ 建议减少AI依赖：尝试每5个任务中至少1个完全独立完成');
+    }
+  }
+
+  return {
+    trends,
+    degradationAlert,
+    recommendedPractice
+  };
+};
+
 // 生成置信度详情 - 增强版，包含推理透明度
 const generateConfidenceDetails = (
   pattern: UserPattern,
@@ -542,6 +633,7 @@ export default function ChatDemoPage() {
     shouldDisplay: false
   });
   const [showScaffolding, setShowScaffolding] = useState(false);
+  const [skillMonitoring, setSkillMonitoring] = useState<SkillMonitoringState | null>(null);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -602,6 +694,13 @@ export default function ChatDemoPage() {
     );
     setScaffoldingSuggestion(scaffolding);
     setShowScaffolding(scaffolding.shouldDisplay);
+
+    // 生成技能监控趋势
+    const skillTrends = generateSkillTrends(
+      analysis.metacognitiveScores,
+      analysis.detectedPattern
+    );
+    setSkillMonitoring(skillTrends);
 
     // 模拟AI思考时间
     await new Promise(resolve => setTimeout(resolve, 500 + Math.random() * 1000));
@@ -849,8 +948,8 @@ export default function ChatDemoPage() {
         </CardContent>
       </Card>
 
-      {/* Adaptive Scaffolding Support */}
-      {showScaffolding && scaffoldingSuggestion.shouldDisplay && (
+      {/* Adaptive Scaffolding Support - Pattern A gets minimal visibility */}
+      {showScaffolding && scaffoldingSuggestion.shouldDisplay && !(detectedPattern === 'A' && scaffoldingSuggestion.level === 'minimal') && (
         <Card className="border-2 border-orange-200 bg-gradient-to-r from-orange-50 to-amber-50">
           <CardHeader>
             <div className="flex items-center justify-between">
@@ -927,6 +1026,158 @@ export default function ChatDemoPage() {
         </Card>
       )}
 
+      {/* Skill Monitoring System */}
+      {skillMonitoring && (
+        <Card className="border-2 border-purple-200 bg-gradient-to-r from-purple-50 to-indigo-50">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                <TrendingUp className="h-5 w-5 text-purple-600" />
+                <CardTitle className="text-purple-900">技能监控与趋势追踪</CardTitle>
+              </div>
+              {skillMonitoring.degradationAlert && (
+                <Badge className="bg-red-600 text-white animate-pulse">
+                  ⚠️ 退化警告
+                </Badge>
+              )}
+            </div>
+            <CardDescription>
+              长期能力趋势分析 · 基于{skillMonitoring.trends[0]?.sessionsTracked || 0}个会话的数据
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {/* Skill Trends Grid */}
+              <div className="grid gap-3">
+                {skillMonitoring.trends.map((trend, index) => {
+                  const TrendIcon = trend.trend === 'improving' ? TrendingUp :
+                                   trend.trend === 'declining' ? TrendingDown :
+                                   AlertTriangle;
+                  const trendColor = trend.trend === 'improving' ? 'text-green-600' :
+                                    trend.trend === 'declining' ? 'text-red-600' :
+                                    'text-yellow-600';
+                  const bgColor = trend.trend === 'improving' ? 'bg-green-50 border-green-200' :
+                                 trend.trend === 'declining' ? 'bg-red-50 border-red-200' :
+                                 'bg-yellow-50 border-yellow-200';
+
+                  return (
+                    <div key={index} className={cn('rounded-lg border-2 p-4', bgColor)}>
+                      <div className="flex items-start justify-between mb-3">
+                        <div className="flex-1">
+                          <div className="flex items-center gap-2 mb-1">
+                            <TrendIcon className={cn('h-4 w-4', trendColor)} />
+                            <span className="font-medium text-sm">{trend.skill}</span>
+                          </div>
+                          <div className="flex items-center gap-3 text-xs text-muted-foreground">
+                            <span>基线: {trend.baseline}</span>
+                            <span>当前: {trend.current.toFixed(1)}</span>
+                            <span className={cn('font-bold', trendColor)}>
+                              {trend.changePercent >= 0 ? '+' : ''}{trend.changePercent.toFixed(1)}%
+                            </span>
+                          </div>
+                        </div>
+                        <Badge className={cn(
+                          'ml-2',
+                          trend.trend === 'improving' && 'bg-green-600 text-white',
+                          trend.trend === 'stable' && 'bg-yellow-600 text-white',
+                          trend.trend === 'declining' && 'bg-red-600 text-white'
+                        )}>
+                          {trend.trend === 'improving' && '提升中'}
+                          {trend.trend === 'stable' && '稳定'}
+                          {trend.trend === 'declining' && '下降'}
+                        </Badge>
+                      </div>
+
+                      {/* Visual comparison bar */}
+                      <div className="space-y-1.5">
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs text-muted-foreground w-12">基线</span>
+                          <div className="flex-1 bg-gray-200 rounded-full h-2">
+                            <div
+                              className="bg-gray-400 h-2 rounded-full"
+                              style={{ width: `${trend.baseline}%` }}
+                            />
+                          </div>
+                        </div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-xs text-muted-foreground w-12">当前</span>
+                          <div className="flex-1 bg-gray-200 rounded-full h-2">
+                            <div
+                              className={cn(
+                                'h-2 rounded-full',
+                                trend.trend === 'improving' && 'bg-green-600',
+                                trend.trend === 'stable' && 'bg-yellow-600',
+                                trend.trend === 'declining' && 'bg-red-600'
+                              )}
+                              style={{ width: `${trend.current}%` }}
+                            />
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+
+              {/* Degradation Alert & Practice Recommendations */}
+              {skillMonitoring.degradationAlert && skillMonitoring.recommendedPractice.length > 0 && (
+                <div className="mt-4 p-4 rounded-lg bg-red-50 border-2 border-red-200">
+                  <div className="flex items-start gap-2 mb-3">
+                    <AlertTriangle className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5" />
+                    <div>
+                      <div className="text-sm font-bold text-red-900 mb-1">技能退化检测</div>
+                      <div className="text-xs text-red-700">
+                        系统检测到您的某些技能相比基线有所下降，建议进行针对性练习：
+                      </div>
+                    </div>
+                  </div>
+                  <div className="space-y-2 ml-7">
+                    {skillMonitoring.recommendedPractice.map((practice, idx) => (
+                      <div key={idx} className="text-xs text-red-800 bg-white/60 rounded p-2 border border-red-200">
+                        {practice}
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+
+              {/* Summary Statistics */}
+              <div className="mt-4 pt-4 border-t border-purple-200">
+                <div className="grid grid-cols-3 gap-3 text-center">
+                  <div className="bg-white/60 rounded-lg p-3">
+                    <div className="text-xl font-bold text-green-600">
+                      {skillMonitoring.trends.filter(t => t.trend === 'improving').length}
+                    </div>
+                    <div className="text-xs text-muted-foreground mt-1">提升中</div>
+                  </div>
+                  <div className="bg-white/60 rounded-lg p-3">
+                    <div className="text-xl font-bold text-yellow-600">
+                      {skillMonitoring.trends.filter(t => t.trend === 'stable').length}
+                    </div>
+                    <div className="text-xs text-muted-foreground mt-1">保持稳定</div>
+                  </div>
+                  <div className="bg-white/60 rounded-lg p-3">
+                    <div className="text-xl font-bold text-red-600">
+                      {skillMonitoring.trends.filter(t => t.trend === 'declining').length}
+                    </div>
+                    <div className="text-xs text-muted-foreground mt-1">需要改进</div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Info Box */}
+              <div className="mt-4 p-3 rounded-lg bg-purple-100/50 border border-purple-200">
+                <p className="text-xs text-purple-800">
+                  💡 <strong>技能监控说明：</strong> 系统通过持续追踪您的元认知表现，识别能力趋势。
+                  当检测到某项技能相比基线下降超过5%或出现高风险模式（C/F）时，会触发退化警告。
+                  建议定期进行独立练习以保持和提升能力。
+                </p>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+      )}
+
       <div className="grid gap-6 lg:grid-cols-3">
         {/* Chat Messages */}
         <div className="lg:col-span-2">
@@ -983,6 +1234,15 @@ export default function ChatDemoPage() {
                       )}>
                         {formatDate(message.timestamp)}
                       </div>
+
+                      {/* Pattern-specific Learning Prompts */}
+                      {message.role === 'assistant' && detectedPattern === 'C' && (
+                        <div className="mt-3 ml-8 p-2 rounded-md bg-yellow-50 border border-yellow-200">
+                          <p className="text-xs text-yellow-800">
+                            <strong>💡 验证提示：</strong>在接受这个答案前，试着思考：这个答案合理吗？有哪些地方需要进一步验证？
+                          </p>
+                        </div>
+                      )}
 
                       {/* Confidence Score for AI messages */}
                       {message.role === 'assistant' && message.confidence && (
@@ -1078,6 +1338,40 @@ export default function ChatDemoPage() {
 
               {/* Interactive Input */}
               <div className="border-t pt-4">
+                {/* Pattern-specific Interface Adjustments */}
+                {detectedPattern === 'F' && inputValue.length > 0 && inputValue.length < 10 && (
+                  <div className="mb-3 p-3 rounded-lg bg-orange-50 border border-orange-200">
+                    <div className="flex items-start gap-2">
+                      <AlertTriangle className="h-4 w-4 text-orange-600 mt-0.5 flex-shrink-0" />
+                      <div className="text-xs text-orange-800">
+                        <strong>保护性提醒：</strong>您的输入较为简短。为了获得更好的帮助，建议详细描述您的问题、目标和背景信息。
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {detectedPattern === 'C' && messages.length > 2 && (
+                  <div className="mb-3 p-3 rounded-lg bg-blue-50 border border-blue-200">
+                    <div className="flex items-start gap-2">
+                      <Brain className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
+                      <div className="text-xs text-blue-800">
+                        <strong>独立思考提示：</strong>在查看AI回答前，不妨先花30秒思考自己会如何回答这个问题。这有助于提升您的独立分析能力。
+                      </div>
+                    </div>
+                  </div>
+                )}
+
+                {detectedPattern === 'A' && (
+                  <div className="mb-3 p-2 rounded-lg bg-green-50 border border-green-200">
+                    <div className="flex items-center justify-between text-xs">
+                      <div className="flex items-center gap-2 text-green-800">
+                        <Sparkles className="h-3 w-3" />
+                        <span><strong>高效模式：</strong>检测到您的深度思考模式，系统已自动精简辅助提示</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
+
                 <div className="flex gap-2">
                   <input
                     ref={inputRef}
@@ -1085,14 +1379,20 @@ export default function ChatDemoPage() {
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyPress={handleKeyPress}
-                    placeholder="输入您的问题... (按Enter发送)"
+                    placeholder={
+                      detectedPattern === 'F' ? "请详细描述您的问题，包括背景和目标..." :
+                      detectedPattern === 'C' ? "输入问题前先思考30秒..." :
+                      detectedPattern === 'A' ? "输入您的问题..." :
+                      "输入您的问题... (按Enter发送)"
+                    }
                     disabled={isTyping}
                     className="flex-1 rounded-md border border-gray-300 bg-white px-4 py-2.5 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:opacity-50"
                   />
                   <Button
                     onClick={handleSendMessage}
-                    disabled={isTyping || !inputValue.trim()}
+                    disabled={isTyping || !inputValue.trim() || (detectedPattern === 'F' && inputValue.length < 5)}
                     className="px-6"
+                    title={detectedPattern === 'F' && inputValue.length < 5 ? "请输入至少5个字符" : ""}
                   >
                     {isTyping ? (
                       <Loader2 className="h-4 w-4 animate-spin" />
@@ -1102,7 +1402,15 @@ export default function ChatDemoPage() {
                   </Button>
                 </div>
                 <div className="mt-2 flex items-center gap-4 text-xs text-muted-foreground">
-                  <span>💡 提示：尝试不同的提问方式，AI会识别您的交互模式</span>
+                  {detectedPattern === 'A' ? (
+                    <span>⚡ 高级用户模式：快速响应，最小干预</span>
+                  ) : detectedPattern === 'F' ? (
+                    <span>🛡️ 保护模式：系统将引导您提供更详细的信息</span>
+                  ) : detectedPattern === 'C' ? (
+                    <span>🎓 学习支持模式：鼓励独立思考后再查看答案</span>
+                  ) : (
+                    <span>💡 提示：尝试不同的提问方式，AI会识别您的交互模式</span>
+                  )}
                 </div>
               </div>
             </CardContent>
@@ -1190,22 +1498,81 @@ export default function ChatDemoPage() {
             </CardContent>
           </Card>
 
-          {/* Quick Tips */}
-          <Card className="border-2 border-blue-200 bg-blue-50/50">
+          {/* Pattern-Specific Tips */}
+          <Card className={cn(
+            "border-2",
+            detectedPattern === 'A' && "border-green-200 bg-green-50/50",
+            detectedPattern === 'C' && "border-yellow-200 bg-yellow-50/50",
+            detectedPattern === 'F' && "border-orange-200 bg-orange-50/50",
+            !['A', 'C', 'F'].includes(detectedPattern) && "border-blue-200 bg-blue-50/50"
+          )}>
             <CardHeader>
-              <CardTitle className="text-blue-900">使用提示</CardTitle>
+              <CardTitle className={cn(
+                detectedPattern === 'A' && "text-green-900",
+                detectedPattern === 'C' && "text-yellow-900",
+                detectedPattern === 'F' && "text-orange-900",
+                !['A', 'C', 'F'].includes(detectedPattern) && "text-blue-900"
+              )}>
+                {detectedPattern === 'A' ? '高级用户提示' :
+                 detectedPattern === 'C' ? '学习成长建议' :
+                 detectedPattern === 'F' ? '有效沟通建议' :
+                 '使用提示'}
+              </CardTitle>
             </CardHeader>
-            <CardContent className="space-y-2 text-sm text-blue-800">
-              <p>💬 <strong>尝试不同提问：</strong></p>
-              <ul className="ml-4 space-y-1 text-xs">
-                <li>• "帮我解决这个问题" (可能识别为模式C)</li>
-                <li>• "为什么会这样？详细分析一下" (可能识别为模式A)</li>
-                <li>• "我想试试这个方法" (可能识别为模式D)</li>
-                <li>• "这是什么？" (可能识别为模式E)</li>
-              </ul>
-              <p className="mt-3 text-xs text-blue-600">
-                系统会根据您的输入长度、提问方式、用词习惯等多个维度实时分析您的行为模式。
-              </p>
+            <CardContent className={cn(
+              "space-y-2 text-sm",
+              detectedPattern === 'A' && "text-green-800",
+              detectedPattern === 'C' && "text-yellow-800",
+              detectedPattern === 'F' && "text-orange-800",
+              !['A', 'C', 'F'].includes(detectedPattern) && "text-blue-800"
+            )}>
+              {detectedPattern === 'A' && (
+                <>
+                  <p>⚡ <strong>您是高级用户：</strong></p>
+                  <ul className="ml-4 space-y-1 text-xs">
+                    <li>• 系统已精简辅助提示，专注高效交互</li>
+                    <li>• 您可以直接提出复杂、深度的问题</li>
+                    <li>• 置信度详情默认展开供您分析</li>
+                    <li>• 脚手架支持已最小化，仅在必要时显示</li>
+                  </ul>
+                </>
+              )}
+              {detectedPattern === 'C' && (
+                <>
+                  <p>🎓 <strong>提升独立能力的建议：</strong></p>
+                  <ul className="ml-4 space-y-1 text-xs">
+                    <li>• 在查看AI答案前，先尝试自己分析30秒</li>
+                    <li>• 收到答案后，问自己：这合理吗？如何验证？</li>
+                    <li>• 尝试将复杂问题分解为几个小步骤</li>
+                    <li>• 定期做一些完全独立的练习任务</li>
+                  </ul>
+                </>
+              )}
+              {detectedPattern === 'F' && (
+                <>
+                  <p>💬 <strong>提高沟通效率的建议：</strong></p>
+                  <ul className="ml-4 space-y-1 text-xs">
+                    <li>• 提供更多背景信息和具体细节</li>
+                    <li>• 明确说明您的目标和期望结果</li>
+                    <li>• 尝试用完整句子描述问题，而非关键词</li>
+                    <li>• 系统会在输入过短时提醒您补充信息</li>
+                  </ul>
+                </>
+              )}
+              {!['A', 'C', 'F'].includes(detectedPattern) && (
+                <>
+                  <p>💬 <strong>尝试不同提问：</strong></p>
+                  <ul className="ml-4 space-y-1 text-xs">
+                    <li>• "帮我解决这个问题" (可能识别为模式C)</li>
+                    <li>• "为什么会这样？详细分析一下" (可能识别为模式A)</li>
+                    <li>• "我想试试这个方法" (可能识别为模式D)</li>
+                    <li>• "这是什么？" (可能识别为模式E)</li>
+                  </ul>
+                  <p className="mt-3 text-xs">
+                    系统会根据您的输入长度、提问方式、用词习惯等多个维度实时分析您的行为模式。
+                  </p>
+                </>
+              )}
             </CardContent>
           </Card>
         </div>
