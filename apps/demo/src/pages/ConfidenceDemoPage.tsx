@@ -246,7 +246,7 @@ export default function ConfidenceDemoPage() {
               <div className="rounded-lg bg-red-50 border border-red-200 p-3">
                 <div className="flex items-center gap-2 mb-1">
                   <div className="h-3 w-3 rounded-full bg-red-600" />
-                  <span className="font-semibold text-red-900">CRITICAL (<50%)</span>
+                  <span className="font-semibold text-red-900">CRITICAL (&lt;50%)</span>
                 </div>
                 <p className="text-sm text-red-800">
                   强烈建议人工验证
