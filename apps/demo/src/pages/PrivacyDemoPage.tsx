@@ -53,11 +53,11 @@ export default function PrivacyDemoPage() {
       dataExample: {
         timestamp: '2024-01-15 10:30:00',
         taskType: 'problem_solving',
-        keywords: ['算法', '优化', '性能'],
-        summary: '用户询问算法优化方案',
+        keywords: [t('privacy.exampleData.tier2.keyword1'), t('privacy.exampleData.tier2.keyword2'), t('privacy.exampleData.tier2.keyword3')],
+        summary: t('privacy.exampleData.tier2.summary'),
         complexity: 7,
         duration: 180,
-        aiSummary: '提供了三种优化方案',
+        aiSummary: t('privacy.exampleData.tier2.aiSummary'),
         patternFeatures: {
           independence: 0.75,
           verification: true,
@@ -82,12 +82,12 @@ export default function PrivacyDemoPage() {
       ],
       dataExample: {
         timestamp: '2024-01-15 10:30:00',
-        userMessage: '我需要优化这个排序算法的性能...',
+        userMessage: t('privacy.exampleData.tier3.userMessage'),
         taskType: 'problem_solving',
-        keywords: ['算法', '优化', '性能', '排序'],
+        keywords: [t('privacy.exampleData.tier3.keyword1'), t('privacy.exampleData.tier3.keyword2'), t('privacy.exampleData.tier3.keyword3'), t('privacy.exampleData.tier3.keyword4')],
         complexity: 7,
         duration: 180,
-        aiResponse: '这里有三种优化方案：1. 使用快速排序...',
+        aiResponse: t('privacy.exampleData.tier3.aiResponse'),
         confidence: { score: 0.87, factors: { /* ... */ } },
         patternFeatures: {
           independence: 0.75,

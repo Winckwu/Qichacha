@@ -61,6 +61,83 @@ export interface CalibrationData {
 }
 
 // Pattern descriptions (Based on MCA Framework - Chapter 5)
+// Helper function to get translated pattern info
+export const getPatternInfo = (t: (key: string) => string): Record<UserPattern, {
+  name: string;
+  description: string;
+  characteristics: string[];
+  color: string;
+}> => ({
+  A: {
+    name: t('mockData.patterns.A.name'),
+    description: t('mockData.patterns.A.description'),
+    characteristics: [
+      t('mockData.patterns.A.char1'),
+      t('mockData.patterns.A.char2'),
+      t('mockData.patterns.A.char3'),
+      t('mockData.patterns.A.char4')
+    ],
+    color: 'blue'
+  },
+  B: {
+    name: t('mockData.patterns.B.name'),
+    description: t('mockData.patterns.B.description'),
+    characteristics: [
+      t('mockData.patterns.B.char1'),
+      t('mockData.patterns.B.char2'),
+      t('mockData.patterns.B.char3'),
+      t('mockData.patterns.B.char4')
+    ],
+    color: 'green'
+  },
+  C: {
+    name: t('mockData.patterns.C.name'),
+    description: t('mockData.patterns.C.description'),
+    characteristics: [
+      t('mockData.patterns.C.char1'),
+      t('mockData.patterns.C.char2'),
+      t('mockData.patterns.C.char3'),
+      t('mockData.patterns.C.char4')
+    ],
+    color: 'orange'
+  },
+  D: {
+    name: t('mockData.patterns.D.name'),
+    description: t('mockData.patterns.D.description'),
+    characteristics: [
+      t('mockData.patterns.D.char1'),
+      t('mockData.patterns.D.char2'),
+      t('mockData.patterns.D.char3'),
+      t('mockData.patterns.D.char4')
+    ],
+    color: 'purple'
+  },
+  E: {
+    name: t('mockData.patterns.E.name'),
+    description: t('mockData.patterns.E.description'),
+    characteristics: [
+      t('mockData.patterns.E.char1'),
+      t('mockData.patterns.E.char2'),
+      t('mockData.patterns.E.char3'),
+      t('mockData.patterns.E.char4')
+    ],
+    color: 'amber'
+  },
+  F: {
+    name: t('mockData.patterns.F.name'),
+    description: t('mockData.patterns.F.description'),
+    characteristics: [
+      t('mockData.patterns.F.char1'),
+      t('mockData.patterns.F.char2'),
+      t('mockData.patterns.F.char3'),
+      t('mockData.patterns.F.char4')
+    ],
+    color: 'red'
+  }
+});
+
+// Legacy export for backward compatibility (uses Chinese by default)
+// Components should migrate to using getPatternInfo(t) instead
 export const PATTERN_INFO: Record<UserPattern, {
   name: string;
   description: string;
@@ -158,6 +235,8 @@ export function generateConfidenceScore(baseScore?: number): ConfidenceScore {
   else if (score >= 0.5) level = 'low';
   else level = 'critical';
 
+  // Note: This uses hardcoded Chinese for backward compatibility
+  // Components should use generateConfidenceScoreWithTranslation(t, baseScore) instead
   const explanations = {
     high: '所有因素评分优秀，响应高度可信',
     moderate: '大多数因素良好，建议进行验证',
@@ -170,6 +249,37 @@ export function generateConfidenceScore(baseScore?: number): ConfidenceScore {
     level,
     factors,
     explanation: explanations[level]
+  };
+}
+
+// Generate confidence scores with translation support
+export function generateConfidenceScoreWithTranslation(t: (key: string) => string, baseScore?: number): ConfidenceScore {
+  const score = baseScore ?? Math.random() * 0.4 + 0.6; // 0.6-1.0
+
+  const factors = {
+    modelConfidence: score + (Math.random() - 0.5) * 0.1,
+    crossValidation: score + (Math.random() - 0.5) * 0.15,
+    factualConsistency: score + (Math.random() - 0.5) * 0.12,
+    domainCoverage: score + (Math.random() - 0.5) * 0.08,
+    responseCoherence: score + (Math.random() - 0.5) * 0.1,
+  };
+
+  // Clamp values
+  Object.keys(factors).forEach(key => {
+    factors[key as keyof typeof factors] = Math.max(0, Math.min(1, factors[key as keyof typeof factors]));
+  });
+
+  let level: 'high' | 'moderate' | 'low' | 'critical';
+  if (score >= 0.85) level = 'high';
+  else if (score >= 0.7) level = 'moderate';
+  else if (score >= 0.5) level = 'low';
+  else level = 'critical';
+
+  return {
+    score,
+    level,
+    factors,
+    explanation: t(`mockData.confidenceExplanations.${level}`)
   };
 }
 
@@ -245,6 +355,8 @@ export function generatePatternData(pattern: UserPattern): PatternData {
   const maxScore = Math.max(...Object.values(scores));
   const confidence = maxScore / 10;
 
+  // Note: Uses hardcoded Chinese for backward compatibility
+  // Use generatePatternDataWithTranslation(t, pattern) instead
   const reasoningMap: Record<UserPattern, string> = {
     A: '展现出系统性分解和战略思考的特征，主动进行任务规划和验证，具有强大的元认知能力。',
     B: '优先效率和快速迭代，通过多轮优化达到目标，在速度和质量之间保持平衡。',
@@ -259,6 +371,30 @@ export function generatePatternData(pattern: UserPattern): PatternData {
     confidence,
     scores,
     reasoning: reasoningMap[pattern],
+    timestamp: new Date()
+  };
+}
+
+// Generate pattern classification with translation support
+export function generatePatternDataWithTranslation(t: (key: string) => string, pattern: UserPattern): PatternData {
+  const baseScores: Record<UserPattern, Record<string, number>> = {
+    A: { A: 8.5, B: 6.0, C: 4.0, D: 6.5, E: 2.0, F: 1.5 },
+    B: { A: 6.0, B: 8.0, C: 5.0, D: 5.5, E: 4.5, F: 2.0 },
+    C: { A: 3.0, B: 5.0, C: 9.0, D: 4.5, E: 2.5, F: 1.5 },
+    D: { A: 6.5, B: 5.5, C: 4.0, D: 8.5, E: 3.0, F: 2.0 },
+    E: { A: 2.0, B: 4.5, C: 3.0, D: 3.5, E: 9.0, F: 5.0 },
+    F: { A: 1.5, B: 2.5, C: 2.0, D: 2.0, E: 5.5, F: 9.5 }
+  };
+
+  const scores = baseScores[pattern];
+  const maxScore = Math.max(...Object.values(scores));
+  const confidence = maxScore / 10;
+
+  return {
+    pattern,
+    confidence,
+    scores,
+    reasoning: t(`mockData.reasoning.${pattern}`),
     timestamp: new Date()
   };
 }
@@ -363,7 +499,77 @@ export function generateCalibrationData(): CalibrationData {
   return { ece, bins, totalSamples };
 }
 
-// Test scenarios
+// Test scenarios (with translation support)
+export const getTestScenarios = (t: (key: string) => string) => [
+  {
+    id: 'scenario-1',
+    name: t('mockData.testScenarios.scenario1.name'),
+    pattern: 'A' as UserPattern,
+    description: t('mockData.testScenarios.scenario1.description'),
+    highlights: [
+      t('mockData.testScenarios.scenario1.highlight1'),
+      t('mockData.testScenarios.scenario1.highlight2'),
+      t('mockData.testScenarios.scenario1.highlight3')
+    ]
+  },
+  {
+    id: 'scenario-2',
+    name: t('mockData.testScenarios.scenario2.name'),
+    pattern: 'B' as UserPattern,
+    description: t('mockData.testScenarios.scenario2.description'),
+    highlights: [
+      t('mockData.testScenarios.scenario2.highlight1'),
+      t('mockData.testScenarios.scenario2.highlight2'),
+      t('mockData.testScenarios.scenario2.highlight3')
+    ]
+  },
+  {
+    id: 'scenario-3',
+    name: t('mockData.testScenarios.scenario3.name'),
+    pattern: 'C' as UserPattern,
+    description: t('mockData.testScenarios.scenario3.description'),
+    highlights: [
+      t('mockData.testScenarios.scenario3.highlight1'),
+      t('mockData.testScenarios.scenario3.highlight2'),
+      t('mockData.testScenarios.scenario3.highlight3')
+    ]
+  },
+  {
+    id: 'scenario-4',
+    name: t('mockData.testScenarios.scenario4.name'),
+    pattern: 'E' as UserPattern,
+    description: t('mockData.testScenarios.scenario4.description'),
+    highlights: [
+      t('mockData.testScenarios.scenario4.highlight1'),
+      t('mockData.testScenarios.scenario4.highlight2'),
+      t('mockData.testScenarios.scenario4.highlight3')
+    ]
+  },
+  {
+    id: 'scenario-5',
+    name: t('mockData.testScenarios.scenario5.name'),
+    pattern: 'A' as UserPattern,
+    description: t('mockData.testScenarios.scenario5.description'),
+    highlights: [
+      t('mockData.testScenarios.scenario5.highlight1'),
+      t('mockData.testScenarios.scenario5.highlight2'),
+      t('mockData.testScenarios.scenario5.highlight3')
+    ]
+  },
+  {
+    id: 'scenario-6',
+    name: t('mockData.testScenarios.scenario6.name'),
+    pattern: 'B' as UserPattern,
+    description: t('mockData.testScenarios.scenario6.description'),
+    highlights: [
+      t('mockData.testScenarios.scenario6.highlight1'),
+      t('mockData.testScenarios.scenario6.highlight2'),
+      t('mockData.testScenarios.scenario6.highlight3')
+    ]
+  }
+];
+
+// Test scenarios (legacy export with hardcoded Chinese)
 export const TEST_SCENARIOS = [
   {
     id: 'scenario-1',

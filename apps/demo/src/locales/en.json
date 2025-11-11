@@ -148,6 +148,171 @@
       "title": "Real-time Pattern Recognition",
       "pattern": "Pattern",
       "description": "Five-dimensional behavioral feature analysis based on MCA Framework"
+    },
+    "currentPattern": "Current Pattern",
+    "recognitionConfidence": "Recognition Confidence",
+    "behavioralFeatures": "Behavioral Features (MCA Framework)",
+    "taskDecomposition": "Task Decomposition",
+    "verificationIntensity": "Verification Intensity",
+    "strategicThinking": "Strategic Thinking",
+    "iterationCount": "Iteration Count",
+    "times": "times",
+    "metacognitive": {
+      "title": "Metacognitive Subprocess Dashboard",
+      "description": "Real-time monitoring of your Planning, Monitoring, Evaluation, and Regulation abilities",
+      "planning": "Planning",
+      "planningDesc": "Task decomposition & strategic thinking",
+      "monitoring": "Monitoring",
+      "monitoringDesc": "Progress tracking & difficulty recognition",
+      "evaluation": "Evaluation",
+      "evaluationDesc": "Output verification & quality checking",
+      "regulation": "Regulation",
+      "regulationDesc": "Strategy adjustment & error recovery",
+      "suggestions": "Metacognitive Development Suggestions",
+      "planningLow": "Try to clarify goals and success criteria before asking questions to improve planning ability",
+      "monitoringLow": "Regularly check progress, identify difficulties, and strengthen monitoring awareness",
+      "evaluationLow": "Increase verification of AI outputs and cross-check key information",
+      "regulationLow": "When methods don't work, try adjusting strategies or finding alternative approaches",
+      "allExcellent": "Excellent! You demonstrate comprehensive metacognitive abilities"
+    },
+    "scaffolding": {
+      "title": "Adaptive Scaffolding Support",
+      "close": "Close",
+      "description": "Personalized guidance based on your pattern ({pattern}) and task complexity",
+      "supportLevel": "Support Level",
+      "fullSupport": "Full Support - Detailed step-by-step guidance",
+      "moderateSupport": "Moderate Support - Key points hints",
+      "minimalSupport": "Minimal Support - Brief reminder",
+      "viewTemplate": "View Detailed Decomposition Template",
+      "why": "Why am I seeing this?",
+      "explanation": "Based on your current metacognitive pattern, the system determines you may need structured support to better complete this task. This suggestion will gradually fade as your abilities improve (progressive fading)."
+    },
+    "skillMonitoring": {
+      "title": "Skill Monitoring & Trend Tracking",
+      "degradationAlert": "Degradation Alert",
+      "basedOnSessions": "Long-term ability trend analysis · Based on {count} session data",
+      "baseline": "Baseline",
+      "current": "Current",
+      "improving": "Improving",
+      "stable": "Stable",
+      "declining": "Declining",
+      "degradationDetected": "Skill Degradation Detected",
+      "degradationDesc": "The system has detected that some of your skills have declined compared to baseline. Targeted practice is recommended:",
+      "improvingCount": "Improving",
+      "stableCount": "Stable",
+      "needsImprovement": "Needs Improvement",
+      "explanation": "Skill Monitoring Explanation:",
+      "explanationDetail": "The system continuously tracks your metacognitive performance to identify ability trends. When a skill declines more than 5% from baseline or high-risk patterns (C/F) appear, a degradation alert is triggered. Regular independent practice is recommended to maintain and improve abilities."
+    },
+    "interface": {
+      "realTimeDialogue": "Real-time Dialogue",
+      "realTimeDescription": "Experience intelligent responses and pattern recognition",
+      "aiThinking": "AI thinking...",
+      "you": "You",
+      "ai": "AI",
+      "verificationPrompt": "Verification Prompt:",
+      "verificationDetail": "Before accepting this answer, try to think: Is this answer reasonable? What aspects need further verification?",
+      "confidenceScore": "Confidence Score",
+      "collapse": "Collapse",
+      "details": "Details",
+      "protectiveReminder": "Protective Reminder:",
+      "protectiveDetail": "Your input is rather brief. For better assistance, please describe your problem, goals, and background information in detail.",
+      "independentThinking": "Independent Thinking Prompt:",
+      "independentDetail": "Before viewing the AI response, why not spend 30 seconds thinking about how you would answer this question? This helps improve your independent analysis ability.",
+      "messageInput": "Message input",
+      "sendMessage": "Send message",
+      "aiReplying": "AI replying",
+      "placeholder": {
+        "patternF": "Please describe your problem in detail, including background and goals...",
+        "patternC": "Think for 30 seconds before entering your question...",
+        "patternA": "Enter your question...",
+        "default": "Enter your question... (Press Enter to send)"
+      },
+      "inputHint": {
+        "patternA": "Advanced user mode: Fast response, minimal intervention",
+        "patternF": "Protection mode: System will guide you to provide more detailed information",
+        "patternC": "Learning support mode: Encourages independent thinking before viewing answers",
+        "default": "Tip: Try different question styles, AI will recognize your interaction pattern"
+      },
+      "minCharacters": "Please enter at least 5 characters"
+    },
+    "sidebar": {
+      "currentPattern": "Current Pattern Features",
+      "recognizedPattern": "Recognized Pattern",
+      "pattern": "Pattern",
+      "confidence": "Confidence",
+      "characteristics": "Behavioral Characteristics",
+      "patternMatchAnalysis": "Pattern Match Analysis",
+      "analysisDescription": "Real-time scoring based on conversation content",
+      "currentLabel": "Current",
+      "tips": {
+        "advancedUser": "Advanced User Tips",
+        "learningGrowth": "Learning Growth Suggestions",
+        "effectiveCommunication": "Effective Communication Suggestions",
+        "usageTips": "Usage Tips",
+        "patternA": {
+          "title": "You are an advanced user:",
+          "tip1": "System has streamlined assistance prompts, focusing on efficient interaction",
+          "tip2": "You can directly pose complex, in-depth questions",
+          "tip3": "Confidence details expanded by default for your analysis",
+          "tip4": "Scaffolding support minimized, only shown when necessary"
+        },
+        "patternC": {
+          "title": "Suggestions to improve independent ability:",
+          "tip1": "Before viewing AI answers, try analyzing for 30 seconds yourself",
+          "tip2": "After receiving an answer, ask yourself: Is this reasonable? How to verify?",
+          "tip3": "Try breaking complex problems into several small steps",
+          "tip4": "Regularly do some completely independent practice tasks"
+        },
+        "patternF": {
+          "title": "Suggestions to improve communication efficiency:",
+          "tip1": "Provide more background information and specific details",
+          "tip2": "Clearly state your goals and expected outcomes",
+          "tip3": "Try describing problems with complete sentences, not keywords",
+          "tip4": "System will remind you to supplement information when input is too short"
+        },
+        "default": {
+          "title": "Try different questions:",
+          "example1": "「Help me solve this problem」(may be recognized as Pattern C)",
+          "example2": "「Why is this? Analyze in detail」(may be recognized as Pattern A)",
+          "example3": "「I want to try this method」(may be recognized as Pattern D)",
+          "example4": "「What is this?」(may be recognized as Pattern E)",
+          "explanation": "The system analyzes your behavior pattern in real-time based on multiple dimensions such as input length, questioning style, and word usage habits."
+        }
+      }
+    },
+    "aiResponse": {
+      "patternA": {
+        "template1": "Regarding \"{input}\", let me conduct a systematic analysis:\n\n**Core Concepts**: This question involves several key dimensions...\n\n**Methodology**: I recommend adopting the following analytical framework:\n1. First clarify problem boundaries and objectives\n2. Identify key influencing factors\n3. Evaluate the interrelationships among factors\n4. Establish verification criteria\n\n**Potential Risks**: Assumptions and limitations to note include...\n\nI suggest you adjust this framework according to specific circumstances when adopting this analysis.",
+        "template2": "Regarding \"{input}\", this is indeed a topic worth exploring in depth. Analyzing from multiple layers: theoretical foundation, practical application, trade-offs. I recommend using a structured approach to advance step by step while maintaining verification of key assumptions."
+      },
+      "patternB": {
+        "template1": "Okay, regarding \"{input}\", here's a quick solution: [specific suggestions]. I suggest you test it quickly, and if it doesn't meet expectations, we can adjust immediately. Remember to verify key steps.",
+        "template2": "Regarding \"{input}\", here's a viable solution: [solution]. This approach works well in similar scenarios. Please feel free to provide feedback if there are any issues, and we'll iterate and optimize quickly."
+      },
+      "patternC": {
+        "template1": "Great learning-oriented question! Regarding \"{input}\", let me explain in detail:\n\n**Method A**: The traditional approach is... (Pros: ..., Cons: ...)\n**Method B**: Another approach is... (Pros: ..., Cons: ...)\n**Method C**: A recently popular practice is... (Pros: ..., Cons: ...)\n\n**Comparative Analysis**: These three methods have different applicable scenarios...\n\n**Deep Learning**: If you want to understand further, I suggest exploring the following aspects...\n\nWhich method would you like to try first? I can provide more detailed guidance.",
+        "template2": "Regarding \"{input}\", let me provide several different approaches for you to explore: [multiple solutions]. The principle behind each method is... I suggest you experiment and compare to see which one better suits your needs. Feel free to discuss any discoveries during the process!"
+      },
+      "patternD": {
+        "template1": "Regarding \"{input}\", here's my analysis: [specific content]\n\n**Information Sources**: This conclusion is based on...\n**Verification Suggestions**: You can cross-verify through the following methods:\n  • Checkpoint 1: ...\n  • Checkpoint 2: ...\n\n**Potential Errors**: Note that the reliability of this analysis is affected by... factors\n\n**Alternative Solutions**: If this solution is not suitable, consider...\n\nI suggest you verify whether the key assumptions match your actual situation before adoption."
+      },
+      "patternE": {
+        "template1": "Regarding \"{input}\", direct answer: [specific solution]. Follow these steps: 1)... 2)... 3)... This should quickly solve your problem.",
+        "template2": "Regarding \"{input}\", the most direct approach is: [answer]. This is a standard solution, you can apply it directly. Contact me again if you encounter problems."
+      },
+      "patternF": {
+        "template1": "I notice your input \"{input}\" is rather brief. Before I provide suggestions, please think and answer:\n\n1. What is the goal of this problem?\n2. What methods have you tried?\n3. What does the expected outcome look like?\n\nAfter providing this information, I can give you more targeted help while also helping you better understand the nature of the problem.",
+        "template2": "Regarding \"{input}\", before giving an answer, I'd like to guide you to think:\n\n**Analyze the Problem**: What steps can this task be broken down into?\n**Evaluate Solutions**: What are the possible solution paths?\n\nPlease try answering these two questions first, then I'll provide deeper suggestions based on your thinking. This helps you build independent analysis capability, not just get an answer."
+      },
+      "default": "Received your message: \"{input}\". Let me analyze this question for you."
+    },
+    "confidenceFactors": {
+      "modelConfidence": "Model Confidence",
+      "crossValidation": "Cross Validation",
+      "factualConsistency": "Factual Consistency",
+      "domainCoverage": "Domain Coverage",
+      "responseCoherence": "Response Coherence"
     }
   },
   "patterns": {
@@ -374,5 +539,241 @@
     "patternRecog": "Pattern Recognition",
     "confidenceScoring": "Confidence Scoring",
     "skillMonitoring": "Skill Monitoring"
+  },
+  "mockData": {
+    "patterns": {
+      "A": {
+        "name": "Strategic Decomposer",
+        "description": "Systematic task decomposition and proactive control, demonstrating strong metacognitive abilities",
+        "char1": "Proactively decomposes tasks",
+        "char2": "Continuous monitoring and verification",
+        "char3": "Strategic thinking and planning",
+        "char4": "Maintains high independence ratio"
+      },
+      "B": {
+        "name": "Efficiency Iterator",
+        "description": "Prioritizes speed and practicality, optimizing results through rapid iteration",
+        "char1": "Rapidly obtains initial output",
+        "char2": "Iterates based on evaluation",
+        "char3": "Balances efficiency and quality",
+        "char4": "Moderately verifies key content"
+      },
+      "C": {
+        "name": "Learning Explorer",
+        "description": "Uses AI as learning tool, building deep understanding through exploration",
+        "char1": "Proactively tests AI boundaries",
+        "char2": "Seeks deep explanations",
+        "char3": "Explores multiple methods",
+        "char4": "Values process learning"
+      },
+      "D": {
+        "name": "Cautious Verifier",
+        "description": "Maintains healthy skepticism, extensively verifies AI outputs",
+        "char1": "Thoroughly verifies all outputs",
+        "char2": "Cross-checks information sources",
+        "char3": "Refines before accepting",
+        "char4": "Strong error prevention awareness"
+      },
+      "E": {
+        "name": "Pragmatic Completer",
+        "description": "Prioritizes task completion, minimizes verification effort",
+        "char1": "Quickly accepts AI suggestions",
+        "char2": "Rarely performs verification",
+        "char3": "Focuses on results over process",
+        "char4": "Suitable for routine low-risk tasks"
+      },
+      "F": {
+        "name": "Uncritical Reliant",
+        "description": "Completely trusts AI output, lacks metacognitive engagement, high skill degradation risk",
+        "char1": "No task decomposition habits",
+        "char2": "Never verifies AI outputs",
+        "char3": "Passively accepts all suggestions",
+        "char4": "Serious skill degradation risk"
+      }
+    },
+    "confidenceExplanations": {
+      "high": "All factors score excellently, response highly reliable",
+      "moderate": "Most factors good, verification recommended",
+      "low": "Multiple factors score low, treat with caution",
+      "critical": "Confidence severely insufficient, manual verification strongly recommended"
+    },
+    "reasoning": {
+      "A": "Demonstrates systematic decomposition and strategic thinking characteristics, proactively performs task planning and verification, possesses strong metacognitive abilities.",
+      "B": "Prioritizes efficiency and rapid iteration, achieves goals through multiple optimization rounds, balances speed and quality.",
+      "C": "Shows learning exploration tendencies, builds deep understanding through repeated attempts and comparisons, values process learning.",
+      "D": "Demonstrates cautious verification awareness, performs detailed checks before accepting AI outputs, strong error prevention consciousness.",
+      "E": "Adopts pragmatic task completion strategy, quickly accepts AI suggestions to improve efficiency, suitable for routine low-risk scenarios.",
+      "F": "Low metacognitive engagement, lacks task decomposition and verification habits, risks over-dependence and skill degradation."
+    },
+    "skills": {
+      "problemAnalysis": "Problem Analysis",
+      "independentThinking": "Independent Thinking",
+      "informationVerification": "Information Verification",
+      "taskPlanning": "Task Planning"
+    },
+    "skillPractice": "Practice {skill}: Complete 3 independent tasks to restore ability (currently {percent}% below baseline)",
+    "reduceAIDependence": "Reduce AI dependence: Try completing at least 1 out of every 5 tasks completely independently",
+    "testScenarios": {
+      "scenario1": {
+        "name": "Strategic Decomposer Scenario",
+        "description": "Demonstrates systematic interaction of high metacognitive ability users",
+        "highlight1": "Task decomposition",
+        "highlight2": "Proactive verification",
+        "highlight3": "High independence"
+      },
+      "scenario2": {
+        "name": "Efficiency Iterator Scenario",
+        "description": "Demonstrates user pattern of rapid iteration and optimization",
+        "highlight1": "Rapid iteration",
+        "highlight2": "Efficiency priority",
+        "highlight3": "Flexible adjustment"
+      },
+      "scenario3": {
+        "name": "Learning Explorer Scenario",
+        "description": "Demonstrates users with deep learning and multi-option comparison",
+        "highlight1": "Deep understanding",
+        "highlight2": "Multi-option comparison",
+        "highlight3": "Exploratory learning"
+      },
+      "scenario4": {
+        "name": "Pragmatic Completer Scenario",
+        "description": "Demonstrates efficiency-first users with rapid task completion",
+        "highlight1": "Rapid completion",
+        "highlight2": "Efficiency priority",
+        "highlight3": "Low verification"
+      },
+      "scenario5": {
+        "name": "Confidence Calibration Demo",
+        "description": "Demonstrates ECE calibration and confidence scoring mechanism",
+        "highlight1": "Multi-factor scoring",
+        "highlight2": "Calibration curve",
+        "highlight3": "Accuracy analysis"
+      },
+      "scenario6": {
+        "name": "Privacy Protection Tiers",
+        "description": "Demonstrates differences in three-tier privacy architecture",
+        "highlight1": "Content hiding",
+        "highlight2": "Partial storage",
+        "highlight3": "Complete analysis"
+      }
+    },
+    "taskComplexity": {
+      "highReasoning": "This task involves multiple dimensions or requires deep analysis, structured decomposition recommended",
+      "mediumReasoning": "This task has certain complexity, consider step-by-step processing",
+      "lowReasoning": "This is a relatively simple and straightforward task"
+    },
+    "scaffoldingTips": {
+      "tip1": "Suggest decomposing task into the following steps:",
+      "tip2": "Clarify task boundaries and scope",
+      "tip3": "Determine analytical framework or methodology",
+      "tip4": "Break large task into manageable subtasks",
+      "tip5": "Complete subtasks step by step",
+      "tip6": "Synthesize results and verify completeness",
+      "tip7": "Suggest considering the following key points:",
+      "tip8": "First clarify core objectives",
+      "tip9": "Identify main steps",
+      "tip10": "Verify at each stage",
+      "tip11": "Tip: This is a complex task, consider step-by-step processing?"
+    },
+    "decompositionTemplate": {
+      "high": {
+        "title": "Task Decomposition Suggestion",
+        "phase1": "Phase 1: Clarification & Planning",
+        "phase1_1": "Clearly define task objectives",
+        "phase1_2": "Identify success criteria",
+        "phase1_3": "Assess required resources",
+        "phase2": "Phase 2: Structured Decomposition",
+        "phase2_1": "Break task into independent subtasks",
+        "phase2_2": "Determine dependencies between subtasks",
+        "phase2_3": "Arrange execution order",
+        "phase3": "Phase 3: Execution & Monitoring",
+        "phase3_1": "Complete subtasks in order",
+        "phase3_2": "Regularly check progress",
+        "phase3_3": "Adjust strategy promptly",
+        "phase4": "Phase 4: Integration & Verification",
+        "phase4_1": "Synthesize results from all parts",
+        "phase4_2": "Verify overall quality",
+        "phase4_3": "Confirm initial objectives are met"
+      },
+      "medium": {
+        "title": "Simplified Decomposition Suggestion",
+        "step1": "Clarify objectives and scope",
+        "step2": "Identify 2-3 main steps",
+        "step3": "Complete and verify step by step",
+        "step4": "Integrate final results"
+      }
+    }
+  },
+  "privacy": {
+    "featureDetails": {
+      "tier1": {
+        "messageContent": "No message content stored",
+        "taskType": "Only type labels recorded",
+        "interactionTime": "Timestamps recorded",
+        "complexityScore": "Calculated from behavior",
+        "aiResponse": "No response content stored",
+        "patternAnalysis": "Basic features only"
+      },
+      "tier2": {
+        "messageContent": "Keywords and summaries stored",
+        "taskType": "Detailed type analysis",
+        "interactionTime": "Complete time tracking",
+        "complexityScore": "Multi-dimensional scoring",
+        "aiResponse": "Response summaries stored",
+        "patternAnalysis": "Complete feature analysis"
+      },
+      "tier3": {
+        "messageContent": "Full storage",
+        "taskType": "Comprehensive analysis",
+        "interactionTime": "Precise timeline",
+        "complexityScore": "Deep assessment",
+        "aiResponse": "Complete response storage",
+        "patternAnalysis": "18-dimensional feature analysis"
+      }
+    },
+    "exampleData": {
+      "tier2": {
+        "keyword1": "algorithm",
+        "keyword2": "optimization",
+        "keyword3": "performance",
+        "summary": "User asks about algorithm optimization solutions",
+        "aiSummary": "Provided three optimization approaches"
+      },
+      "tier3": {
+        "userMessage": "I need to optimize the performance of this sorting algorithm...",
+        "keyword1": "algorithm",
+        "keyword2": "optimization",
+        "keyword3": "performance",
+        "keyword4": "sorting",
+        "aiResponse": "Here are three optimization approaches: 1. Use quicksort..."
+      }
+    },
+    "statusLabels": {
+      "complete": "Complete",
+      "partial": "Partial",
+      "hidden": "Hidden",
+      "limited": "Limited"
+    },
+    "good": "Good",
+    "useCases": {
+      "tier1": {
+        "item1": "• Users who extremely value privacy",
+        "item2": "• Handling sensitive or confidential information",
+        "item3": "• Only need basic pattern recognition",
+        "item4": "⚠️ Note: Limited personalization"
+      },
+      "tier2": {
+        "item1": "• Users balancing privacy and functionality",
+        "item2": "• General work and learning scenarios",
+        "item3": "• Need good personalization support",
+        "item4": "✓ Recommended: Best choice for most users"
+      },
+      "tier3": {
+        "item1": "• Need best personalized experience",
+        "item2": "• Long-term skill development tracking",
+        "item3": "• Research and in-depth analysis scenarios",
+        "item4": "💡 Suitable for: Users with low privacy requirements"
+      }
+    }
   }
 }

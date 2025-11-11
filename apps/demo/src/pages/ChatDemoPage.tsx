@@ -5,8 +5,9 @@ import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
 import Progress from '@/components/ui/Progress';
 import {
-  generatePatternData,
+  generatePatternDataWithTranslation,
   PATTERN_INFO,
+  getPatternInfo,
   type UserPattern,
   type Message,
 } from '@/data/mockData';
@@ -14,99 +15,56 @@ import { cn, formatDate, getConfidenceColor } from '@/lib/utils';
 import { ChevronDown, ChevronUp, Send, Sparkles, Loader2, Brain, TrendingUp, TrendingDown, AlertTriangle } from 'lucide-react';
 
 // AI响应生成器 - 根据用户输入和模式生成回复 (Based on MCA Framework)
-const generateAIResponse = (userInput: string, pattern: UserPattern, _conversationHistory: Message[]): string => {
+// Note: This needs access to t() function, so we'll move it inside the component
+const generateAIResponse = (userInput: string, pattern: UserPattern, _conversationHistory: Message[], t: (key: string, params?: any) => string): string => {
   const input = userInput.toLowerCase();
 
   // 模式A: 战略分解者 - 详细、结构化的分析回复
   if (pattern === 'A') {
     if (input.includes('什么') || input.includes('如何') || input.includes('为什么')) {
-      return `关于"${userInput}"，让我进行系统性分析：
-
-**核心概念**：这个问题涉及几个关键维度...
-
-**方法论**：建议采用以下分析框架：
-1. 首先明确问题边界和目标
-2. 识别关键影响因素
-3. 评估各因素的相互关系
-4. 制定验证标准
-
-**潜在风险**：需要注意的假设和限制条件包括...
-
-建议您在采用这个分析时，根据具体情况调整框架。`;
+      return t('chat.aiResponse.patternA.template1', { input: userInput });
     }
-    return `针对"${userInput}"，这确实是个值得深入探讨的话题。从多个层面分析：理论基础、实践应用、权衡取舍。建议采用结构化方法逐步推进，保持对关键假设的验证。`;
+    return t('chat.aiResponse.patternA.template2', { input: userInput });
   }
 
   // 模式B: 效率迭代者 - 快速回复但提示验证
   if (pattern === 'B') {
     if (input.includes('帮我') || input.includes('能否')) {
-      return `好的，关于"${userInput}"，这里是快速方案：[具体建议]。建议您快速测试一下，如果不符合预期我们可以立即调整。记得验证关键步骤。`;
+      return t('chat.aiResponse.patternB.template1', { input: userInput });
     }
-    return `针对"${userInput}"，直接给您可行方案：[解决方案]。这个方案在类似场景中效果不错。如有问题请随时反馈，我们快速迭代优化。`;
+    return t('chat.aiResponse.patternB.template2', { input: userInput });
   }
 
   // 模式C: 学习探索者 - 深度解释和多方案对比
   if (pattern === 'C') {
     if (input.includes('为什么') || input.includes('原理') || input.includes('如何')) {
-      return `很好的学习型问题！关于"${userInput}"，让我详细解释：
-
-**方法A**：传统方法是...（优点：...，缺点：...）
-**方法B**：另一种思路是...（优点：...，缺点：...）
-**方法C**：近期流行的做法是...（优点：...，缺点：...）
-
-**对比分析**：这三种方法的适用场景各不相同...
-
-**深入学习**：如果想进一步理解，建议探索以下方面...
-
-您想先尝试哪种方法？我可以提供更详细的指导。`;
+      return t('chat.aiResponse.patternC.template1', { input: userInput });
     }
-    return `针对"${userInput}"，让我提供几种不同的思路供您探索：[多个方案]。每种方法背后的原理是...。建议您实验对比，看哪种更符合您的需求。过程中有任何发现欢迎讨论！`;
+    return t('chat.aiResponse.patternC.template2', { input: userInput });
   }
 
   // 模式D: 验证谨慎者 - 附带可验证信息和参考依据
   if (pattern === 'D') {
-    return `关于"${userInput}"，这是我的分析：[具体内容]
-
-**信息来源**：此结论基于...
-**验证建议**：您可以通过以下方式交叉验证：
-  • 检查点1：...
-  • 检查点2：...
-
-**潜在误差**：需要注意的是，这个分析的可靠性受...因素影响
-
-**替代方案**：如果这个方案不合适，可以考虑...
-
-建议您在采纳前验证关键假设是否符合您的实际情况。`;
+    return t('chat.aiResponse.patternD.template1', { input: userInput });
   }
 
   // 模式E: 务实完成者 - 直接、简洁的答案
   if (pattern === 'E') {
     if (input.includes('帮我') || input.includes('快速')) {
-      return `针对"${userInput}"，直接答案：[具体方案]。按这个步骤执行即可：1)... 2)... 3)...。应该能快速解决您的问题。`;
+      return t('chat.aiResponse.patternE.template1', { input: userInput });
     }
-    return `关于"${userInput}"，最直接的做法是：[答案]。这是标准解决方案，直接应用就可以。如果遇到问题再联系我。`;
+    return t('chat.aiResponse.patternE.template2', { input: userInput });
   }
 
   // 模式F: 无批判依赖者 - 强制引导性回复，避免直接给答案
   if (pattern === 'F') {
     if (input.length < 10) {
-      return `⚠️ 我注意到您的输入"${userInput}"比较简短。在我提供建议前，请先思考并回答：
-
-1. 这个问题的目标是什么？
-2. 您已经尝试过什么方法？
-3. 您期望的结果是什么样的？
-
-提供这些信息后，我能给您更有针对性的帮助，同时也帮助您更好地理解问题本质。`;
+      return t('chat.aiResponse.patternF.template1', { input: userInput });
     }
-    return `关于"${userInput}"，在给出答案前，我想先引导您思考：
-
-**分析问题**：这个任务可以分解为哪几个步骤？
-**评估方案**：有哪些可能的解决路径？
-
-请先尝试回答这两个问题，然后我会基于您的思考提供更深入的建议。这样能帮助您建立独立分析能力，而不只是获得一个答案。`;
+    return t('chat.aiResponse.patternF.template2', { input: userInput });
   }
 
-  return `收到您的消息："${userInput}"。让我为您分析一下这个问题。`;
+  return t('chat.aiResponse.default', { input: userInput });
 };
 
 // 多维度行为特征分析 - 基于MCA框架的五维特征
@@ -769,7 +727,7 @@ export default function ChatDemoPage() {
     await new Promise(resolve => setTimeout(resolve, 500 + Math.random() * 1000));
 
     // 生成AI响应
-    const aiResponse = generateAIResponse(inputValue, analysis.detectedPattern, messages);
+    const aiResponse = generateAIResponse(inputValue, analysis.detectedPattern, messages, t);
     const confidenceDetails = generateConfidenceDetails(
       analysis.detectedPattern,
       analysis.confidence,
@@ -801,8 +759,9 @@ export default function ChatDemoPage() {
     }
   };
 
-  const patternData = generatePatternData(detectedPattern);
-  const patternInfo = PATTERN_INFO[detectedPattern];
+  const patternData = generatePatternDataWithTranslation(t, detectedPattern);
+  const PATTERN_INFO_TRANSLATED = getPatternInfo(t);
+  const patternInfo = PATTERN_INFO_TRANSLATED[detectedPattern];
 
   return (
     <div className="space-y-6">
@@ -861,35 +820,35 @@ export default function ChatDemoPage() {
               {patternData.reasoning}
             </p>
 
-            {/* 行为特征维度 */}
+            {/* Behavioral Features */}
             <div className="mt-4 pt-4 border-t">
-              <div className="text-sm font-semibold mb-3 text-gray-700">行为特征维度 (MCA Framework)</div>
+              <div className="text-sm font-semibold mb-3 text-gray-700">{t('chat.behavioralFeatures')}</div>
               <div className="grid grid-cols-2 gap-3 text-xs">
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-muted-foreground">任务分解</span>
+                    <span className="text-muted-foreground">{t('chat.taskDecomposition')}</span>
                     <span className="font-mono font-medium">{Math.round(currentFeatures.decompositionScore * 100)}%</span>
                   </div>
                   <Progress value={currentFeatures.decompositionScore * 100} className="h-1.5" />
                 </div>
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-muted-foreground">验证强度</span>
+                    <span className="text-muted-foreground">{t('chat.verificationIntensity')}</span>
                     <span className="font-mono font-medium">{Math.round(currentFeatures.verificationIntensity * 100)}%</span>
                   </div>
                   <Progress value={currentFeatures.verificationIntensity * 100} className="h-1.5" />
                 </div>
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-muted-foreground">战略性思考</span>
+                    <span className="text-muted-foreground">{t('chat.strategicThinking')}</span>
                     <span className="font-mono font-medium">{Math.round(currentFeatures.strategicQuestionRatio * 100)}%</span>
                   </div>
                   <Progress value={currentFeatures.strategicQuestionRatio * 100} className="h-1.5" />
                 </div>
                 <div>
                   <div className="flex items-center justify-between mb-1">
-                    <span className="text-muted-foreground">迭代次数</span>
-                    <span className="font-mono font-medium">{currentFeatures.iterationCount} 次</span>
+                    <span className="text-muted-foreground">{t('chat.iterationCount')}</span>
+                    <span className="font-mono font-medium">{currentFeatures.iterationCount} {t('chat.times')}</span>
                   </div>
                   <Progress value={Math.min(100, currentFeatures.iterationCount * 20)} className="h-1.5" />
                 </div>
@@ -904,9 +863,9 @@ export default function ChatDemoPage() {
         <CardHeader>
           <div className="flex items-center gap-2">
             <Sparkles className="h-5 w-5 text-green-600" />
-            <CardTitle className="text-green-900">元认知子过程仪表板</CardTitle>
+            <CardTitle className="text-green-900">{t('chat.metacognitive.title')}</CardTitle>
           </div>
-          <CardDescription>实时监控您的Planning、Monitoring、Evaluation和Regulation能力</CardDescription>
+          <CardDescription>{t('chat.metacognitive.description')}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
@@ -914,8 +873,8 @@ export default function ChatDemoPage() {
             <div>
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium">📋 Planning (规划)</span>
-                  <span className="text-xs text-muted-foreground">任务分解 & 战略思考</span>
+                  <span className="text-sm font-medium">📋 {t('chat.metacognitive.planning')}</span>
+                  <span className="text-xs text-muted-foreground">{t('chat.metacognitive.planningDesc')}</span>
                 </div>
                 <span className="text-lg font-bold text-green-700">{metacognitiveScores.planning.toFixed(1)}/10</span>
               </div>
@@ -934,8 +893,8 @@ export default function ChatDemoPage() {
             <div>
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium">👁️ Monitoring (监控)</span>
-                  <span className="text-xs text-muted-foreground">进度追踪 & 难度识别</span>
+                  <span className="text-sm font-medium">👁️ {t('chat.metacognitive.monitoring')}</span>
+                  <span className="text-xs text-muted-foreground">{t('chat.metacognitive.monitoringDesc')}</span>
                 </div>
                 <span className="text-lg font-bold text-blue-700">{metacognitiveScores.monitoring.toFixed(1)}/10</span>
               </div>
@@ -954,8 +913,8 @@ export default function ChatDemoPage() {
             <div>
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium">✓ Evaluation (评估)</span>
-                  <span className="text-xs text-muted-foreground">输出验证 & 质量检查</span>
+                  <span className="text-sm font-medium">✓ {t('chat.metacognitive.evaluation')}</span>
+                  <span className="text-xs text-muted-foreground">{t('chat.metacognitive.evaluationDesc')}</span>
                 </div>
                 <span className="text-lg font-bold text-purple-700">{metacognitiveScores.evaluation.toFixed(1)}/10</span>
               </div>
@@ -974,8 +933,8 @@ export default function ChatDemoPage() {
             <div>
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-2">
-                  <span className="text-sm font-medium">🔄 Regulation (调节)</span>
-                  <span className="text-xs text-muted-foreground">策略调整 & 错误恢复</span>
+                  <span className="text-sm font-medium">🔄 {t('chat.metacognitive.regulation')}</span>
+                  <span className="text-xs text-muted-foreground">{t('chat.metacognitive.regulationDesc')}</span>
                 </div>
                 <span className="text-lg font-bold text-indigo-700">{metacognitiveScores.regulation.toFixed(1)}/10</span>
               </div>
@@ -990,25 +949,25 @@ export default function ChatDemoPage() {
               />
             </div>
 
-            {/* 综合建议 */}
+            {/* Suggestions */}
             <div className="mt-4 pt-4 border-t rounded-lg bg-white/50 p-3">
-              <div className="text-xs font-semibold mb-2 text-green-800">💡 元认知发展建议</div>
+              <div className="text-xs font-semibold mb-2 text-green-800">💡 {t('chat.metacognitive.suggestions')}</div>
               <div className="text-xs text-green-700 space-y-1">
                 {metacognitiveScores.planning < 5 && (
-                  <p>• 尝试在提问前明确目标和成功标准，提升规划能力</p>
+                  <p>• {t('chat.metacognitive.planningLow')}</p>
                 )}
                 {metacognitiveScores.monitoring < 5 && (
-                  <p>• 定期检查进度，识别遇到的困难，加强监控意识</p>
+                  <p>• {t('chat.metacognitive.monitoringLow')}</p>
                 )}
                 {metacognitiveScores.evaluation < 5 && (
-                  <p>• 增加对AI输出的验证，交叉检查关键信息</p>
+                  <p>• {t('chat.metacognitive.evaluationLow')}</p>
                 )}
                 {metacognitiveScores.regulation < 5 && (
-                  <p>• 当方法不奏效时，尝试调整策略或寻找替代方案</p>
+                  <p>• {t('chat.metacognitive.regulationLow')}</p>
                 )}
                 {metacognitiveScores.planning >= 7 && metacognitiveScores.monitoring >= 7 &&
                  metacognitiveScores.evaluation >= 7 && metacognitiveScores.regulation >= 7 && (
-                  <p className="text-green-600 font-medium">✨ 优秀！您展现出全面的元认知能力</p>
+                  <p className="text-green-600 font-medium">✨ {t('chat.metacognitive.allExcellent')}</p>
                 )}
               </div>
             </div>
@@ -1023,18 +982,18 @@ export default function ChatDemoPage() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <Sparkles className="h-5 w-5 text-orange-600" />
-                <CardTitle className="text-orange-900">自适应脚手架支持</CardTitle>
+                <CardTitle className="text-orange-900">{t('chat.scaffolding.title')}</CardTitle>
               </div>
               <button
                 onClick={() => setShowScaffolding(false)}
                 className="text-xs text-orange-700 hover:text-orange-900 underline focus:outline-none focus:ring-2 focus:ring-orange-500 rounded px-2 py-1"
-                aria-label="关闭脚手架建议"
+                aria-label={t('chat.scaffolding.close')}
               >
-                关闭
+                {t('chat.scaffolding.close')}
               </button>
             </div>
             <CardDescription>
-              根据您的模式（{PATTERN_INFO[detectedPattern].name}）和任务复杂度提供个性化指导
+              {t('chat.scaffolding.description', { pattern: PATTERN_INFO[detectedPattern].name })}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -1042,11 +1001,11 @@ export default function ChatDemoPage() {
               {/* 支持级别指示 */}
               <div className="flex items-center justify-between p-3 rounded-lg bg-white/60 border border-orange-200">
                 <div>
-                  <div className="text-sm font-medium text-orange-900">支持强度</div>
+                  <div className="text-sm font-medium text-orange-900">{t('chat.scaffolding.supportLevel')}</div>
                   <div className="text-xs text-orange-700 mt-1">
-                    {scaffoldingSuggestion.level === 'full' && '完整支持 - 详细分步指导'}
-                    {scaffoldingSuggestion.level === 'moderate' && '中等支持 - 关键要点提示'}
-                    {scaffoldingSuggestion.level === 'minimal' && '最小支持 - 简要提醒'}
+                    {scaffoldingSuggestion.level === 'full' && t('chat.scaffolding.fullSupport')}
+                    {scaffoldingSuggestion.level === 'moderate' && t('chat.scaffolding.moderateSupport')}
+                    {scaffoldingSuggestion.level === 'minimal' && t('chat.scaffolding.minimalSupport')}
                   </div>
                 </div>
                 <Badge className={cn(
@@ -1075,7 +1034,7 @@ export default function ChatDemoPage() {
               {scaffoldingSuggestion.template && (
                 <details className="mt-4">
                   <summary className="cursor-pointer text-sm font-medium text-orange-900 hover:text-orange-700">
-                    📖 查看详细分解模板
+                    📖 {t('chat.scaffolding.viewTemplate')}
                   </summary>
                   <pre className="mt-3 text-xs text-orange-800 bg-white/60 p-4 rounded-lg border border-orange-200 whitespace-pre-wrap">
                     {scaffoldingSuggestion.template}
@@ -1086,8 +1045,7 @@ export default function ChatDemoPage() {
               {/* 说明文字 */}
               <div className="mt-4 pt-4 border-t border-orange-200">
                 <p className="text-xs text-orange-700">
-                  💡 <strong>为什么看到这个？</strong> 基于您当前的元认知模式，系统判断您可能需要
-                  结构化支持来更好地完成这个任务。这个建议会随着您能力的提升而逐渐减少（渐进式淡出）。
+                  💡 <strong>{t('chat.scaffolding.why')}</strong> {t('chat.scaffolding.explanation')}
                 </p>
               </div>
             </div>
@@ -1102,16 +1060,16 @@ export default function ChatDemoPage() {
             <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <TrendingUp className="h-5 w-5 text-purple-600" />
-                <CardTitle className="text-purple-900">技能监控与趋势追踪</CardTitle>
+                <CardTitle className="text-purple-900">{t('chat.skillMonitoring.title')}</CardTitle>
               </div>
               {skillMonitoring.degradationAlert && (
                 <Badge className="bg-red-600 text-white animate-pulse">
-                  ⚠️ 退化警告
+                  ⚠️ {t('chat.skillMonitoring.degradationAlert')}
                 </Badge>
               )}
             </div>
             <CardDescription>
-              长期能力趋势分析 · 基于{skillMonitoring.trends[0]?.sessionsTracked || 0}个会话的数据
+              {t('chat.skillMonitoring.basedOnSessions', { count: skillMonitoring.trends[0]?.sessionsTracked || 0 })}
             </CardDescription>
           </CardHeader>
           <CardContent>
@@ -1138,8 +1096,8 @@ export default function ChatDemoPage() {
                             <span className="font-medium text-sm">{trend.skill}</span>
                           </div>
                           <div className="flex items-center gap-3 text-xs text-muted-foreground">
-                            <span>基线: {trend.baseline}</span>
-                            <span>当前: {trend.current.toFixed(1)}</span>
+                            <span>{t('chat.skillMonitoring.baseline')}: {trend.baseline}</span>
+                            <span>{t('chat.skillMonitoring.current')}: {trend.current.toFixed(1)}</span>
                             <span className={cn('font-bold', trendColor)}>
                               {trend.changePercent >= 0 ? '+' : ''}{trend.changePercent.toFixed(1)}%
                             </span>
@@ -1151,16 +1109,16 @@ export default function ChatDemoPage() {
                           trend.trend === 'stable' && 'bg-yellow-600 text-white',
                           trend.trend === 'declining' && 'bg-red-600 text-white'
                         )}>
-                          {trend.trend === 'improving' && '提升中'}
-                          {trend.trend === 'stable' && '稳定'}
-                          {trend.trend === 'declining' && '下降'}
+                          {trend.trend === 'improving' && t('chat.skillMonitoring.improving')}
+                          {trend.trend === 'stable' && t('chat.skillMonitoring.stable')}
+                          {trend.trend === 'declining' && t('chat.skillMonitoring.declining')}
                         </Badge>
                       </div>
 
                       {/* Visual comparison bar */}
                       <div className="space-y-1.5">
                         <div className="flex items-center gap-2">
-                          <span className="text-xs text-muted-foreground w-12">基线</span>
+                          <span className="text-xs text-muted-foreground w-12">{t('chat.skillMonitoring.baseline')}</span>
                           <div className="flex-1 bg-gray-200 rounded-full h-2">
                             <div
                               className="bg-gray-400 h-2 rounded-full"
@@ -1169,7 +1127,7 @@ export default function ChatDemoPage() {
                           </div>
                         </div>
                         <div className="flex items-center gap-2">
-                          <span className="text-xs text-muted-foreground w-12">当前</span>
+                          <span className="text-xs text-muted-foreground w-12">{t('chat.skillMonitoring.current')}</span>
                           <div className="flex-1 bg-gray-200 rounded-full h-2">
                             <div
                               className={cn(
@@ -1194,9 +1152,9 @@ export default function ChatDemoPage() {
                   <div className="flex items-start gap-2 mb-3">
                     <AlertTriangle className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5" />
                     <div>
-                      <div className="text-sm font-bold text-red-900 mb-1">技能退化检测</div>
+                      <div className="text-sm font-bold text-red-900 mb-1">{t('chat.skillMonitoring.degradationDetected')}</div>
                       <div className="text-xs text-red-700">
-                        系统检测到您的某些技能相比基线有所下降，建议进行针对性练习：
+                        {t('chat.skillMonitoring.degradationDesc')}
                       </div>
                     </div>
                   </div>
@@ -1217,19 +1175,19 @@ export default function ChatDemoPage() {
                     <div className="text-xl font-bold text-green-600">
                       {skillMonitoring.trends.filter(t => t.trend === 'improving').length}
                     </div>
-                    <div className="text-xs text-muted-foreground mt-1">提升中</div>
+                    <div className="text-xs text-muted-foreground mt-1">{t('chat.skillMonitoring.improvingCount')}</div>
                   </div>
                   <div className="bg-white/60 rounded-lg p-3">
                     <div className="text-xl font-bold text-yellow-600">
                       {skillMonitoring.trends.filter(t => t.trend === 'stable').length}
                     </div>
-                    <div className="text-xs text-muted-foreground mt-1">保持稳定</div>
+                    <div className="text-xs text-muted-foreground mt-1">{t('chat.skillMonitoring.stableCount')}</div>
                   </div>
                   <div className="bg-white/60 rounded-lg p-3">
                     <div className="text-xl font-bold text-red-600">
                       {skillMonitoring.trends.filter(t => t.trend === 'declining').length}
                     </div>
-                    <div className="text-xs text-muted-foreground mt-1">需要改进</div>
+                    <div className="text-xs text-muted-foreground mt-1">{t('chat.skillMonitoring.needsImprovement')}</div>
                   </div>
                 </div>
               </div>
@@ -1237,9 +1195,7 @@ export default function ChatDemoPage() {
               {/* Info Box */}
               <div className="mt-4 p-3 rounded-lg bg-purple-100/50 border border-purple-200">
                 <p className="text-xs text-purple-800">
-                  💡 <strong>技能监控说明：</strong> 系统通过持续追踪您的元认知表现，识别能力趋势。
-                  当检测到某项技能相比基线下降超过5%或出现高风险模式（C/F）时，会触发退化警告。
-                  建议定期进行独立练习以保持和提升能力。
+                  💡 <strong>{t('chat.skillMonitoring.explanation')}</strong> {t('chat.skillMonitoring.explanationDetail')}
                 </p>
               </div>
             </div>
@@ -1292,7 +1248,7 @@ export default function ChatDemoPage() {
                             ? 'bg-white/20 text-white'
                             : 'bg-primary/10 text-primary'
                         )}>
-                          {message.role === 'user' ? '你' : 'AI'}
+                          {message.role === 'user' ? t('chat.interface.you') : t('chat.interface.ai')}
                         </div>
                         <p className="text-sm leading-relaxed flex-1">{message.content}</p>
                       </div>
@@ -1308,7 +1264,7 @@ export default function ChatDemoPage() {
                       {message.role === 'assistant' && detectedPattern === 'C' && (
                         <div className="mt-3 ml-8 p-2 rounded-md bg-yellow-50 border border-yellow-200">
                           <p className="text-xs text-yellow-800">
-                            <strong>💡 验证提示：</strong>在接受这个答案前，试着思考：这个答案合理吗？有哪些地方需要进一步验证？
+                            <strong>💡 {t('chat.interface.verificationPrompt')}</strong>{t('chat.interface.verificationDetail')}
                           </p>
                         </div>
                       )}
@@ -1317,7 +1273,7 @@ export default function ChatDemoPage() {
                       {message.role === 'assistant' && message.confidence && (
                         <div className="mt-3 ml-8 rounded-md bg-white border p-3">
                           <div className="flex items-center justify-between mb-2">
-                            <span className="text-xs font-medium text-gray-700">置信度评分</span>
+                            <span className="text-xs font-medium text-gray-700">{t('chat.interface.confidenceScore')}</span>
                             <button
                               onClick={() =>
                                 setExpandedMessage(
@@ -1328,11 +1284,11 @@ export default function ChatDemoPage() {
                             >
                               {expandedMessage === message.id ? (
                                 <>
-                                  收起 <ChevronUp className="h-3 w-3" />
+                                  {t('chat.interface.collapse')} <ChevronUp className="h-3 w-3" />
                                 </>
                               ) : (
                                 <>
-                                  详情 <ChevronDown className="h-3 w-3" />
+                                  {t('chat.interface.details')} <ChevronDown className="h-3 w-3" />
                                 </>
                               )}
                             </button>
@@ -1370,18 +1326,10 @@ export default function ChatDemoPage() {
 
                               <div className="space-y-1.5">
                                 {Object.entries(message.confidence.factors).map(([key, value]) => {
-                                  const labels: Record<string, string> = {
-                                    modelConfidence: '模型置信度',
-                                    crossValidation: '交叉验证',
-                                    factualConsistency: '事实一致性',
-                                    domainCoverage: '领域覆盖度',
-                                    responseCoherence: '响应连贯性',
-                                  };
-
                                   return (
                                     <div key={key} className="flex items-center gap-2">
                                       <span className="text-xs text-muted-foreground w-24">
-                                        {labels[key]}
+                                        {t(`chat.confidenceFactors.${key}`)}
                                       </span>
                                       <Progress
                                         value={value * 100}
@@ -1413,7 +1361,7 @@ export default function ChatDemoPage() {
                     <div className="flex items-start gap-2">
                       <AlertTriangle className="h-4 w-4 text-orange-600 mt-0.5 flex-shrink-0" />
                       <div className="text-xs text-orange-800">
-                        <strong>保护性提醒：</strong>您的输入较为简短。为了获得更好的帮助，建议详细描述您的问题、目标和背景信息。
+                        <strong>{t('chat.interface.protectiveReminder')}</strong>{t('chat.interface.protectiveDetail')}
                       </div>
                     </div>
                   </div>
@@ -1424,7 +1372,7 @@ export default function ChatDemoPage() {
                     <div className="flex items-start gap-2">
                       <Brain className="h-4 w-4 text-blue-600 mt-0.5 flex-shrink-0" />
                       <div className="text-xs text-blue-800">
-                        <strong>独立思考提示：</strong>在查看AI回答前，不妨先花30秒思考自己会如何回答这个问题。这有助于提升您的独立分析能力。
+                        <strong>{t('chat.interface.independentThinking')}</strong>{t('chat.interface.independentDetail')}
                       </div>
                     </div>
                   </div>
@@ -1440,22 +1388,22 @@ export default function ChatDemoPage() {
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyPress={handleKeyPress}
                     placeholder={
-                      detectedPattern === 'F' ? "请详细描述您的问题，包括背景和目标..." :
-                      detectedPattern === 'C' ? "输入问题前先思考30秒..." :
-                      detectedPattern === 'A' ? "输入您的问题..." :
-                      "输入您的问题... (按Enter发送)"
+                      detectedPattern === 'F' ? t('chat.interface.placeholder.patternF') :
+                      detectedPattern === 'C' ? t('chat.interface.placeholder.patternC') :
+                      detectedPattern === 'A' ? t('chat.interface.placeholder.patternA') :
+                      t('chat.interface.placeholder.default')
                     }
                     disabled={isTyping}
                     className="flex-1 rounded-md border border-gray-300 bg-white px-4 py-2.5 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:opacity-50"
-                    aria-label={t('chat.messageInput')}
+                    aria-label={t('chat.interface.messageInput')}
                     aria-describedby="input-hint"
                   />
                   <Button
                     onClick={handleSendMessage}
                     disabled={isTyping || !inputValue.trim() || (detectedPattern === 'F' && inputValue.length < 5)}
                     className="px-6"
-                    title={detectedPattern === 'F' && inputValue.length < 5 ? "请输入至少5个字符" : ""}
-                    aria-label={isTyping ? t('chat.aiReplying') : t('chat.sendMessage')}
+                    title={detectedPattern === 'F' && inputValue.length < 5 ? t('chat.interface.minCharacters') : ""}
+                    aria-label={isTyping ? t('chat.interface.aiReplying') : t('chat.interface.sendMessage')}
                   >
                     {isTyping ? (
                       <Loader2 className="h-4 w-4 animate-spin" />
@@ -1466,13 +1414,13 @@ export default function ChatDemoPage() {
                 </div>
                 <div id="input-hint" className="mt-2 flex items-center gap-4 text-xs text-muted-foreground">
                   {detectedPattern === 'A' ? (
-                    <span>⚡ 高级用户模式：快速响应，最小干预</span>
+                    <span>⚡ {t('chat.interface.inputHint.patternA')}</span>
                   ) : detectedPattern === 'F' ? (
-                    <span>🛡️ 保护模式：系统将引导您提供更详细的信息</span>
+                    <span>🛡️ {t('chat.interface.inputHint.patternF')}</span>
                   ) : detectedPattern === 'C' ? (
-                    <span>🎓 学习支持模式：鼓励独立思考后再查看答案</span>
+                    <span>🎓 {t('chat.interface.inputHint.patternC')}</span>
                   ) : (
-                    <span>💡 提示：尝试不同的提问方式，AI会识别您的交互模式</span>
+                    <span>💡 {t('chat.interface.inputHint.default')}</span>
                   )}
                 </div>
               </div>
@@ -1487,14 +1435,14 @@ export default function ChatDemoPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Sparkles className="h-5 w-5 text-primary" />
-                当前模式特征
+                {t('chat.sidebar.currentPattern')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="rounded-lg bg-gradient-to-br from-primary/10 to-primary/5 p-4 border border-primary/20">
-                <div className="text-sm font-medium text-muted-foreground">识别模式</div>
+                <div className="text-sm font-medium text-muted-foreground">{t('chat.sidebar.recognizedPattern')}</div>
                 <div className="mt-1 text-xl font-bold">
-                  模式 {detectedPattern}: {patternInfo.name}
+                  {t('chat.sidebar.pattern')} {detectedPattern}: {patternInfo.name}
                 </div>
                 <div className="mt-2">
                   <Progress
@@ -1503,13 +1451,13 @@ export default function ChatDemoPage() {
                     indicatorClassName="bg-primary"
                   />
                   <div className="mt-1 text-sm text-muted-foreground">
-                    置信度: {Math.round(patternConfidence * 100)}%
+                    {t('chat.sidebar.confidence')}: {Math.round(patternConfidence * 100)}%
                   </div>
                 </div>
               </div>
 
               <div>
-                <div className="text-sm font-medium text-muted-foreground mb-2">行为特征</div>
+                <div className="text-sm font-medium text-muted-foreground mb-2">{t('chat.sidebar.characteristics')}</div>
                 <ul className="space-y-2">
                   {patternInfo.characteristics.slice(0, 4).map((char, index) => (
                     <li key={index} className="flex items-start gap-2 text-sm rounded-md bg-muted/50 p-2">
@@ -1525,8 +1473,8 @@ export default function ChatDemoPage() {
           {/* Pattern Scores */}
           <Card className="border-2">
             <CardHeader>
-              <CardTitle>模式匹配度分析</CardTitle>
-              <CardDescription>基于对话内容的实时评分</CardDescription>
+              <CardTitle>{t('chat.sidebar.patternMatchAnalysis')}</CardTitle>
+              <CardDescription>{t('chat.sidebar.analysisDescription')}</CardDescription>
             </CardHeader>
             <CardContent className="space-y-3">
               {Object.entries(patternData.scores)
@@ -1540,9 +1488,9 @@ export default function ChatDemoPage() {
                     )}>
                       <div className="flex items-center justify-between mb-1.5">
                         <div className="flex items-center gap-2">
-                          <span className="text-sm font-medium">模式 {pattern}</span>
+                          <span className="text-sm font-medium">{t('chat.sidebar.pattern')} {pattern}</span>
                           {pattern === detectedPattern && (
-                            <Badge variant="default" className="text-xs">当前</Badge>
+                            <Badge variant="default" className="text-xs">{t('chat.sidebar.currentLabel')}</Badge>
                           )}
                         </div>
                         <span className="text-sm font-mono font-bold">{score.toFixed(1)}/10</span>
@@ -1576,10 +1524,10 @@ export default function ChatDemoPage() {
                 detectedPattern === 'F' && "text-orange-900",
                 !['A', 'C', 'F'].includes(detectedPattern) && "text-blue-900"
               )}>
-                {detectedPattern === 'A' ? '高级用户提示' :
-                 detectedPattern === 'C' ? '学习成长建议' :
-                 detectedPattern === 'F' ? '有效沟通建议' :
-                 '使用提示'}
+                {detectedPattern === 'A' ? t('chat.sidebar.tips.advancedUser') :
+                 detectedPattern === 'C' ? t('chat.sidebar.tips.learningGrowth') :
+                 detectedPattern === 'F' ? t('chat.sidebar.tips.effectiveCommunication') :
+                 t('chat.sidebar.tips.usageTips')}
               </CardTitle>
             </CardHeader>
             <CardContent className={cn(
@@ -1591,48 +1539,48 @@ export default function ChatDemoPage() {
             )}>
               {detectedPattern === 'A' && (
                 <>
-                  <p>⚡ <strong>您是高级用户：</strong></p>
+                  <p>⚡ <strong>{t('chat.sidebar.tips.patternA.title')}</strong></p>
                   <ul className="ml-4 space-y-1 text-xs">
-                    <li>• 系统已精简辅助提示，专注高效交互</li>
-                    <li>• 您可以直接提出复杂、深度的问题</li>
-                    <li>• 置信度详情默认展开供您分析</li>
-                    <li>• 脚手架支持已最小化，仅在必要时显示</li>
+                    <li>• {t('chat.sidebar.tips.patternA.tip1')}</li>
+                    <li>• {t('chat.sidebar.tips.patternA.tip2')}</li>
+                    <li>• {t('chat.sidebar.tips.patternA.tip3')}</li>
+                    <li>• {t('chat.sidebar.tips.patternA.tip4')}</li>
                   </ul>
                 </>
               )}
               {detectedPattern === 'C' && (
                 <>
-                  <p>🎓 <strong>提升独立能力的建议：</strong></p>
+                  <p>🎓 <strong>{t('chat.sidebar.tips.patternC.title')}</strong></p>
                   <ul className="ml-4 space-y-1 text-xs">
-                    <li>• 在查看AI答案前，先尝试自己分析30秒</li>
-                    <li>• 收到答案后，问自己：这合理吗？如何验证？</li>
-                    <li>• 尝试将复杂问题分解为几个小步骤</li>
-                    <li>• 定期做一些完全独立的练习任务</li>
+                    <li>• {t('chat.sidebar.tips.patternC.tip1')}</li>
+                    <li>• {t('chat.sidebar.tips.patternC.tip2')}</li>
+                    <li>• {t('chat.sidebar.tips.patternC.tip3')}</li>
+                    <li>• {t('chat.sidebar.tips.patternC.tip4')}</li>
                   </ul>
                 </>
               )}
               {detectedPattern === 'F' && (
                 <>
-                  <p>💬 <strong>提高沟通效率的建议：</strong></p>
+                  <p>💬 <strong>{t('chat.sidebar.tips.patternF.title')}</strong></p>
                   <ul className="ml-4 space-y-1 text-xs">
-                    <li>• 提供更多背景信息和具体细节</li>
-                    <li>• 明确说明您的目标和期望结果</li>
-                    <li>• 尝试用完整句子描述问题，而非关键词</li>
-                    <li>• 系统会在输入过短时提醒您补充信息</li>
+                    <li>• {t('chat.sidebar.tips.patternF.tip1')}</li>
+                    <li>• {t('chat.sidebar.tips.patternF.tip2')}</li>
+                    <li>• {t('chat.sidebar.tips.patternF.tip3')}</li>
+                    <li>• {t('chat.sidebar.tips.patternF.tip4')}</li>
                   </ul>
                 </>
               )}
               {!['A', 'C', 'F'].includes(detectedPattern) && (
                 <>
-                  <p>💬 <strong>尝试不同提问：</strong></p>
+                  <p>💬 <strong>{t('chat.sidebar.tips.default.title')}</strong></p>
                   <ul className="ml-4 space-y-1 text-xs">
-                    <li>• "帮我解决这个问题" (可能识别为模式C)</li>
-                    <li>• "为什么会这样？详细分析一下" (可能识别为模式A)</li>
-                    <li>• "我想试试这个方法" (可能识别为模式D)</li>
-                    <li>• "这是什么？" (可能识别为模式E)</li>
+                    <li>• {t('chat.sidebar.tips.default.example1')}</li>
+                    <li>• {t('chat.sidebar.tips.default.example2')}</li>
+                    <li>• {t('chat.sidebar.tips.default.example3')}</li>
+                    <li>• {t('chat.sidebar.tips.default.example4')}</li>
                   </ul>
                   <p className="mt-3 text-xs">
-                    系统会根据您的输入长度、提问方式、用词习惯等多个维度实时分析您的行为模式。
+                    {t('chat.sidebar.tips.default.explanation')}
                   </p>
                 </>
               )}

@@ -148,6 +148,171 @@
       "title": "实时模式识别",
       "pattern": "模式",
       "description": "基于MCA框架的五维行为特征分析"
+    },
+    "currentPattern": "当前模式",
+    "recognitionConfidence": "识别置信度",
+    "behavioralFeatures": "行为特征维度 (MCA Framework)",
+    "taskDecomposition": "任务分解",
+    "verificationIntensity": "验证强度",
+    "strategicThinking": "战略性思考",
+    "iterationCount": "迭代次数",
+    "times": "次",
+    "metacognitive": {
+      "title": "元认知子过程仪表板",
+      "description": "实时监控您的Planning、Monitoring、Evaluation和Regulation能力",
+      "planning": "Planning (规划)",
+      "planningDesc": "任务分解 & 战略思考",
+      "monitoring": "Monitoring (监控)",
+      "monitoringDesc": "进度追踪 & 难度识别",
+      "evaluation": "Evaluation (评估)",
+      "evaluationDesc": "输出验证 & 质量检查",
+      "regulation": "Regulation (调节)",
+      "regulationDesc": "策略调整 & 错误恢复",
+      "suggestions": "元认知发展建议",
+      "planningLow": "尝试在提问前明确目标和成功标准，提升规划能力",
+      "monitoringLow": "定期检查进度，识别遇到的困难，加强监控意识",
+      "evaluationLow": "增加对AI输出的验证，交叉检查关键信息",
+      "regulationLow": "当方法不奏效时，尝试调整策略或寻找替代方案",
+      "allExcellent": "优秀！您展现出全面的元认知能力"
+    },
+    "scaffolding": {
+      "title": "自适应脚手架支持",
+      "close": "关闭",
+      "description": "根据您的模式（{pattern}）和任务复杂度提供个性化指导",
+      "supportLevel": "支持强度",
+      "fullSupport": "完整支持 - 详细分步指导",
+      "moderateSupport": "中等支持 - 关键要点提示",
+      "minimalSupport": "最小支持 - 简要提醒",
+      "viewTemplate": "查看详细分解模板",
+      "why": "为什么看到这个？",
+      "explanation": "基于您当前的元认知模式，系统判断您可能需要结构化支持来更好地完成这个任务。这个建议会随着您能力的提升而逐渐减少（渐进式淡出）。"
+    },
+    "skillMonitoring": {
+      "title": "技能监控与趋势追踪",
+      "degradationAlert": "退化警告",
+      "basedOnSessions": "长期能力趋势分析 · 基于{count}个会话的数据",
+      "baseline": "基线",
+      "current": "当前",
+      "improving": "提升中",
+      "stable": "稳定",
+      "declining": "下降",
+      "degradationDetected": "技能退化检测",
+      "degradationDesc": "系统检测到您的某些技能相比基线有所下降，建议进行针对性练习：",
+      "improvingCount": "提升中",
+      "stableCount": "保持稳定",
+      "needsImprovement": "需要改进",
+      "explanation": "技能监控说明：",
+      "explanationDetail": "系统通过持续追踪您的元认知表现，识别能力趋势。当检测到某项技能相比基线下降超过5%或出现高风险模式（C/F）时，会触发退化警告。建议定期进行独立练习以保持和提升能力。"
+    },
+    "interface": {
+      "realTimeDialogue": "实时对话",
+      "realTimeDescription": "体验智能响应和模式识别",
+      "aiThinking": "AI思考中...",
+      "you": "你",
+      "ai": "AI",
+      "verificationPrompt": "验证提示：",
+      "verificationDetail": "在接受这个答案前，试着思考：这个答案合理吗？有哪些地方需要进一步验证？",
+      "confidenceScore": "置信度评分",
+      "collapse": "收起",
+      "details": "详情",
+      "protectiveReminder": "保护性提醒：",
+      "protectiveDetail": "您的输入较为简短。为了获得更好的帮助，建议详细描述您的问题、目标和背景信息。",
+      "independentThinking": "独立思考提示：",
+      "independentDetail": "在查看AI回答前，不妨先花30秒思考自己会如何回答这个问题。这有助于提升您的独立分析能力。",
+      "messageInput": "消息输入",
+      "sendMessage": "发送消息",
+      "aiReplying": "AI回复中",
+      "placeholder": {
+        "patternF": "请详细描述您的问题，包括背景和目标...",
+        "patternC": "输入问题前先思考30秒...",
+        "patternA": "输入您的问题...",
+        "default": "输入您的问题... (按Enter发送)"
+      },
+      "inputHint": {
+        "patternA": "高级用户模式：快速响应，最小干预",
+        "patternF": "保护模式：系统将引导您提供更详细的信息",
+        "patternC": "学习支持模式：鼓励独立思考后再查看答案",
+        "default": "提示：尝试不同的提问方式，AI会识别您的交互模式"
+      },
+      "minCharacters": "请输入至少5个字符"
+    },
+    "sidebar": {
+      "currentPattern": "当前模式特征",
+      "recognizedPattern": "识别模式",
+      "pattern": "模式",
+      "confidence": "置信度",
+      "characteristics": "行为特征",
+      "patternMatchAnalysis": "模式匹配度分析",
+      "analysisDescription": "基于对话内容的实时评分",
+      "currentLabel": "当前",
+      "tips": {
+        "advancedUser": "高级用户提示",
+        "learningGrowth": "学习成长建议",
+        "effectiveCommunication": "有效沟通建议",
+        "usageTips": "使用提示",
+        "patternA": {
+          "title": "您是高级用户：",
+          "tip1": "系统已精简辅助提示，专注高效交互",
+          "tip2": "您可以直接提出复杂、深度的问题",
+          "tip3": "置信度详情默认展开供您分析",
+          "tip4": "脚手架支持已最小化，仅在必要时显示"
+        },
+        "patternC": {
+          "title": "提升独立能力的建议：",
+          "tip1": "在查看AI答案前，先尝试自己分析30秒",
+          "tip2": "收到答案后，问自己：这合理吗？如何验证？",
+          "tip3": "尝试将复杂问题分解为几个小步骤",
+          "tip4": "定期做一些完全独立的练习任务"
+        },
+        "patternF": {
+          "title": "提高沟通效率的建议：",
+          "tip1": "提供更多背景信息和具体细节",
+          "tip2": "明确说明您的目标和期望结果",
+          "tip3": "尝试用完整句子描述问题，而非关键词",
+          "tip4": "系统会在输入过短时提醒您补充信息"
+        },
+        "default": {
+          "title": "尝试不同提问：",
+          "example1": "「帮我解决这个问题」(可能识别为模式C)",
+          "example2": "「为什么会这样？详细分析一下」(可能识别为模式A)",
+          "example3": "「我想试试这个方法」(可能识别为模式D)",
+          "example4": "「这是什么？」(可能识别为模式E)",
+          "explanation": "系统会根据您的输入长度、提问方式、用词习惯等多个维度实时分析您的行为模式。"
+        }
+      }
+    },
+    "aiResponse": {
+      "patternA": {
+        "template1": "关于「{input}」，让我进行系统性分析：\n\n**核心概念**：这个问题涉及几个关键维度...\n\n**方法论**：建议采用以下分析框架：\n1. 首先明确问题边界和目标\n2. 识别关键影响因素\n3. 评估各因素的相互关系\n4. 制定验证标准\n\n**潜在风险**：需要注意的假设和限制条件包括...\n\n建议您在采用这个分析时，根据具体情况调整框架。",
+        "template2": "针对「{input}」，这确实是个值得深入探讨的话题。从多个层面分析：理论基础、实践应用、权衡取舍。建议采用结构化方法逐步推进，保持对关键假设的验证。"
+      },
+      "patternB": {
+        "template1": "好的，关于「{input}」，这里是快速方案：[具体建议]。建议您快速测试一下，如果不符合预期我们可以立即调整。记得验证关键步骤。",
+        "template2": "针对「{input}」，直接给您可行方案：[解决方案]。这个方案在类似场景中效果不错。如有问题请随时反馈，我们快速迭代优化。"
+      },
+      "patternC": {
+        "template1": "很好的学习型问题！关于「{input}」，让我详细解释：\n\n**方法A**：传统方法是...（优点：...，缺点：...）\n**方法B**：另一种思路是...（优点：...，缺点：...）\n**方法C**：近期流行的做法是...（优点：...，缺点：...）\n\n**对比分析**：这三种方法的适用场景各不相同...\n\n**深入学习**：如果想进一步理解，建议探索以下方面...\n\n您想先尝试哪种方法？我可以提供更详细的指导。",
+        "template2": "针对「{input}」，让我提供几种不同的思路供您探索：[多个方案]。每种方法背后的原理是...。建议您实验对比，看哪种更符合您的需求。过程中有任何发现欢迎讨论！"
+      },
+      "patternD": {
+        "template1": "关于「{input}」，这是我的分析：[具体内容]\n\n**信息来源**：此结论基于...\n**验证建议**：您可以通过以下方式交叉验证：\n  • 检查点1：...\n  • 检查点2：...\n\n**潜在误差**：需要注意的是，这个分析的可靠性受...因素影响\n\n**替代方案**：如果这个方案不合适，可以考虑...\n\n建议您在采纳前验证关键假设是否符合您的实际情况。"
+      },
+      "patternE": {
+        "template1": "针对「{input}」，直接答案：[具体方案]。按这个步骤执行即可：1)... 2)... 3)...。应该能快速解决您的问题。",
+        "template2": "关于「{input}」，最直接的做法是：[答案]。这是标准解决方案，直接应用就可以。如果遇到问题再联系我。"
+      },
+      "patternF": {
+        "template1": "我注意到您的输入「{input}」比较简短。在我提供建议前，请先思考并回答：\n\n1. 这个问题的目标是什么？\n2. 您已经尝试过什么方法？\n3. 您期望的结果是什么样的？\n\n提供这些信息后，我能给您更有针对性的帮助，同时也帮助您更好地理解问题本质。",
+        "template2": "关于「{input}」，在给出答案前，我想先引导您思考：\n\n**分析问题**：这个任务可以分解为哪几个步骤？\n**评估方案**：有哪些可能的解决路径？\n\n请先尝试回答这两个问题，然后我会基于您的思考提供更深入的建议。这样能帮助您建立独立分析能力，而不只是获得一个答案。"
+      },
+      "default": "收到您的消息：「{input}」。让我为您分析一下这个问题。"
+    },
+    "confidenceFactors": {
+      "modelConfidence": "模型置信度",
+      "crossValidation": "交叉验证",
+      "factualConsistency": "事实一致性",
+      "domainCoverage": "领域覆盖度",
+      "responseCoherence": "响应连贯性"
     }
   },
   "patterns": {
@@ -374,5 +539,241 @@
     "patternRecog": "模式识别",
     "confidenceScoring": "置信度评分",
     "skillMonitoring": "技能监控"
+  },
+  "mockData": {
+    "patterns": {
+      "A": {
+        "name": "战略分解者",
+        "description": "系统性任务分解与主动控制，展现强大元认知能力",
+        "char1": "主动进行任务分解",
+        "char2": "持续监控与验证",
+        "char3": "战略性思考和规划",
+        "char4": "保持高独立性比率"
+      },
+      "B": {
+        "name": "效率迭代者",
+        "description": "优先速度和实用性，通过快速迭代优化结果",
+        "char1": "快速获取初始输出",
+        "char2": "基于评估进行迭代",
+        "char3": "平衡效率与质量",
+        "char4": "适度验证关键内容"
+      },
+      "C": {
+        "name": "学习探索者",
+        "description": "将AI作为学习工具，通过探索建立深度理解",
+        "char1": "主动测试AI边界",
+        "char2": "寻求深度解释",
+        "char3": "探索多种方法",
+        "char4": "重视过程学习"
+      },
+      "D": {
+        "name": "验证谨慎者",
+        "description": "保持健康怀疑态度，广泛验证AI输出",
+        "char1": "详细验证所有输出",
+        "char2": "交叉检查信息源",
+        "char3": "在接受前完善",
+        "char4": "防范错误的意识强"
+      },
+      "E": {
+        "name": "务实完成者",
+        "description": "优先任务完成，最小化验证投入",
+        "char1": "快速接受AI建议",
+        "char2": "很少进行验证",
+        "char3": "关注结果而非过程",
+        "char4": "适合常规低风险任务"
+      },
+      "F": {
+        "name": "无批判依赖者",
+        "description": "完全信任AI输出，缺乏元认知参与，技能退化风险高",
+        "char1": "无任务分解习惯",
+        "char2": "从不验证AI输出",
+        "char3": "被动接受所有建议",
+        "char4": "存在严重技能退化风险"
+      }
+    },
+    "confidenceExplanations": {
+      "high": "所有因素评分优秀，响应高度可信",
+      "moderate": "大多数因素良好，建议进行验证",
+      "low": "多个因素评分较低，需要谨慎对待",
+      "critical": "置信度严重不足，强烈建议人工验证"
+    },
+    "reasoning": {
+      "A": "展现出系统性分解和战略思考的特征，主动进行任务规划和验证，具有强大的元认知能力。",
+      "B": "优先效率和快速迭代，通过多轮优化达到目标，在速度和质量之间保持平衡。",
+      "C": "表现出学习探索的倾向，通过反复尝试和对比来建立深度理解，重视过程学习。",
+      "D": "展现出谨慎的验证意识，在接受AI输出前进行详细检查，防范错误的意识强。",
+      "E": "采用务实的任务完成策略，快速接受AI建议以提高效率，适合常规低风险场景。",
+      "F": "元认知参与度较低，缺乏任务分解和验证习惯，存在过度依赖和技能退化风险。"
+    },
+    "skills": {
+      "problemAnalysis": "问题分析",
+      "independentThinking": "独立思考",
+      "informationVerification": "信息验证",
+      "taskPlanning": "任务规划"
+    },
+    "skillPractice": "练习{skill}：完成3个独立任务以恢复能力（当前比基线低{percent}%）",
+    "reduceAIDependence": "建议减少AI依赖：尝试每5个任务中至少1个完全独立完成",
+    "testScenarios": {
+      "scenario1": {
+        "name": "战略分解者场景",
+        "description": "展示高元认知能力用户的系统性交互",
+        "highlight1": "任务分解",
+        "highlight2": "主动验证",
+        "highlight3": "高独立性"
+      },
+      "scenario2": {
+        "name": "效率迭代者场景",
+        "description": "展示快速迭代优化的用户模式",
+        "highlight1": "快速迭代",
+        "highlight2": "效率优先",
+        "highlight3": "灵活调整"
+      },
+      "scenario3": {
+        "name": "学习探索者场景",
+        "description": "展示深度学习和多方案对比的用户",
+        "highlight1": "深度理解",
+        "highlight2": "多方案对比",
+        "highlight3": "探索学习"
+      },
+      "scenario4": {
+        "name": "务实完成者场景",
+        "description": "展示快速任务完成的效率优先用户",
+        "highlight1": "快速完成",
+        "highlight2": "效率优先",
+        "highlight3": "低验证"
+      },
+      "scenario5": {
+        "name": "置信度校准演示",
+        "description": "展示ECE校准和置信度评分机制",
+        "highlight1": "多因素评分",
+        "highlight2": "校准曲线",
+        "highlight3": "准确性分析"
+      },
+      "scenario6": {
+        "name": "隐私保护层级",
+        "description": "演示三层隐私架构的差异",
+        "highlight1": "内容隐藏",
+        "highlight2": "部分存储",
+        "highlight3": "完整分析"
+      }
+    },
+    "taskComplexity": {
+      "highReasoning": "该任务涉及多个维度或需要深入分析，建议进行结构化分解",
+      "mediumReasoning": "该任务有一定复杂度，可以考虑分步处理",
+      "lowReasoning": "这是一个相对简单直接的任务"
+    },
+    "scaffoldingTips": {
+      "tip1": "建议将任务分解为以下步骤：",
+      "tip2": "明确任务边界和范围",
+      "tip3": "确定分析框架或方法论",
+      "tip4": "将大任务拆分为可管理的子任务",
+      "tip5": "逐步完成各子任务",
+      "tip6": "综合结果并验证完整性",
+      "tip7": "建议考虑以下关键点：",
+      "tip8": "先明确核心目标",
+      "tip9": "识别主要步骤",
+      "tip10": "在各阶段进行验证",
+      "tip11": "提示：这是一个复杂任务，考虑分步处理？"
+    },
+    "decompositionTemplate": {
+      "high": {
+        "title": "任务分解建议",
+        "phase1": "阶段1: 明确与规划",
+        "phase1_1": "清晰定义任务目标",
+        "phase1_2": "识别成功标准",
+        "phase1_3": "评估所需资源",
+        "phase2": "阶段2: 结构化分解",
+        "phase2_1": "将任务拆分为独立子任务",
+        "phase2_2": "确定子任务间的依赖关系",
+        "phase2_3": "排列执行顺序",
+        "phase3": "阶段3: 执行与监控",
+        "phase3_1": "按顺序完成各子任务",
+        "phase3_2": "定期检查进度",
+        "phase3_3": "及时调整策略",
+        "phase4": "阶段4: 整合与验证",
+        "phase4_1": "综合各部分结果",
+        "phase4_2": "验证整体质量",
+        "phase4_3": "确认满足初始目标"
+      },
+      "medium": {
+        "title": "简化分解建议",
+        "step1": "明确目标和范围",
+        "step2": "识别2-3个主要步骤",
+        "step3": "逐步完成并验证",
+        "step4": "整合最终结果"
+      }
+    }
+  },
+  "privacy": {
+    "featureDetails": {
+      "tier1": {
+        "messageContent": "不存储消息内容",
+        "taskType": "仅记录类型标签",
+        "interactionTime": "记录时间戳",
+        "complexityScore": "基于行为计算",
+        "aiResponse": "不存储响应内容",
+        "patternAnalysis": "仅基础特征"
+      },
+      "tier2": {
+        "messageContent": "存储关键词和摘要",
+        "taskType": "详细类型分析",
+        "interactionTime": "完整时间追踪",
+        "complexityScore": "多维度评分",
+        "aiResponse": "存储响应摘要",
+        "patternAnalysis": "完整特征分析"
+      },
+      "tier3": {
+        "messageContent": "完整存储",
+        "taskType": "全量分析",
+        "interactionTime": "精确时间线",
+        "complexityScore": "深度评估",
+        "aiResponse": "完整响应存储",
+        "patternAnalysis": "18维特征分析"
+      }
+    },
+    "exampleData": {
+      "tier2": {
+        "keyword1": "算法",
+        "keyword2": "优化",
+        "keyword3": "性能",
+        "summary": "用户询问算法优化方案",
+        "aiSummary": "提供了三种优化方案"
+      },
+      "tier3": {
+        "userMessage": "我需要优化这个排序算法的性能...",
+        "keyword1": "算法",
+        "keyword2": "优化",
+        "keyword3": "性能",
+        "keyword4": "排序",
+        "aiResponse": "这里有三种优化方案：1. 使用快速排序..."
+      }
+    },
+    "statusLabels": {
+      "complete": "完整",
+      "partial": "部分",
+      "hidden": "隐藏",
+      "limited": "有限"
+    },
+    "good": "良好",
+    "useCases": {
+      "tier1": {
+        "item1": "• 极度重视隐私的用户",
+        "item2": "• 处理敏感或机密信息",
+        "item3": "• 仅需基础模式识别",
+        "item4": "⚠️ 注意：个性化程度有限"
+      },
+      "tier2": {
+        "item1": "• 平衡隐私与功能的用户",
+        "item2": "• 一般性工作和学习场景",
+        "item3": "• 需要较好的个性化支持",
+        "item4": "✓ 推荐：大多数用户的最佳选择"
+      },
+      "tier3": {
+        "item1": "• 需要最佳个性化体验",
+        "item2": "• 长期技能发展追踪",
+        "item3": "• 研究和深度分析场景",
+        "item4": "💡 适合：对隐私要求不高的用户"
+      }
+    }
   }
 }
