@@ -1,4 +1,5 @@
 import { TrendingDown, TrendingUp, Minus, AlertCircle, Target, Calendar } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
@@ -7,19 +8,20 @@ import { useIndependenceMetrics } from '@/hooks/useIndependenceMetrics';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, LineChart, Line } from 'recharts';
 
 export default function SkillMonitoringDashboard() {
+  const { t } = useTranslation();
   const { data: metrics, isLoading } = useIndependenceMetrics();
 
   if (isLoading) {
     return (
       <div className="flex items-center justify-center h-64">
-        <div className="text-center text-muted-foreground">Loading metrics...</div>
+        <div className="text-center text-muted-foreground">{t('dashboard.loading')}</div>
       </div>
     );
   }
 
   if (!metrics) {
     return (
-      <div className="text-center text-muted-foreground">No data available</div>
+      <div className="text-center text-muted-foreground">{t('dashboard.noData')}</div>
     );
   }
 
@@ -48,24 +50,24 @@ export default function SkillMonitoringDashboard() {
 
   // Mock data for charts
   const skillBreakdownData = [
-    { skill: 'Writing', value: metrics.skillBreakdown.writing * 100 },
-    { skill: 'Coding', value: metrics.skillBreakdown.coding * 100 },
-    { skill: 'Analysis', value: metrics.skillBreakdown.analysis * 100 },
+    { skill: t('dashboard.skillBreakdown.skills.writing'), value: metrics.skillBreakdown.writing * 100 },
+    { skill: t('dashboard.skillBreakdown.skills.coding'), value: metrics.skillBreakdown.coding * 100 },
+    { skill: t('dashboard.skillBreakdown.skills.analysis'), value: metrics.skillBreakdown.analysis * 100 },
   ];
 
   const trendData = [
-    { date: 'Week 1', value: 35 },
-    { date: 'Week 2', value: 38 },
-    { date: 'Week 3', value: 42 },
-    { date: 'Week 4', value: metrics.currentRatio * 100 },
+    { date: t('dashboard.trendChart.week', { number: 1 }), value: 35 },
+    { date: t('dashboard.trendChart.week', { number: 2 }), value: 38 },
+    { date: t('dashboard.trendChart.week', { number: 3 }), value: 42 },
+    { date: t('dashboard.trendChart.week', { number: 4 }), value: metrics.currentRatio * 100 },
   ];
 
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold">Skill Monitoring Dashboard</h1>
+        <h1 className="text-3xl font-bold">{t('dashboard.title')}</h1>
         <p className="text-muted-foreground mt-1">
-          Track your independence and skill development
+          {t('dashboard.description')}
         </p>
       </div>
 
@@ -74,35 +76,21 @@ export default function SkillMonitoringDashboard() {
         <Alert variant={getAlertVariant(metrics.alertLevel)}>
           <AlertCircle className="h-4 w-4" />
           <AlertTitle>
-            {metrics.alertLevel === 'critical' && 'Critical: Skill Degradation Risk'}
-            {metrics.alertLevel === 'strong' && 'Warning: Declining Independence'}
-            {metrics.alertLevel === 'gentle' && 'Reminder: Practice Independent Work'}
+            {metrics.alertLevel === 'critical' && t('dashboard.alerts.critical.title')}
+            {metrics.alertLevel === 'strong' && t('dashboard.alerts.strong.title')}
+            {metrics.alertLevel === 'gentle' && t('dashboard.alerts.gentle.title')}
           </AlertTitle>
           <AlertDescription className="mt-2">
-            {metrics.alertLevel === 'critical' && (
-              <>
-                Your independence ratio has fallen below 20%. Consider taking a skill assessment
-                and scheduling regular AI-free practice time.
-              </>
-            )}
-            {metrics.alertLevel === 'strong' && (
-              <>
-                Your independence is declining. We recommend increasing independent work to maintain
-                your skills. Current ratio: {Math.round(metrics.currentRatio * 100)}%
-              </>
-            )}
-            {metrics.alertLevel === 'gentle' && (
-              <>
-                Remember to practice working independently. Aim for at least 40% independent work time.
-              </>
-            )}
+            {metrics.alertLevel === 'critical' && t('dashboard.alerts.critical.description')}
+            {metrics.alertLevel === 'strong' && t('dashboard.alerts.strong.description', { ratio: Math.round(metrics.currentRatio * 100) })}
+            {metrics.alertLevel === 'gentle' && t('dashboard.alerts.gentle.description')}
           </AlertDescription>
           <div className="mt-3 flex gap-2">
             <Button size="sm" variant="outline">
-              Schedule Practice Time
+              {t('dashboard.alerts.actions.schedulePractice')}
             </Button>
             <Button size="sm" variant="outline">
-              View Tips
+              {t('dashboard.alerts.actions.viewTips')}
             </Button>
           </div>
         </Alert>
@@ -114,10 +102,10 @@ export default function SkillMonitoringDashboard() {
         <Card>
           <CardHeader>
             <CardTitle className="flex items-center justify-between">
-              <span>Independence Tracker</span>
+              <span>{t('dashboard.independence.title')}</span>
               {getTrendIcon(metrics.trend)}
             </CardTitle>
-            <CardDescription>Last 30 days</CardDescription>
+            <CardDescription>{t('dashboard.independence.period')}</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
@@ -135,17 +123,17 @@ export default function SkillMonitoringDashboard() {
 
             <div className="pt-3 border-t">
               <div className="flex items-center justify-between text-sm">
-                <span className="text-muted-foreground">Target</span>
+                <span className="text-muted-foreground">{t('dashboard.independence.target')}</span>
                 <span className="font-medium">40%+</span>
               </div>
               <div className="flex items-center justify-between text-sm mt-2">
-                <span className="text-muted-foreground">Trend</span>
+                <span className="text-muted-foreground">{t('dashboard.independence.trend')}</span>
                 <span className={`font-medium ${
                   metrics.trend === 'improving' ? 'text-green-600' :
                   metrics.trend === 'declining' ? 'text-red-600' :
                   'text-yellow-600'
                 }`}>
-                  {metrics.trend.charAt(0).toUpperCase() + metrics.trend.slice(1)}
+                  {t(`dashboard.independence.trends.${metrics.trend}`)}
                 </span>
               </div>
             </div>
@@ -155,8 +143,8 @@ export default function SkillMonitoringDashboard() {
         {/* Skill Breakdown Chart */}
         <Card className="lg:col-span-2">
           <CardHeader>
-            <CardTitle>Skill Breakdown</CardTitle>
-            <CardDescription>Independence by task type</CardDescription>
+            <CardTitle>{t('dashboard.skillBreakdown.title')}</CardTitle>
+            <CardDescription>{t('dashboard.skillBreakdown.description')}</CardDescription>
           </CardHeader>
           <CardContent>
             <ResponsiveContainer width="100%" height={200}>
@@ -172,11 +160,11 @@ export default function SkillMonitoringDashboard() {
               <div className="flex items-center gap-6 text-sm text-muted-foreground">
                 <div className="flex items-center gap-2">
                   <div className="w-3 h-3 bg-primary rounded" />
-                  <span>Independence %</span>
+                  <span>{t('dashboard.skillBreakdown.independencePercent')}</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <div className="w-8 h-px bg-red-500" />
-                  <span>Target: 40%</span>
+                  <span>{t('dashboard.skillBreakdown.targetLabel')}</span>
                 </div>
               </div>
             </div>
@@ -187,8 +175,8 @@ export default function SkillMonitoringDashboard() {
       {/* Trend Chart */}
       <Card>
         <CardHeader>
-          <CardTitle>Independence Over Time</CardTitle>
-          <CardDescription>4-week trend</CardDescription>
+          <CardTitle>{t('dashboard.trendChart.title')}</CardTitle>
+          <CardDescription>{t('dashboard.trendChart.description')}</CardDescription>
         </CardHeader>
         <CardContent>
           <ResponsiveContainer width="100%" height={250}>
@@ -214,34 +202,32 @@ export default function SkillMonitoringDashboard() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Calendar className="h-5 w-5" />
-            Schedule Independence Time
+            {t('dashboard.scheduler.title')}
           </CardTitle>
           <CardDescription>
-            Set aside time for AI-free practice
+            {t('dashboard.scheduler.description')}
           </CardDescription>
         </CardHeader>
         <CardContent className="space-y-4">
           <div className="text-sm text-muted-foreground">
-            Regular independent practice helps maintain and develop your skills.
-            Consider scheduling:
+            {t('dashboard.scheduler.intro')}
           </div>
           <div className="space-y-2">
             <Button variant="outline" className="w-full justify-start">
               <Target className="h-4 w-4 mr-2" />
-              Daily 30-minute practice
+              {t('dashboard.scheduler.daily')}
             </Button>
             <Button variant="outline" className="w-full justify-start">
               <Target className="h-4 w-4 mr-2" />
-              Weekly skill challenge
+              {t('dashboard.scheduler.weekly')}
             </Button>
             <Button variant="outline" className="w-full justify-start">
               <Target className="h-4 w-4 mr-2" />
-              Custom schedule
+              {t('dashboard.scheduler.custom')}
             </Button>
           </div>
           <div className="pt-3 border-t text-xs text-muted-foreground">
-            <p><strong>Emergency Override:</strong> If you need AI during scheduled independent time,
-            you can use it but will be prompted to reflect on why.</p>
+            <p><strong>{t('dashboard.scheduler.emergencyOverride')}</strong> {t('dashboard.scheduler.emergencyDescription')}</p>
           </div>
         </CardContent>
       </Card>

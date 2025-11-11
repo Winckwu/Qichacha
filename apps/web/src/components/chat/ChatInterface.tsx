@@ -1,6 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { Send, Loader2 } from 'lucide-react';
 import ReactMarkdown from 'react-markdown';
+import { useTranslation } from 'react-i18next';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
@@ -10,6 +11,7 @@ import type { Message } from '@/types';
 import { cn } from '@/lib/utils';
 
 export default function ChatInterface() {
+  const { t } = useTranslation();
   const [messages, setMessages] = useState<Message[]>([]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
@@ -56,7 +58,7 @@ export default function ChatInterface() {
       const errorMessage: Message = {
         id: `msg-${Date.now()}-error`,
         role: 'assistant',
-        content: `❌ Error: ${error.response?.data?.error || error.message || 'Failed to get response'}`,
+        content: `❌ ${t('chat.interface.error')}: ${error.response?.data?.error || error.message || 'Failed to get response'}`,
         timestamp: new Date(),
       };
 
@@ -79,9 +81,9 @@ export default function ChatInterface() {
       <div className="flex-1 overflow-y-auto p-4 space-y-4">
         {messages.length === 0 ? (
           <div className="text-center text-muted-foreground py-12">
-            <h2 className="text-2xl font-semibold mb-2">Welcome to MCA System</h2>
-            <p>Metacognitive Collaborative Agent</p>
-            <p className="mt-4 text-sm">Start a conversation to begin learning with AI assistance.</p>
+            <h2 className="text-2xl font-semibold mb-2">{t('chat.welcome.title')}</h2>
+            <p>{t('chat.welcome.subtitle')}</p>
+            <p className="mt-4 text-sm">{t('chat.welcome.description')}</p>
           </div>
         ) : (
           messages.map(message => (
@@ -92,7 +94,7 @@ export default function ChatInterface() {
         {isLoading && (
           <div className="flex items-center space-x-2 text-muted-foreground">
             <Loader2 className="h-4 w-4 animate-spin" />
-            <span className="text-sm">Thinking...</span>
+            <span className="text-sm">{t('chat.interface.thinking')}</span>
           </div>
         )}
 
@@ -106,7 +108,7 @@ export default function ChatInterface() {
             value={input}
             onChange={e => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Ask a question... (Shift+Enter for new line)"
+            placeholder={t('chat.interface.placeholder')}
             className="min-h-[60px] max-h-[200px] resize-none"
             disabled={isLoading}
           />

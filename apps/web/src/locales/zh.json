@@ -1,0 +1,154 @@
+{
+  "nav": {
+    "chat": "Chat",
+    "dashboard": "Dashboard",
+    "pattern": "Pattern"
+  },
+  "chat": {
+    "welcome": {
+      "title": "Welcome to MCA System",
+      "subtitle": "Metacognitive Collaborative Agent",
+      "description": "Start a conversation to begin learning with AI assistance."
+    },
+    "interface": {
+      "placeholder": "Ask a question... (Shift+Enter for new line)",
+      "thinking": "Thinking...",
+      "error": "Error"
+    }
+  },
+  "confidence": {
+    "label": "Confidence",
+    "showDetails": "Show confidence details",
+    "breakdown": {
+      "title": "Confidence Breakdown",
+      "description": "How we calculated this confidence score"
+    },
+    "factors": {
+      "modelCertainty": "Model Certainty",
+      "knowledgeMatch": "Knowledge Match",
+      "informationRecency": "Information Recency",
+      "domainReliability": "Domain Reliability",
+      "sourceConsensus": "Source Consensus"
+    },
+    "finalScore": "Final Score:",
+    "weightedAverage": "Weighted average of all factors",
+    "formula": "Formula: 20% Model + 30% Knowledge + 20% Recency + 10% Domain + 20% Consensus",
+    "weight": "weight"
+  },
+  "dashboard": {
+    "title": "Skill Monitoring Dashboard",
+    "description": "Track your independence and skill development",
+    "loading": "Loading metrics...",
+    "noData": "No data available",
+    "alerts": {
+      "critical": {
+        "title": "Critical: Skill Degradation Risk",
+        "description": "Your independence ratio has fallen below 20%. Consider taking a skill assessment and scheduling regular AI-free practice time."
+      },
+      "strong": {
+        "title": "Warning: Declining Independence",
+        "description": "Your independence is declining. We recommend increasing independent work to maintain your skills. Current ratio: {{ratio}}%"
+      },
+      "gentle": {
+        "title": "Reminder: Practice Independent Work",
+        "description": "Remember to practice working independently. Aim for at least 40% independent work time."
+      },
+      "actions": {
+        "schedulePractice": "Schedule Practice Time",
+        "viewTips": "View Tips"
+      }
+    },
+    "independence": {
+      "title": "Independence Tracker",
+      "period": "Last 30 days",
+      "target": "Target",
+      "trend": "Trend",
+      "trends": {
+        "improving": "Improving",
+        "declining": "Declining",
+        "stable": "Stable"
+      }
+    },
+    "skillBreakdown": {
+      "title": "Skill Breakdown",
+      "description": "Independence by task type",
+      "skills": {
+        "writing": "Writing",
+        "coding": "Coding",
+        "analysis": "Analysis"
+      },
+      "independencePercent": "Independence %",
+      "targetLabel": "Target: 40%"
+    },
+    "trendChart": {
+      "title": "Independence Over Time",
+      "description": "4-week trend",
+      "week": "Week {{number}}"
+    },
+    "scheduler": {
+      "title": "Schedule Independence Time",
+      "description": "Set aside time for AI-free practice",
+      "intro": "Regular independent practice helps maintain and develop your skills. Consider scheduling:",
+      "daily": "Daily 30-minute practice",
+      "weekly": "Weekly skill challenge",
+      "custom": "Custom schedule",
+      "emergencyOverride": "Emergency Override:",
+      "emergencyDescription": "If you need AI during scheduled independent time, you can use it but will be prompted to reflect on why."
+    }
+  },
+  "patterns": {
+    "a": {
+      "taskDecomposition": {
+        "title": "Consider Breaking This Down",
+        "description": "This appears to be a complex task. Would you like help decomposing it into smaller steps?",
+        "action": "Help Me Plan"
+      },
+      "verification": {
+        "title": "Verification Tools",
+        "description": "Recommended for strategic thinkers like you",
+        "compareModels": "Compare with Other Models",
+        "checkFacts": "Check Facts & Sources"
+      },
+      "tracking": {
+        "title": "Track Changes",
+        "description": "See how the solution evolved",
+        "placeholder": "Process tracking will appear here for iterative tasks"
+      }
+    },
+    "f": {
+      "alert": {
+        "title": "Skill Development Alert",
+        "description": "Our system has detected a pattern of immediate AI reliance without verification. This may impact your learning and skill development over time."
+      },
+      "trySolo": {
+        "title": "Try It Yourself First",
+        "description": "Building skills requires active practice",
+        "intro": "Before using AI, please take a moment to:",
+        "steps": {
+          "think": "Think about what you already know",
+          "outline": "Outline your initial approach",
+          "try": "Try solving it independently for 5 minutes"
+        },
+        "action": "I'll Try Solo First"
+      },
+      "reflection": {
+        "title": "Reflection Questions",
+        "description": "Consider these before proceeding",
+        "questions": {
+          "tried": {
+            "question": "1. What have you tried so far?",
+            "hint": "Think about your initial attempts"
+          },
+          "help": {
+            "question": "2. What specific part do you need help with?",
+            "hint": "Be precise about where you're stuck"
+          },
+          "verify": {
+            "question": "3. How will you verify the AI's answer?",
+            "hint": "Plan your verification strategy"
+          }
+        }
+      }
+    }
+  }
+}

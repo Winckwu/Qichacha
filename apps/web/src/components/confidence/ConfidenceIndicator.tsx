@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { Info } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import type { ConfidenceResult } from '@/types';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
@@ -11,6 +12,7 @@ interface ConfidenceIndicatorProps {
 }
 
 export default function ConfidenceIndicator({ confidence, className }: ConfidenceIndicatorProps) {
+  const { t } = useTranslation();
   const [showDetails, setShowDetails] = useState(false);
 
   const getColorClass = (level: string) => {
@@ -52,12 +54,12 @@ export default function ConfidenceIndicator({ confidence, className }: Confidenc
         <div className="flex-1">
           <div className="flex items-center justify-between mb-1">
             <span className={cn('text-sm font-semibold', getTextColorClass(confidence.level))}>
-              Confidence: {percentage}%
+              {t('confidence.label')}: {percentage}%
             </span>
             <button
               onClick={() => setShowDetails(!showDetails)}
               className="text-muted-foreground hover:text-foreground transition-colors"
-              aria-label="Show confidence details"
+              aria-label={t('confidence.showDetails')}
             >
               <Info className="h-4 w-4" />
             </button>
@@ -80,43 +82,43 @@ export default function ConfidenceIndicator({ confidence, className }: Confidenc
       {showDetails && (
         <Card className="mt-3 border-muted">
           <CardHeader className="pb-3">
-            <CardTitle className="text-sm">Confidence Breakdown</CardTitle>
+            <CardTitle className="text-sm">{t('confidence.breakdown.title')}</CardTitle>
             <CardDescription className="text-xs">
-              How we calculated this confidence score
+              {t('confidence.breakdown.description')}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-3">
             <FactorBar
-              label="Model Certainty"
+              label={t('confidence.factors.modelCertainty')}
               value={confidence.factors.modelUncertainty}
               weight={20}
             />
             <FactorBar
-              label="Knowledge Match"
+              label={t('confidence.factors.knowledgeMatch')}
               value={confidence.factors.knowledgeBaseMatch}
               weight={30}
             />
             <FactorBar
-              label="Information Recency"
+              label={t('confidence.factors.informationRecency')}
               value={confidence.factors.recencyPenalty}
               weight={20}
             />
             <FactorBar
-              label="Domain Reliability"
+              label={t('confidence.factors.domainReliability')}
               value={confidence.factors.domainReliability}
               weight={10}
             />
             <FactorBar
-              label="Source Consensus"
+              label={t('confidence.factors.sourceConsensus')}
               value={confidence.factors.sourceConsensus}
               weight={20}
             />
 
             <div className="pt-2 mt-2 border-t text-xs text-muted-foreground">
               <p>
-                <strong>Final Score:</strong> Weighted average of all factors
+                <strong>{t('confidence.finalScore')}</strong> {t('confidence.weightedAverage')}
               </p>
-              <p className="mt-1">Formula: 20% Model + 30% Knowledge + 20% Recency + 10% Domain + 20% Consensus</p>
+              <p className="mt-1">{t('confidence.formula')}</p>
             </div>
           </CardContent>
         </Card>
@@ -132,6 +134,7 @@ interface FactorBarProps {
 }
 
 function FactorBar({ label, value, weight }: FactorBarProps) {
+  const { t } = useTranslation();
   const percentage = Math.round(value * 100);
 
   return (
@@ -139,7 +142,7 @@ function FactorBar({ label, value, weight }: FactorBarProps) {
       <div className="flex items-center justify-between mb-1">
         <span className="text-xs font-medium">{label}</span>
         <span className="text-xs text-muted-foreground">
-          {percentage}% (weight: {weight}%)
+          {percentage}% ({t('confidence.weight')}: {weight}%)
         </span>
       </div>
       <Progress value={value * 100} className="h-1.5" />

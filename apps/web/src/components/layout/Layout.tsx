@@ -1,6 +1,8 @@
 import { Link, useLocation } from 'react-router-dom';
 import { MessageSquare, BarChart3 } from 'lucide-react';
+import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils';
+import LanguageSwitcher from '@/components/LanguageSwitcher';
 
 interface LayoutProps {
   children: React.ReactNode;
@@ -8,6 +10,7 @@ interface LayoutProps {
 
 export default function Layout({ children }: LayoutProps) {
   const location = useLocation();
+  const { t } = useTranslation();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800">
@@ -33,7 +36,7 @@ export default function Layout({ children }: LayoutProps) {
                   )}
                 >
                   <MessageSquare className="h-4 w-4" />
-                  <span>Chat</span>
+                  <span>{t('nav.chat')}</span>
                 </Link>
                 <Link
                   to="/dashboard"
@@ -45,15 +48,16 @@ export default function Layout({ children }: LayoutProps) {
                   )}
                 >
                   <BarChart3 className="h-4 w-4" />
-                  <span>Dashboard</span>
+                  <span>{t('nav.dashboard')}</span>
                 </Link>
               </div>
             </div>
 
             <div className="flex items-center space-x-4">
               <div className="text-sm text-muted-foreground">
-                Pattern: <span className="font-semibold text-primary">A</span>
+                {t('nav.pattern')}: <span className="font-semibold text-primary">A</span>
               </div>
+              <LanguageSwitcher />
             </div>
           </div>
         </div>
