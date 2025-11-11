@@ -8,6 +8,7 @@ import CalibrationPage from './pages/CalibrationPage';
 import PrivacyDemoPage from './pages/PrivacyDemoPage';
 import TestScenariosPage from './pages/TestScenariosPage';
 import ChatDemoPage from './pages/ChatDemoPage';
+import './i18n';
 
 export default function App() {
   return (

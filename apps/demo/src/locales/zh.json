@@ -1,0 +1,29 @@
+{
+  "common": {
+    "loading": "加载中...",
+    "error": "错误",
+    "version": "版本",
+    "demoMode": "演示模式",
+    "demoModeDesc": "所有数据均为模拟数据，无需数据库连接"
+  },
+  "nav": {
+    "dashboard": "功能总览",
+    "chat": "对话演示",
+    "patterns": "模式识别",
+    "confidence": "置信度评分",
+    "skills": "技能监控",
+    "calibration": "置信度校准",
+    "privacy": "隐私保护",
+    "scenarios": "测试场景"
+  },
+  "dashboard": {
+    "title": "MCA System 元认知协作智能体",
+    "subtitle": "交互式原型",
+    "hero": {
+      "version": "v1.0.0 演示版",
+      "noDatabase": "无需数据库",
+      "title": "元认知协作智能体系统",
+      "subtitle": "交互式功能原型 - 探索AI辅助学习的所有核心功能"
+    }
+  }
+}

@@ -1,5 +1,6 @@
 import { type ReactNode } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { cn } from '@/lib/utils';
 import {
   Home,
@@ -11,24 +12,26 @@ import {
   Target,
   FlaskConical,
 } from 'lucide-react';
+import LanguageSwitcher from './LanguageSwitcher';
 
 interface LayoutProps {
   children: ReactNode;
 }
 
-const navigation = [
-  { name: '功能总览', href: '/', icon: Home },
-  { name: '对话演示', href: '/chat', icon: MessageSquare },
-  { name: '模式识别', href: '/patterns', icon: Users },
-  { name: '置信度评分', href: '/confidence', icon: Activity },
-  { name: '技能监控', href: '/skills', icon: Target },
-  { name: '置信度校准', href: '/calibration', icon: BarChart3 },
-  { name: '隐私保护', href: '/privacy', icon: Shield },
-  { name: '测试场景', href: '/scenarios', icon: FlaskConical },
-];
-
 export default function Layout({ children }: LayoutProps) {
   const location = useLocation();
+  const { t } = useTranslation();
+
+  const navigation = [
+    { name: t('nav.dashboard'), href: '/', icon: Home },
+    { name: t('nav.chat'), href: '/chat', icon: MessageSquare },
+    { name: t('nav.patterns'), href: '/patterns', icon: Users },
+    { name: t('nav.confidence'), href: '/confidence', icon: Activity },
+    { name: t('nav.skills'), href: '/skills', icon: Target },
+    { name: t('nav.calibration'), href: '/calibration', icon: BarChart3 },
+    { name: t('nav.privacy'), href: '/privacy', icon: Shield },
+    { name: t('nav.scenarios'), href: '/scenarios', icon: FlaskConical },
+  ];
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-50">
@@ -40,14 +43,15 @@ export default function Layout({ children }: LayoutProps) {
               <span className="text-xl font-bold">M</span>
             </div>
             <div>
-              <h1 className="text-lg font-bold">MCA System</h1>
-              <p className="text-xs text-muted-foreground">元认知协作智能体 - 交互式原型</p>
+              <h1 className="text-lg font-bold">{t('dashboard.title')}</h1>
+              <p className="text-xs text-muted-foreground">{t('dashboard.subtitle')}</p>
             </div>
           </div>
 
           <div className="ml-auto flex items-center space-x-4">
+            <LanguageSwitcher />
             <div className="hidden md:flex items-center space-x-2 text-sm">
-              <span className="text-muted-foreground">版本:</span>
+              <span className="text-muted-foreground">{t('common.version', 'Version')}:</span>
               <span className="font-mono text-primary">v1.0.0-demo</span>
             </div>
           </div>
@@ -83,10 +87,10 @@ export default function Layout({ children }: LayoutProps) {
           {/* Sidebar Footer */}
           <div className="absolute bottom-4 left-4 right-4 rounded-lg border bg-muted/50 p-4">
             <p className="text-xs font-medium text-muted-foreground">
-              📘 演示模式
+              📘 {t('common.demoMode')}
             </p>
             <p className="mt-1 text-xs text-muted-foreground">
-              所有数据均为模拟数据，无需数据库连接
+              {t('common.demoModeDesc')}
             </p>
           </div>
         </aside>

@@ -1,0 +1,573 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "save": "Save",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "search": "Search",
+    "version": "Version",
+    "demoMode": "Demo Mode",
+    "demoModeDesc": "All data is simulated, no database connection required"
+  },
+  "nav": {
+    "home": "Home",
+    "dashboard": "Dashboard",
+    "chat": "Chat Demo",
+    "patterns": "Pattern Recognition",
+    "confidence": "Confidence Scoring",
+    "skills": "Skill Monitoring",
+    "calibration": "Confidence Calibration",
+    "privacy": "Privacy Protection",
+    "scenarios": "Test Scenarios"
+  },
+  "dashboard": {
+    "hero": {
+      "version": "v1.0.0 Demo",
+      "noDatabase": "No Database Required",
+      "title": "Metacognitive Collaborative Agent System",
+      "subtitle": "Interactive Functional Prototype - Explore all core features of AI-assisted learning",
+      "testScenarios": "Test Scenarios",
+      "startChat": "Start Chat"
+    },
+    "stats": {
+      "patterns": {
+        "value": "6 Types",
+        "label": "Supported Patterns",
+        "subtext": "A-F User Classification"
+      },
+      "confidenceFactors": {
+        "value": "5 Factors",
+        "label": "Confidence Factors",
+        "subtext": "Multi-dimensional Assessment"
+      },
+      "privacyLevels": {
+        "value": "3 Tiers",
+        "label": "Privacy Levels",
+        "subtext": "Flexible Control"
+      },
+      "scenarios": {
+        "value": "6+",
+        "label": "Test Scenarios",
+        "subtext": "Comprehensive Coverage"
+      }
+    },
+    "featuresSection": {
+      "title": "Feature Modules",
+      "subtitle": "Click to explore interactive prototypes of each feature",
+      "chat": {
+        "title": "Chat Demo",
+        "description": "Experience real conversation scenarios with 6 user patterns",
+        "highlight1": "Real-time Confidence",
+        "highlight2": "Pattern Recognition",
+        "highlight3": "Interactive Dialogue"
+      },
+      "patterns": {
+        "title": "Pattern Recognition",
+        "description": "Deep dive into 6 user behavior pattern classifications",
+        "highlight1": "A-F Patterns",
+        "highlight2": "Feature Analysis",
+        "highlight3": "Dynamic Scoring"
+      },
+      "confidence": {
+        "title": "Confidence Scoring",
+        "description": "Multi-factor confidence calculation and visualization",
+        "highlight1": "5 Key Factors",
+        "highlight2": "Real-time Assessment",
+        "highlight3": "Detailed Explanation"
+      },
+      "skills": {
+        "title": "Skill Monitoring",
+        "description": "Track user skills and independence changes",
+        "highlight1": "Trend Analysis",
+        "highlight2": "Alert Mechanism",
+        "highlight3": "Capacity Building"
+      },
+      "calibration": {
+        "title": "Confidence Calibration",
+        "description": "View ECE calibration and accuracy analysis",
+        "highlight1": "ECE Calculation",
+        "highlight2": "Calibration Curve",
+        "highlight3": "Performance Metrics"
+      },
+      "privacy": {
+        "title": "Privacy Protection",
+        "description": "Experience the difference of three-tier privacy architecture",
+        "highlight1": "3-Tier Architecture",
+        "highlight2": "Data Anonymization",
+        "highlight3": "Controlled Analysis"
+      },
+      "tryNow": "Try Now"
+    },
+    "systemFeatures": {
+      "title": "System Features",
+      "frontend": {
+        "title": "Pure Frontend Demo",
+        "description": "No backend server required, all data is simulated"
+      },
+      "interactive": {
+        "title": "Interactive Prototype",
+        "description": "Rich animations and interactions, authentic experience"
+      },
+      "complete": {
+        "title": "Complete Feature Showcase",
+        "description": "Covers 6 patterns, confidence, privacy and other core features"
+      },
+      "scenarios": {
+        "title": "Test Scenarios",
+        "description": "6+ preset scenarios demonstrating various system capabilities"
+      },
+      "charts": {
+        "title": "Visualized Charts",
+        "description": "Data trends displayed using Recharts"
+      },
+      "responsive": {
+        "title": "Responsive Design",
+        "description": "Supports desktop and mobile access"
+      }
+    },
+    "quickStart": {
+      "title": "Quick Start",
+      "subtitle": "Recommended path to explore the MCA system",
+      "step1": {
+        "title": "Select Test Scenario",
+        "description": "Choose a preset scenario from the \"Test Scenarios\" page to begin"
+      },
+      "step2": {
+        "title": "Experience Conversation Interaction",
+        "description": "View interaction styles of different user patterns in \"Chat Demo\""
+      },
+      "step3": {
+        "title": "Explore Deep Features",
+        "description": "Explore pattern recognition, confidence scoring, skill monitoring and more"
+      }
+    }
+  },
+  "chat": {
+    "title": "Chat Demo",
+    "subtitle": "Experience adaptive AI conversation system",
+    "pageTitle": "Intelligent Chat Demo",
+    "pageSubtitle": "Have real conversations with AI, the system will analyze your behavioral patterns in real-time and provide personalized responses",
+    "welcome": "Welcome to MCA System",
+    "welcomeSubtitle": "Metacognitive Collaborative Agent",
+    "welcomeDescription": "Start a conversation to experience AI-assisted learning.",
+    "placeholder": "Ask a question... (Shift+Enter for new line)",
+    "thinking": "Thinking...",
+    "selectPattern": "Select User Pattern",
+    "patternDescription": "Choose a user pattern to experience different interaction styles",
+    "confidenceScore": "Confidence Score",
+    "aiResponse": "AI Response",
+    "realTimeChat": "Real-time Chat",
+    "chatDescription": "Enter your question, AI will provide personalized responses based on your pattern",
+    "aiThinking": "AI is thinking...",
+    "currentPattern": "Current Pattern Features",
+    "patternMatching": "Pattern Matching Analysis",
+    "patternMatchingDescription": "Real-time scoring based on conversation content"
+  },
+  "patterns": {
+    "title": "Pattern Recognition",
+    "subtitle": "Deep dive into 6 user behavior patterns and their characteristic analysis",
+    "riskLevel": "Risk Level",
+    "characteristics": "Behavioral Characteristics",
+    "classificationScores": "Classification Score Details",
+    "reasoning": "Analysis Reasoning",
+    "confidenceTitle": "Classification Confidence",
+    "confidenceDescription": "Based on multi-dimensional behavioral feature analysis",
+    "interventionTitle": "Intervention Recommendations",
+    "statisticsTitle": "Pattern Statistics",
+    "accuracyRate": "Recognition Accuracy",
+    "avgConfidence": "Average Confidence",
+    "sampleSize": "Analysis Sample Size",
+    "patternNames": {
+      "A": "Strategic Decomposer",
+      "B": "Efficiency-Focused Iterator",
+      "C": "Learning-Oriented Explorer",
+      "D": "Verification-Driven Cautious",
+      "E": "Task Completion Pragmatist",
+      "F": "Uncritical Reliance"
+    },
+    "patternDescriptions": {
+      "A": "High metacognitive engagement, systematic task decomposition, active monitoring and adjustment",
+      "B": "Prioritizes efficiency and rapid iteration, achieves goals through multiple rounds of optimization, balances speed and quality",
+      "C": "Builds deep understanding through exploration, compares multiple approaches, values process learning",
+      "D": "Thorough verification, cross-checking, strong error prevention awareness",
+      "E": "Quickly accepts AI suggestions, prioritizes task completion efficiency, minimal verification",
+      "F": "Low metacognitive engagement, lacks verification, severe skill degradation risk"
+    },
+    "risks": {
+      "low": "Low Risk",
+      "medium": "Medium Risk",
+      "high": "Critical Risk"
+    },
+    "interventions": {
+      "A": {
+        "1": "✅ Maintain current learning approach",
+        "2": "✅ Ready for more complex tasks",
+        "3": "✅ Suitable as role model for others"
+      },
+      "B": {
+        "1": "✅ Encourage continued balance",
+        "2": "📊 Monitor learning progress",
+        "3": "💡 Provide advanced challenges"
+      },
+      "C": {
+        "1": "📚 Provide multi-approach comparison learning",
+        "2": "💡 Encourage deep understanding and experimentation",
+        "3": "⚠️ Remind to verify results timely"
+      },
+      "D": {
+        "1": "✅ Maintain cautious verification habits",
+        "2": "✅ Provide verifiable information sources",
+        "3": "💡 Encourage high-quality analysis"
+      },
+      "E": {
+        "1": "💡 Monitor long-term skill development",
+        "2": "📊 Encourage moderate thinking process",
+        "3": "⚖️ Balance efficiency and learning"
+      },
+      "F": {
+        "1": "🚨 Mandatory thinking guidance",
+        "2": "🚨 Protective friction mechanism",
+        "3": "🚨 Prevent skill degradation"
+      }
+    }
+  },
+  "confidence": {
+    "title": "Confidence Scoring System",
+    "subtitle": "Multi-dimensional scoring mechanism display",
+    "pageTitle": "Confidence Scoring",
+    "pageSubtitle": "Multi-factor confidence calculation and visualization display",
+    "overallScore": "Overall Score",
+    "overallConfidence": "Overall Confidence",
+    "overallDescription": "Comprehensive assessment based on multiple factors",
+    "breakdown": "Score Breakdown",
+    "factorBreakdown": "Factor Breakdown",
+    "factorBreakdownDescription": "Detailed scores for each assessment factor",
+    "detailedFactors": "Detailed Factor Explanation",
+    "quickPresets": "Quick Presets",
+    "presetsDescription": "Select preset scenarios to view different confidence levels",
+    "highConfidence": "High Confidence",
+    "moderateConfidence": "Moderate Confidence",
+    "lowConfidence": "Low Confidence",
+    "criticallyLow": "Critically Low",
+    "randomGenerate": "Random Generate",
+    "factors": {
+      "contentQuality": "Content Quality",
+      "contextRelevance": "Context Relevance",
+      "uncertaintyLevel": "Uncertainty Level",
+      "sourceReliability": "Source Reliability",
+      "complexityMatch": "Complexity Match",
+      "modelConfidence": "Model Confidence",
+      "modelConfidenceDesc": "Internal probability assessment based on language model",
+      "crossValidation": "Cross Validation",
+      "crossValidationDesc": "Consistency assessment of multi-model responses",
+      "factualConsistency": "Factual Consistency",
+      "factualConsistencyDesc": "Degree of match with known fact database",
+      "domainCoverage": "Domain Coverage",
+      "domainCoverageDesc": "Breadth of knowledge domains covered in response",
+      "responseCoherence": "Response Coherence",
+      "responseCoherenceDesc": "Logical coherence and semantic fluency",
+      "weight": "Weight"
+    },
+    "description": "Comprehensive assessment based on multiple factors",
+    "explanation": "Confidence Explanation",
+    "high": "High Confidence - Reliable and comprehensive information",
+    "medium": "Medium Confidence - Recommend verifying key information",
+    "low": "Low Confidence - Further confirmation needed",
+    "levels": {
+      "title": "Confidence Levels",
+      "highLabel": "HIGH (≥85%)",
+      "highDesc": "Response is highly reliable, can be used directly",
+      "moderateLabel": "MODERATE (70-85%)",
+      "moderateDesc": "Recommend verification and confirmation",
+      "lowLabel": "LOW (50-70%)",
+      "lowDesc": "Need to treat with caution and verify",
+      "criticalLabel": "CRITICAL (<50%)",
+      "criticalDesc": "Strongly recommend manual verification"
+    },
+    "calculation": {
+      "title": "Calculation Method",
+      "formula": "Total Score = Σ (Factor Score × Weight)",
+      "note": "Factor weights can be adjusted based on application scenarios"
+    },
+    "statistics": {
+      "title": "System Statistics",
+      "avgConfidence": "Average Confidence",
+      "highResponses": "High Confidence Responses",
+      "totalSamples": "Evaluation Sample Size"
+    }
+  },
+  "skills": {
+    "title": "Skill Monitoring Dashboard",
+    "subtitle": "Track your independence and skill development",
+    "pageTitle": "Skill Monitoring",
+    "pageSubtitle": "Track user skill development and independence change trends",
+    "independenceTracker": "Independence Tracker",
+    "independenceTrend": "Independence Trend (Last 14 days)",
+    "independenceTrendDescription": "Changes in user's ratio of independent task completion",
+    "last30Days": "Last 30 days",
+    "target": "Target",
+    "trend": "Trend",
+    "improving": "Improving",
+    "stable": "Stable",
+    "declining": "Declining",
+    "skillBreakdown": "Skill Breakdown",
+    "skillBreakdownDescription": "Independence by task type",
+    "skillDetails": "Skill Details",
+    "skillDetailsDescription": "Current level of key skills",
+    "independenceOverTime": "Independence Over Time",
+    "trendDescription": "4-week trend",
+    "currentStatus": "Current Status",
+    "independenceRatio": "Independence Ratio",
+    "upwardTrend": "Upward trend",
+    "downwardTrend": "Downward trend",
+    "stableTrend": "Stable",
+    "weekAgo": "7 days ago",
+    "change": "Change",
+    "alertSystem": "Alert System",
+    "degradationWarning": "Skill Degradation Warning",
+    "degradationMessage": "Multiple skills showing downward trend, intervention recommended",
+    "overDependence": "Over Dependence",
+    "overDependenceMessage": "Independence ratio too low",
+    "goodStatus": "Good Status",
+    "goodStatusMessage": "All indicators normal",
+    "recommendations": "Improvement Recommendations",
+    "keepPace": "Maintain current learning pace",
+    "tryComplex": "Ready to try more complex tasks",
+    "increaseThinking": "Increase independent thinking time",
+    "verifyAI": "Actively verify AI responses",
+    "reduceDependence": "Reduce dependence on AI",
+    "buildIndependence": "Build independent problem-solving habits",
+    "average": "Average",
+    "scheduleTitle": "Schedule Independence Time",
+    "scheduleDescription": "Set aside time for AI-free practice",
+    "scheduleText": "Regular independent practice helps maintain and develop your skills. Consider scheduling:",
+    "practice30min": "Daily 30-minute practice",
+    "weeklyChallenge": "Weekly skill challenge",
+    "customSchedule": "Custom schedule",
+    "emergencyOverride": "Emergency Override: If you need AI during scheduled independent time, you can use it but will be prompted to reflect on why.",
+    "alerts": {
+      "critical": "Critical: Skill Degradation Risk",
+      "criticalDesc": "Your independence ratio has fallen below 20%. Consider taking a skill assessment and scheduling regular AI-free practice time.",
+      "strong": "Warning: Declining Independence",
+      "strongDesc": "Your independence is declining. We recommend increasing independent work to maintain your skills. Current ratio:",
+      "gentle": "Reminder: Practice Independent Work",
+      "gentleDesc": "Remember to practice working independently. Aim for at least 40% independent work time.",
+      "schedulePractice": "Schedule Practice Time",
+      "viewTips": "View Tips"
+    }
+  },
+  "calibration": {
+    "title": "Confidence Calibration",
+    "subtitle": "ECE calibration and accuracy analysis",
+    "pageTitle": "Confidence Calibration",
+    "pageSubtitle": "Expected Calibration Error (ECE) analysis and calibration curve",
+    "eceScore": "ECE Score",
+    "eceDescription": "Expected Calibration Error",
+    "eceLabel": "Expected Calibration Error",
+    "basedOnSamples": "Based on {count} samples",
+    "excellent": "Excellent",
+    "good": "Good",
+    "needsImprovement": "Needs Improvement",
+    "calibrationCurve": "Calibration Curve",
+    "calibrationDescription": "Predicted Confidence vs Actual Accuracy",
+    "calibrationCurveDescription": "Comparison of confidence and actual accuracy",
+    "gapAnalysis": "Calibration Gap",
+    "gapAnalysisDescription": "Confidence deviation by interval",
+    "detailedDistribution": "Detailed Distribution",
+    "detailedDistributionDescription": "Statistical data for each confidence interval",
+    "confidenceRange": "Confidence Range",
+    "sampleCount": "Sample Count",
+    "predictedConfidence": "Predicted Confidence",
+    "actualAccuracy": "Actual Accuracy",
+    "gap": "Gap",
+    "status": "Status",
+    "largeBias": "Large Bias",
+    "perfectCalibration": "Perfect Calibration",
+    "actualCalibration": "Actual Calibration",
+    "interpretation": "Interpretation",
+    "interpretationText": "Lower ECE indicates better calibration. The current system's ECE is",
+    "wellCalibrated": "indicating the model is well calibrated.",
+    "whatIsECE": "What is ECE?",
+    "eceExplanation1": "Expected Calibration Error (ECE) is a metric for measuring the degree of model confidence calibration.",
+    "eceExplanation2": "Perfect calibration means: when the model says it has 80% confidence, it should be correct 80% of the time.",
+    "eceExplanation3": "Lower ECE is better. ECE < 5% is considered excellent calibration.",
+    "eceFormula": "ECE = Σ |confidence - accuracy| × weight",
+    "systemPerformance": "System Performance",
+    "calibrationStatus": "Calibration Status: Excellent",
+    "calibrationStatusDesc": "ECE below 5% threshold",
+    "continuousImprovement": "Continuous Improvement",
+    "continuousImprovementDesc": "Auto-calibration every 1000 samples",
+    "largeScaleValidation": "Large-scale Validation",
+    "largeScaleValidationDesc": "{count} evaluation samples",
+    "recommendations": "Calibration Recommendations",
+    "rec1": "Continue collecting validation data in high confidence ranges",
+    "rec2": "Increase calibration samples for mid-to-low confidence predictions",
+    "rec3": "Regularly reassess calibration curve accuracy"
+  },
+  "privacy": {
+    "title": "Privacy Protection Architecture",
+    "subtitle": "Three-tier configurable privacy mechanism",
+    "pageTitle": "Privacy Protection",
+    "pageSubtitle": "Three-tier privacy architecture - Flexible control of data collection and usage",
+    "currentLevel": "Current Privacy Level",
+    "selectLevel": "Select Privacy Level",
+    "tier": "Tier",
+    "levels": {
+      "minimal": "Minimal Privacy",
+      "balanced": "Balanced Mode",
+      "maximum": "Maximum Privacy",
+      "tier1": "Maximum Privacy",
+      "tier2": "Balanced Mode",
+      "tier3": "Full Analysis"
+    },
+    "levelDescriptions": {
+      "minimal": "Full content analysis for research and improvement",
+      "balanced": "Partial content storage, key data localized",
+      "maximum": "Behavioral features only, content fully hidden",
+      "tier1": "Content-blind tracking - No content stored",
+      "tier2": "Limited content storage - Keywords and summaries",
+      "tier3": "Full data - Complete content storage and analysis"
+    },
+    "dataHandling": "Data Handling",
+    "storage": "Storage",
+    "analysis": "Analysis",
+    "retention": "Retention",
+    "features": {
+      "messageContent": "Message Content",
+      "taskType": "Task Type",
+      "interactionTime": "Interaction Time",
+      "complexityScore": "Complexity Score",
+      "aiResponse": "AI Response",
+      "patternAnalysis": "Pattern Analysis"
+    },
+    "featureStatus": {
+      "tracked": "Full",
+      "partial": "Partial",
+      "hidden": "Hidden",
+      "limited": "Limited"
+    },
+    "featureDetails": {
+      "tier1": {
+        "messageContent": "Only content hash stored",
+        "taskType": "Record task category",
+        "interactionTime": "Record timestamp",
+        "complexityScore": "Auto-calculated",
+        "aiResponse": "No response content stored",
+        "patternAnalysis": "Based on metadata"
+      },
+      "tier2": {
+        "messageContent": "Store keywords and topics",
+        "taskType": "Detailed classification",
+        "interactionTime": "Complete time series",
+        "complexityScore": "Multi-dimensional assessment",
+        "aiResponse": "Store summary",
+        "patternAnalysis": "Complete feature extraction"
+      },
+      "tier3": {
+        "messageContent": "Full storage",
+        "taskType": "Detailed classification",
+        "interactionTime": "Accurate to millisecond",
+        "complexityScore": "Multi-dimensional detailed analysis",
+        "aiResponse": "Full storage",
+        "patternAnalysis": "Deep analysis"
+      }
+    },
+    "dataExample": "Data Example",
+    "dataExampleDescription": "Actual data format stored at this tier",
+    "comparison": "Privacy vs Functionality",
+    "privacyProtection": "Privacy Protection",
+    "analysisCapability": "Analysis Capability",
+    "personalization": "Personalization Level",
+    "highest": "Highest",
+    "standard": "Standard",
+    "basic": "Basic",
+    "complete": "Complete",
+    "limited": "Limited",
+    "moderate": "Moderate",
+    "optimal": "Optimal",
+    "useCases": "Use Cases",
+    "useCasesTier1": [
+      "✓ Highly sensitive work environments",
+      "✓ Strict data compliance requirements",
+      "✓ Privacy protection priority",
+      "! Limited analysis capabilities"
+    ],
+    "useCasesTier2": [
+      "✓ Educational learning scenarios",
+      "✓ General corporate environments",
+      "✓ Balance privacy and functionality",
+      "✓ Recommended setting"
+    ],
+    "useCasesTier3": [
+      "✓ Research and development",
+      "✓ Requires deep analysis",
+      "✓ Best personalization experience",
+      "ℹ Requires explicit authorization"
+    ],
+    "security": "Security Guarantees",
+    "securityFeatures": [
+      "✓ All data end-to-end encrypted",
+      "✓ Users can switch tiers anytime",
+      "✓ Support data export and deletion",
+      "✓ Regular security audits"
+    ],
+    "minimalDetails": {
+      "storage": "Full conversation content stored in cloud",
+      "analysis": "Full-text analysis for pattern recognition",
+      "retention": "Auto-delete after 180 days"
+    },
+    "balancedDetails": {
+      "storage": "Store only metadata and feature vectors",
+      "analysis": "Feature-based pattern classification",
+      "retention": "Auto-delete after 90 days"
+    },
+    "maximumDetails": {
+      "storage": "Local temporary storage only",
+      "analysis": "Analyze behavioral patterns only, no content storage",
+      "retention": "Delete immediately after session ends"
+    },
+    "encryption": "End-to-end encryption",
+    "anonymization": "Data anonymization",
+    "localProcessing": "Local processing option",
+    "dataExport": "Data export/deletion",
+    "compliance": "Compliance",
+    "complianceText": "This system complies with privacy protection regulations such as GDPR and CCPA, ensuring user data security and privacy rights.",
+    "learnMore": "Learn More"
+  },
+  "scenarios": {
+    "title": "Test Scenarios",
+    "subtitle": "Preset scenarios showcasing different user patterns",
+    "pageTitle": "Test Scenarios",
+    "pageSubtitle": "Preset interaction scenarios demonstrating various MCA system capabilities",
+    "selectScenario": "Select Test Scenario",
+    "currentScenario": "Current Scenario",
+    "detectedPattern": "Detected Pattern",
+    "highlights": "Scenario Highlights",
+    "loadScenario": "Load Scenario",
+    "runScenario": "Run Scenario",
+    "running": "Scenario executing...",
+    "executing": "Executing...",
+    "scenarioNum": "Scenario {num}",
+    "userPattern": "User Pattern",
+    "scenarioExplanation": "Scenario Explanation",
+    "scenarioExplanationDescription": "Detailed information for each test scenario",
+    "sampleInteraction": "Sample Interaction:",
+    "user": "User",
+    "ai": "AI",
+    "expectedResults": "Expected Results",
+    "patternRecognition": "Pattern Recognition",
+    "confidenceLevel": "Confidence",
+    "features": "Features",
+    "items": "items",
+    "quickNavigation": "Quick Navigation",
+    "quickNavigationDescription": "After running scenarios, you can visit these pages to view detailed results"
+  }
+}

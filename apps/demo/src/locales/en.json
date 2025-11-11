@@ -1,0 +1,29 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "version": "Version",
+    "demoMode": "Demo Mode",
+    "demoModeDesc": "All data is simulated, no database connection required"
+  },
+  "nav": {
+    "dashboard": "Dashboard",
+    "chat": "Chat Demo",
+    "patterns": "Pattern Recognition",
+    "confidence": "Confidence Scoring",
+    "skills": "Skill Monitoring",
+    "calibration": "Confidence Calibration",
+    "privacy": "Privacy Protection",
+    "scenarios": "Test Scenarios"
+  },
+  "dashboard": {
+    "title": "MCA System - Metacognitive Collaborative Agent",
+    "subtitle": "Interactive Prototype",
+    "hero": {
+      "version": "v1.0.0 Demo",
+      "noDatabase": "No Database Required",
+      "title": "Metacognitive Collaborative Agent System",
+      "subtitle": "Interactive Function Prototype - Explore All Core Features of AI-Assisted Learning"
+    }
+  }
+}

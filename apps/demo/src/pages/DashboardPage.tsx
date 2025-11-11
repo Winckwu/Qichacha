@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
@@ -18,68 +19,110 @@ import {
 const features = [
   {
     icon: MessageSquare,
-    title: '对话演示',
-    description: '体验6种用户模式的真实对话场景',
+    titleKey: 'dashboard.featuresSection.chat.title',
+    descriptionKey: 'dashboard.featuresSection.chat.description',
     href: '/chat',
     color: 'text-blue-600',
     bgColor: 'bg-blue-50',
-    highlights: ['实时置信度', '模式识别', '交互式对话']
+    highlightKeys: [
+      'dashboard.featuresSection.chat.highlight1',
+      'dashboard.featuresSection.chat.highlight2',
+      'dashboard.featuresSection.chat.highlight3'
+    ]
   },
   {
     icon: Users,
-    title: '模式识别',
-    description: '深入了解6种用户行为模式分类',
+    titleKey: 'dashboard.featuresSection.patterns.title',
+    descriptionKey: 'dashboard.featuresSection.patterns.description',
     href: '/patterns',
     color: 'text-green-600',
     bgColor: 'bg-green-50',
-    highlights: ['A-F模式', '特征分析', '动态评分']
+    highlightKeys: [
+      'dashboard.featuresSection.patterns.highlight1',
+      'dashboard.featuresSection.patterns.highlight2',
+      'dashboard.featuresSection.patterns.highlight3'
+    ]
   },
   {
     icon: Activity,
-    title: '置信度评分',
-    description: '多因素置信度计算和可视化',
+    titleKey: 'dashboard.featuresSection.confidence.title',
+    descriptionKey: 'dashboard.featuresSection.confidence.description',
     href: '/confidence',
     color: 'text-purple-600',
     bgColor: 'bg-purple-50',
-    highlights: ['5大因素', '实时评估', '详细解释']
+    highlightKeys: [
+      'dashboard.featuresSection.confidence.highlight1',
+      'dashboard.featuresSection.confidence.highlight2',
+      'dashboard.featuresSection.confidence.highlight3'
+    ]
   },
   {
     icon: Target,
-    title: '技能监控',
-    description: '追踪用户技能和独立性变化',
+    titleKey: 'dashboard.featuresSection.skills.title',
+    descriptionKey: 'dashboard.featuresSection.skills.description',
     href: '/skills',
     color: 'text-orange-600',
     bgColor: 'bg-orange-50',
-    highlights: ['趋势分析', '预警机制', '能力建设']
+    highlightKeys: [
+      'dashboard.featuresSection.skills.highlight1',
+      'dashboard.featuresSection.skills.highlight2',
+      'dashboard.featuresSection.skills.highlight3'
+    ]
   },
   {
     icon: BarChart3,
-    title: '置信度校准',
-    description: '查看ECE校准和准确性分析',
+    titleKey: 'dashboard.featuresSection.calibration.title',
+    descriptionKey: 'dashboard.featuresSection.calibration.description',
     href: '/calibration',
     color: 'text-indigo-600',
     bgColor: 'bg-indigo-50',
-    highlights: ['ECE计算', '校准曲线', '性能指标']
+    highlightKeys: [
+      'dashboard.featuresSection.calibration.highlight1',
+      'dashboard.featuresSection.calibration.highlight2',
+      'dashboard.featuresSection.calibration.highlight3'
+    ]
   },
   {
     icon: Shield,
-    title: '隐私保护',
-    description: '体验三层隐私架构的差异',
+    titleKey: 'dashboard.featuresSection.privacy.title',
+    descriptionKey: 'dashboard.featuresSection.privacy.description',
     href: '/privacy',
     color: 'text-red-600',
     bgColor: 'bg-red-50',
-    highlights: ['3层架构', '数据脱敏', '可控分析']
+    highlightKeys: [
+      'dashboard.featuresSection.privacy.highlight1',
+      'dashboard.featuresSection.privacy.highlight2',
+      'dashboard.featuresSection.privacy.highlight3'
+    ]
   },
 ];
 
-const stats = [
-  { label: '支持模式', value: '6种', subtext: 'A-F用户分类' },
-  { label: '置信度因素', value: '5个', subtext: '多维度评估' },
-  { label: '隐私层级', value: '3层', subtext: '灵活可控' },
-  { label: '测试场景', value: '6+', subtext: '全面覆盖' },
-];
-
 export default function DashboardPage() {
+  const { t } = useTranslation();
+
+  const stats = [
+    {
+      label: t('dashboard.stats.patterns.label'),
+      value: t('dashboard.stats.patterns.value'),
+      subtext: t('dashboard.stats.patterns.subtext')
+    },
+    {
+      label: t('dashboard.stats.confidenceFactors.label'),
+      value: t('dashboard.stats.confidenceFactors.value'),
+      subtext: t('dashboard.stats.confidenceFactors.subtext')
+    },
+    {
+      label: t('dashboard.stats.privacyLevels.label'),
+      value: t('dashboard.stats.privacyLevels.value'),
+      subtext: t('dashboard.stats.privacyLevels.subtext')
+    },
+    {
+      label: t('dashboard.stats.scenarios.label'),
+      value: t('dashboard.stats.scenarios.value'),
+      subtext: t('dashboard.stats.scenarios.subtext')
+    },
+  ];
+
   return (
     <div className="space-y-8">
       {/* Hero Section */}
@@ -87,31 +130,31 @@ export default function DashboardPage() {
         <div className="relative z-10">
           <div className="flex items-center space-x-2 mb-4">
             <Badge className="bg-white/20 text-white border-white/30">
-              v1.0.0 演示版
+              {t('dashboard.hero.version')}
             </Badge>
             <Badge className="bg-green-500/90 text-white border-green-400">
               <CheckCircle2 className="mr-1 h-3 w-3" />
-              无需数据库
+              {t('dashboard.hero.noDatabase')}
             </Badge>
           </div>
 
           <h1 className="text-4xl font-bold lg:text-5xl">
-            元认知协作智能体系统
+            {t('dashboard.hero.title')}
           </h1>
           <p className="mt-4 text-lg text-blue-100 lg:text-xl">
-            交互式功能原型 - 探索AI辅助学习的所有核心功能
+            {t('dashboard.hero.subtitle')}
           </p>
 
           <div className="mt-8 flex flex-wrap gap-4">
             <Link to="/scenarios">
               <Button size="lg" className="bg-white text-blue-600 hover:bg-blue-50">
                 <FlaskConical className="mr-2 h-5 w-5" />
-                测试场景
+                {t('dashboard.hero.testScenarios')}
               </Button>
             </Link>
             <Link to="/chat">
               <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/20 bg-white/5">
-                开始对话
+                {t('dashboard.hero.startChat')}
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
             </Link>
@@ -140,8 +183,8 @@ export default function DashboardPage() {
       <section>
         <div className="mb-6 flex items-center justify-between">
           <div>
-            <h2 className="text-2xl font-bold">功能模块</h2>
-            <p className="text-muted-foreground">点击探索各个功能的交互式原型</p>
+            <h2 className="text-2xl font-bold">{t('dashboard.featuresSection.title')}</h2>
+            <p className="text-muted-foreground">{t('dashboard.featuresSection.subtitle')}</p>
           </div>
         </div>
 
@@ -149,28 +192,28 @@ export default function DashboardPage() {
           {features.map((feature) => {
             const Icon = feature.icon;
             return (
-              <Link key={feature.title} to={feature.href}>
+              <Link key={feature.titleKey} to={feature.href}>
                 <Card className="group h-full border-2 transition-all hover:border-primary hover:shadow-xl">
                   <CardHeader>
                     <div className={`mb-4 inline-flex h-12 w-12 items-center justify-center rounded-lg ${feature.bgColor}`}>
                       <Icon className={`h-6 w-6 ${feature.color}`} />
                     </div>
                     <CardTitle className="group-hover:text-primary transition-colors">
-                      {feature.title}
+                      {t(feature.titleKey)}
                     </CardTitle>
-                    <CardDescription>{feature.description}</CardDescription>
+                    <CardDescription>{t(feature.descriptionKey)}</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="flex flex-wrap gap-2">
-                      {feature.highlights.map((highlight) => (
-                        <Badge key={highlight} variant="outline" className="text-xs">
+                      {feature.highlightKeys.map((highlightKey) => (
+                        <Badge key={highlightKey} variant="outline" className="text-xs">
                           <Zap className="mr-1 h-3 w-3" />
-                          {highlight}
+                          {t(highlightKey)}
                         </Badge>
                       ))}
                     </div>
                     <div className="mt-4 flex items-center text-sm font-medium text-primary">
-                      立即体验
+                      {t('dashboard.featuresSection.tryNow')}
                       <ArrowRight className="ml-1 h-4 w-4 transition-transform group-hover:translate-x-1" />
                     </div>
                   </CardContent>
@@ -183,15 +226,15 @@ export default function DashboardPage() {
 
       {/* Features Highlight */}
       <section className="rounded-2xl border-2 border-dashed border-primary/30 bg-primary/5 p-8">
-        <h2 className="mb-6 text-2xl font-bold">系统特色</h2>
+        <h2 className="mb-6 text-2xl font-bold">{t('dashboard.systemFeatures.title')}</h2>
         <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
           <div className="flex items-start space-x-3">
             <div className="flex h-8 w-8 items-center justify-center rounded-full bg-green-100 text-green-600">
               <CheckCircle2 className="h-5 w-5" />
             </div>
             <div>
-              <h3 className="font-semibold">纯前端演示</h3>
-              <p className="text-sm text-muted-foreground">无需后端服务器，所有数据模拟生成</p>
+              <h3 className="font-semibold">{t('dashboard.systemFeatures.frontend.title')}</h3>
+              <p className="text-sm text-muted-foreground">{t('dashboard.systemFeatures.frontend.description')}</p>
             </div>
           </div>
 
@@ -200,8 +243,8 @@ export default function DashboardPage() {
               <CheckCircle2 className="h-5 w-5" />
             </div>
             <div>
-              <h3 className="font-semibold">交互式原型</h3>
-              <p className="text-sm text-muted-foreground">丰富的动画和交互，真实体验感</p>
+              <h3 className="font-semibold">{t('dashboard.systemFeatures.interactive.title')}</h3>
+              <p className="text-sm text-muted-foreground">{t('dashboard.systemFeatures.interactive.description')}</p>
             </div>
           </div>
 
@@ -210,8 +253,8 @@ export default function DashboardPage() {
               <CheckCircle2 className="h-5 w-5" />
             </div>
             <div>
-              <h3 className="font-semibold">完整功能展示</h3>
-              <p className="text-sm text-muted-foreground">覆盖6种模式、置信度、隐私等核心功能</p>
+              <h3 className="font-semibold">{t('dashboard.systemFeatures.complete.title')}</h3>
+              <p className="text-sm text-muted-foreground">{t('dashboard.systemFeatures.complete.description')}</p>
             </div>
           </div>
 
@@ -220,8 +263,8 @@ export default function DashboardPage() {
               <CheckCircle2 className="h-5 w-5" />
             </div>
             <div>
-              <h3 className="font-semibold">测试场景</h3>
-              <p className="text-sm text-muted-foreground">6+预设场景，演示系统各种能力</p>
+              <h3 className="font-semibold">{t('dashboard.systemFeatures.scenarios.title')}</h3>
+              <p className="text-sm text-muted-foreground">{t('dashboard.systemFeatures.scenarios.description')}</p>
             </div>
           </div>
 
@@ -230,8 +273,8 @@ export default function DashboardPage() {
               <CheckCircle2 className="h-5 w-5" />
             </div>
             <div>
-              <h3 className="font-semibold">可视化图表</h3>
-              <p className="text-sm text-muted-foreground">使用Recharts展示数据趋势</p>
+              <h3 className="font-semibold">{t('dashboard.systemFeatures.charts.title')}</h3>
+              <p className="text-sm text-muted-foreground">{t('dashboard.systemFeatures.charts.description')}</p>
             </div>
           </div>
 
@@ -240,8 +283,8 @@ export default function DashboardPage() {
               <CheckCircle2 className="h-5 w-5" />
             </div>
             <div>
-              <h3 className="font-semibold">响应式设计</h3>
-              <p className="text-sm text-muted-foreground">支持桌面端和移动端访问</p>
+              <h3 className="font-semibold">{t('dashboard.systemFeatures.responsive.title')}</h3>
+              <p className="text-sm text-muted-foreground">{t('dashboard.systemFeatures.responsive.description')}</p>
             </div>
           </div>
         </div>
@@ -251,8 +294,8 @@ export default function DashboardPage() {
       <section>
         <Card className="border-2 border-primary/20">
           <CardHeader>
-            <CardTitle>快速开始</CardTitle>
-            <CardDescription>探索MCA系统的推荐路径</CardDescription>
+            <CardTitle>{t('dashboard.quickStart.title')}</CardTitle>
+            <CardDescription>{t('dashboard.quickStart.subtitle')}</CardDescription>
           </CardHeader>
           <CardContent>
             <ol className="space-y-4">
@@ -261,8 +304,8 @@ export default function DashboardPage() {
                   1
                 </div>
                 <div className="flex-1">
-                  <p className="font-medium">选择测试场景</p>
-                  <p className="text-sm text-muted-foreground">从"测试场景"页面选择一个预设场景开始体验</p>
+                  <p className="font-medium">{t('dashboard.quickStart.step1.title')}</p>
+                  <p className="text-sm text-muted-foreground">{t('dashboard.quickStart.step1.description')}</p>
                 </div>
               </li>
               <li className="flex items-start space-x-3">
@@ -270,8 +313,8 @@ export default function DashboardPage() {
                   2
                 </div>
                 <div className="flex-1">
-                  <p className="font-medium">体验对话交互</p>
-                  <p className="text-sm text-muted-foreground">在"对话演示"中查看不同用户模式的交互方式</p>
+                  <p className="font-medium">{t('dashboard.quickStart.step2.title')}</p>
+                  <p className="text-sm text-muted-foreground">{t('dashboard.quickStart.step2.description')}</p>
                 </div>
               </li>
               <li className="flex items-start space-x-3">
@@ -279,8 +322,8 @@ export default function DashboardPage() {
                   3
                 </div>
                 <div className="flex-1">
-                  <p className="font-medium">探索深度功能</p>
-                  <p className="text-sm text-muted-foreground">逐一探索模式识别、置信度评分、技能监控等功能</p>
+                  <p className="font-medium">{t('dashboard.quickStart.step3.title')}</p>
+                  <p className="text-sm text-muted-foreground">{t('dashboard.quickStart.step3.description')}</p>
                 </div>
               </li>
             </ol>
