@@ -177,33 +177,33 @@ export function generateConfidenceScore(baseScore?: number): ConfidenceScore {
 export function generateConversation(pattern: UserPattern): Message[] {
   const conversations: Record<UserPattern, Array<{ user: string; ai: string; confidence?: number }>> = {
     A: [
-      { user: '我需要分析这个数据集。首先，让我们定义目标。', ai: '很好的方法！让我们先明确分析目标...', confidence: 0.92 },
-      { user: '你能解释一下这个算法的原理吗？', ai: '这个算法基于...', confidence: 0.88 },
-      { user: '让我验证一下你说的这个公式。', ai: '当然，这里是详细推导...', confidence: 0.95 }
+      { user: '我需要分析用户留存率数据。首先，让我明确三个目标：1)识别流失关键时间点 2)找出高留存用户特征 3)提出可测试的改进方案。', ai: '很好的战略思维！您的目标清晰且可量化。建议先从漏斗分析开始，分析Day1、Day7、Day30留存率。同时需要设定验证标准：样本量>1000，置信度95%。', confidence: 0.92 },
+      { user: '对，让我先看看数据分布。你能解释为什么要用Cohort分析而不是简单平均值？', ai: 'Cohort分析能消除时间偏差。如果11月新增用户质量突然提升，简单平均会混淆这个信号。Cohort把每批用户独立追踪，能看到真实趋势。', confidence: 0.88 },
+      { user: '有道理。让我验证一下你说的这个公式：留存率 = 活跃用户数 / 新增用户数。', ai: '关键问题！"活跃"定义直接影响结论。建议分层验证：1)登录留存 2)核心功能使用留存 3)付费转化留存。不同场景用不同指标。', confidence: 0.95 }
     ],
     B: [
-      { user: '帮我快速优化这段代码', ai: '这是优化方案...', confidence: 0.85 },
-      { user: '还不够好，能再改进吗？', ai: '好的，这是第二版改进...', confidence: 0.88 },
-      { user: '这次看起来不错，让我测试一下', ai: '请测试并反馈结果...', confidence: 0.90 }
+      { user: '帮我优化这段Python代码，处理10万条数据要30秒，太慢了', ai: '看到瓶颈了：循环里反复访问DataFrame。快速方案：用向量化操作替换for循环，把iterrows()改成apply()。预计提升10-20倍，降到2-3秒。', confidence: 0.85 },
+      { user: '还不够好，我需要处理百万级数据。能用多进程吗？', ai: '可以！第二版：1)用groupby+agg替代循环（快5倍）2)加multiprocessing.Pool处理分块（快4倍CPU核数）。百万数据预计5-8秒。', confidence: 0.88 },
+      { user: '看起来不错，让我先测试向量化版本，再决定要不要上多进程', ai: '明智的选择！测试流程：1)用1万条验证正确性 2)用10万条测速度 3)profile找新瓶颈。测完反馈结果，我帮你针对性优化。', confidence: 0.90 }
     ],
     C: [
-      { user: '这个概念我想深入理解，为什么这样设计？', ai: '让我详细解释背后的原理...', confidence: 0.82 },
-      { user: '如果用另一种方法会怎样？', ai: '很好的探索！我们来对比...', confidence: 0.85 },
-      { user: '我想试试A、B、C三种方案，能都讲讲吗？', ai: '当然，让我详细对比这三种方案...', confidence: 0.88 }
+      { user: '我在学习React的useEffect，想深入理解为什么需要依赖数组？不传会怎样？', ai: '很好的学习型问题！依赖数组控制"何时重新执行副作用"。1)不传：每次渲染都执行 2)空数组[]：只在mount时执行一次 3)传[count]：count变化时执行。本质是React用Object.is()浅比较依赖项。', confidence: 0.82 },
+      { user: '如果用useCallback+useEffect会怎样？和直接在effect里定义函数有什么区别？', ai: '很好的探索！对比三种：A)effect内定义函数（简单）B)useCallback+依赖（避免重跑）C)useRef存函数（最新值）。优缺点：A适合简单场景，B适合多处使用，C适合需要最新值但不想触发重渲染。', confidence: 0.85 },
+      { user: '我想实际试试这三种方案，你能帮我设计对比实验吗？比如做个计数器？', ai: '完美的学习方式！实验设计：1)场景：父组件传callback给子组件 2)变量：count state 3)对比指标：re-render次数、callback引用变化。用React DevTools Profiler测量。关键：memo+useCallback是配套的。', confidence: 0.88 }
     ],
     D: [
-      { user: '这个结论的依据是什么？', ai: '基于以下数据和文献...', confidence: 0.90 },
-      { user: '我需要验证一下，有其他信息源吗？', ai: '这里有三个可验证的来源...', confidence: 0.92 },
-      { user: '让我交叉检查一下这些数据', ai: '很好的验证思路...', confidence: 0.94 }
+      { user: '你说React 18的并发渲染能提升性能，这个结论的数据依据是什么？', ai: '数据来源：1)React官方benchmark显示长列表FPS从30到58 2)Vercel的A/B测试Core Web Vitals改善23%。需要注意：性能提升因场景而异，CPU密集型任务收益大，IO等待型收益小。', confidence: 0.90 },
+      { user: '官方数据可能有偏，有第三方独立验证吗？测试的设备配置是什么？', ai: '第三方验证：1)LogRocket监控报告：30万用户LCP改善平均18%，但最差10%用户反而恶化（低端设备）2)Chrome团队分析：低端安卓<4GB RAM效果不显著。测试环境：官方用M1，第三方用中位数配置骁龙778G。', confidence: 0.92 },
+      { user: '好的，我去查这几个来源。让我先用WebPageTest跑一下对比测试。', ai: '专业！WebPageTest配置：1)测试地点选目标用户地区 2)设备选P50机型 3)网络用3G Fast模拟弱网 4)至少跑9次取中位数。记得控制变量：除React版本外，代码、资源都要一致。', confidence: 0.94 }
     ],
     E: [
-      { user: '快速帮我完成这个任务', ai: '直接方案如下...', confidence: 0.75 },
-      { user: '好的直接用这个', ai: '按这个步骤执行即可...', confidence: 0.78 }
+      { user: '我要写一个用户注册接口，需要验证邮箱和密码，快速帮我完成', ai: '直接方案：用正则验证邮箱格式，密码要求至少8位含字母数字，用bcrypt加密存储。核心代码：email正则匹配、密码强度检查、hashpw加密、数据库insert。5分钟搞定。', confidence: 0.75 },
+      { user: '好的，直接用这个，看起来够用了', ai: '部署提醒：1)pip install bcrypt 2)生产环境加rate limiting防暴力破解 3)邮箱字段加唯一索引防重复。这三个是最常见的坑，快速加上避免后续麻烦。', confidence: 0.78 }
     ],
     F: [
-      { user: '帮我做', ai: '在我帮助之前，请先思考：你的目标是什么？', confidence: 0.65 },
-      { user: '怎么做？', ai: '先告诉我你已经尝试过什么方法？', confidence: 0.60 },
-      { user: '不会', ai: '让我们一步步分解这个问题...', confidence: 0.58 }
+      { user: '这个SQL查询帮我写一下', ai: '⚠️ 在我帮你写之前，请先回答：1)查询目标是什么？2)涉及哪些表？3)你尝试过写吗？这些信息能帮你理解查询逻辑而不是盲目复制。', confidence: 0.65 },
+      { user: '呃...我想查用户表里的数据，具体的我也不太清楚，你直接给我写吧', ai: '我理解你很着急，但直接给SQL反而会害了你。让我们换个方式：先告诉我你要解决的实际业务问题（比如"找出最近注册但还没购买的用户"），然后我教你怎么把业务问题拆解成查询步骤。这样下次你自己就能搞定。', confidence: 0.60 },
+      { user: '好吧...我试试。我要找最近7天注册的用户', ai: '很好的开始！✅ 现在分解：数据来源是users表，时间范围是最近7天。请思考：1)用户表叫什么名字？2)注册时间字段叫什么？3)"最近7天"从今天算还是从特定日期算？回答后我会教你写WHERE条件。', confidence: 0.58 }
     ]
   };
 

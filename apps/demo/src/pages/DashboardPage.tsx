@@ -110,7 +110,7 @@ export default function DashboardPage() {
               </Button>
             </Link>
             <Link to="/chat">
-              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/10">
+              <Button size="lg" variant="outline" className="border-white text-white hover:bg-white/20 bg-white/5">
                 开始对话
                 <ArrowRight className="ml-2 h-5 w-5" />
               </Button>
