@@ -40,7 +40,7 @@ export default function CalibrationPage() {
                   {(calibration.ece * 100).toFixed(2)}%
                 </div>
                 <div className="text-sm text-muted-foreground mt-1">
-                  {t('calibration.basedOnSamples', { count: calibration.totalSamples.toLocaleString() })}
+                  {t('calibration.basedOnSamples', { count: calibration.totalSamples })}
                 </div>
               </div>
             </div>
@@ -214,7 +214,7 @@ export default function CalibrationPage() {
               <BarChart3 className="h-5 w-5 text-purple-600 mt-0.5" />
               <div>
                 <div className="font-semibold">{t('calibration.largeScaleValidation')}</div>
-                <div className="text-sm text-muted-foreground">{t('calibration.validationSamples', { count: calibration.totalSamples.toLocaleString() })}</div>
+                <div className="text-sm text-muted-foreground">{t('calibration.validationSamples', { count: calibration.totalSamples })}</div>
               </div>
             </div>
           </CardContent>

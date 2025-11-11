@@ -3,15 +3,16 @@ import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
 import Progress from '@/components/ui/Progress';
-import { generateSkillMetrics, generateIndependenceTimeline, ALL_PATTERNS, PATTERN_INFO, type UserPattern } from '@/data/mockData';
+import { generateSkillMetrics, generateIndependenceTimeline, ALL_PATTERNS, getPatternInfo, type UserPattern } from '@/data/mockData';
 import { cn, getTrendIcon, getTrendColor } from '@/lib/utils';
 import { Target, TrendingUp, TrendingDown, Minus, AlertTriangle } from 'lucide-react';
-import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer } from 'recharts';
+import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import { format } from 'date-fns';
 
 export default function SkillMonitoringPage() {
   const { t } = useTranslation();
   const [selectedPattern, setSelectedPattern] = useState<UserPattern>('A');
+  const PATTERN_INFO = getPatternInfo(t);
   const skills = generateSkillMetrics(selectedPattern);
   const timeline = generateIndependenceTimeline(selectedPattern);
 

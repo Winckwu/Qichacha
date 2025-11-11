@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
 import Progress from '@/components/ui/Progress';
-import { PATTERN_INFO, ALL_PATTERNS, generatePatternData, type UserPattern } from '@/data/mockData';
+import { getPatternInfo, ALL_PATTERNS, generatePatternData, type UserPattern } from '@/data/mockData';
 import { cn } from '@/lib/utils';
 import { Users, TrendingUp, AlertTriangle, CheckCircle2 } from 'lucide-react';
 
@@ -11,6 +11,7 @@ export default function PatternDemoPage() {
   const { t } = useTranslation();
   const [selectedPattern, setSelectedPattern] = useState<UserPattern>('A');
   const patternData = generatePatternData(selectedPattern);
+  const PATTERN_INFO = getPatternInfo(t);
   const patternInfo = PATTERN_INFO[selectedPattern];
 
   const riskLevels: Record<UserPattern, { level: string; color: string; icon: any }> = {

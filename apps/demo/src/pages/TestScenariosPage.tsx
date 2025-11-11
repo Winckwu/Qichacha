@@ -4,12 +4,13 @@ import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
-import { TEST_SCENARIOS, PATTERN_INFO, generateConversation, generatePatternData, generateConfidenceScore } from '@/data/mockData';
+import { TEST_SCENARIOS, getPatternInfo, generateConversation, generatePatternData } from '@/data/mockData';
 import { FlaskConical, Play, CheckCircle2, Sparkles } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export default function TestScenariosPage() {
   const { t } = useTranslation();
+  const PATTERN_INFO = getPatternInfo(t);
   const [selectedScenario, setSelectedScenario] = useState<string | null>(null);
   const [running, setRunning] = useState(false);
   const navigate = useNavigate();

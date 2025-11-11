@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
-import { Shield, Eye, EyeOff, Lock } from 'lucide-react';
+import { Shield, Eye, Lock } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 type PrivacyTier = 1 | 2 | 3;
@@ -121,7 +121,7 @@ export default function PrivacyDemoPage() {
             red: { bg: 'from-red-500 to-red-600', border: 'border-red-500', text: 'text-red-600' },
             yellow: { bg: 'from-yellow-500 to-yellow-600', border: 'border-yellow-500', text: 'text-yellow-600' },
             green: { bg: 'from-green-500 to-green-600', border: 'border-green-500', text: 'text-green-600' }
-          }[tier.color];
+          }[tier.color as 'red' | 'yellow' | 'green'];
 
           return (
             <button
@@ -184,7 +184,7 @@ export default function PrivacyDemoPage() {
                     partial: { icon: '◐', color: 'text-yellow-600', bg: 'bg-yellow-50' },
                     hidden: { icon: '✗', color: 'text-red-600', bg: 'bg-red-50' },
                     limited: { icon: '~', color: 'text-orange-600', bg: 'bg-orange-50' }
-                  }[feature.status];
+                  }[feature.status as 'tracked' | 'partial' | 'hidden' | 'limited'];
 
                   return (
                     <div key={idx} className={cn('flex items-center justify-between rounded-lg border p-4', statusConfig.bg)}>
