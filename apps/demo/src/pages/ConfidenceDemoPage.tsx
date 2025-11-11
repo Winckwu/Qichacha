@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
 import Progress from '@/components/ui/Progress';
@@ -9,6 +10,7 @@ import { Activity, RefreshCw, Sparkles } from 'lucide-react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, Cell } from 'recharts';
 
 export default function ConfidenceDemoPage() {
+  const { t } = useTranslation();
   const [confidence, setConfidence] = useState<ConfidenceScore>(() => generateConfidenceScore(0.87));
 
   const regenerate = (baseScore?: number) => {
@@ -16,38 +18,32 @@ export default function ConfidenceDemoPage() {
   };
 
   const factorData = Object.entries(confidence.factors).map(([key, value]) => ({
-    name: {
-      modelConfidence: '模型置信度',
-      crossValidation: '交叉验证',
-      factualConsistency: '事实一致性',
-      domainCoverage: '领域覆盖度',
-      responseCoherence: '响应连贯性',
-    }[key],
+    name: t(`confidence.factors.${key}`),
     value: value * 100,
     color: value >= 0.8 ? '#10b981' : value >= 0.6 ? '#f59e0b' : '#ef4444'
   }));
 
   const presets = [
-    { label: '高置信度', score: 0.92, level: 'high' },
-    { label: '中等置信度', score: 0.75, level: 'moderate' },
-    { label: '低置信度', score: 0.58, level: 'low' },
-    { label: '严重不足', score: 0.35, level: 'critical' },
+    { label: t('confidence.presets.high'), score: 0.92, level: 'high' },
+    { label: t('confidence.presets.moderate'), score: 0.75, level: 'moderate' },
+    { label: t('confidence.presets.low'), score: 0.58, level: 'low' },
+    { label: t('confidence.presets.critical'), score: 0.35, level: 'critical' },
   ];
 
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold">置信度评分</h1>
+        <h1 className="text-3xl font-bold">{t('confidence.title')}</h1>
         <p className="mt-2 text-muted-foreground">
-          多因素置信度计算和可视化展示
+          {t('confidence.description')}
         </p>
       </div>
 
       {/* Preset Buttons */}
       <Card className="border-2">
         <CardHeader>
-          <CardTitle>快速预设</CardTitle>
-          <CardDescription>选择预设场景查看不同置信度级别</CardDescription>
+          <CardTitle>{t('confidence.presetsTitle')}</CardTitle>
+          <CardDescription>{t('confidence.presetsDescription')}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="flex flex-wrap gap-3">
@@ -66,7 +62,7 @@ export default function ConfidenceDemoPage() {
             ))}
             <Button onClick={() => regenerate()}>
               <RefreshCw className="mr-2 h-4 w-4" />
-              随机生成
+              {t('confidence.randomGenerate')}
             </Button>
           </div>
         </CardContent>
@@ -81,9 +77,9 @@ export default function ConfidenceDemoPage() {
                 <div>
                   <CardTitle className="flex items-center gap-2">
                     <Activity className="h-6 w-6" />
-                    总体置信度
+                    {t('confidence.overallConfidence')}
                   </CardTitle>
-                  <CardDescription>综合多个因素的加权评分</CardDescription>
+                  <CardDescription>{t('confidence.overallDescription')}</CardDescription>
                 </div>
                 <Badge className={getConfidenceColor(confidence.level)}>
                   {confidence.level.toUpperCase()}
@@ -115,8 +111,8 @@ export default function ConfidenceDemoPage() {
           {/* Factor Breakdown */}
           <Card className="border-2">
             <CardHeader>
-              <CardTitle>因素分解</CardTitle>
-              <CardDescription>各项评估因素的详细得分</CardDescription>
+              <CardTitle>{t('confidence.factorBreakdown')}</CardTitle>
+              <CardDescription>{t('confidence.factorDescription')}</CardDescription>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
@@ -141,34 +137,34 @@ export default function ConfidenceDemoPage() {
           {/* Detailed Factors */}
           <Card className="border-2">
             <CardHeader>
-              <CardTitle>详细因素说明</CardTitle>
+              <CardTitle>{t('confidence.detailedFactors')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               {Object.entries(confidence.factors).map(([key, value]) => {
                 const info = {
                   modelConfidence: {
-                    name: '模型置信度',
-                    desc: '基于语言模型的内部概率评估',
+                    name: t('confidence.factors.modelConfidence'),
+                    desc: t('confidence.factorDesc.modelConfidence'),
                     weight: '20%'
                   },
                   crossValidation: {
-                    name: '交叉验证',
-                    desc: '多模型响应的一致性评估',
+                    name: t('confidence.factors.crossValidation'),
+                    desc: t('confidence.factorDesc.crossValidation'),
                     weight: '30%'
                   },
                   factualConsistency: {
-                    name: '事实一致性',
-                    desc: '与已知事实库的匹配程度',
+                    name: t('confidence.factors.factualConsistency'),
+                    desc: t('confidence.factorDesc.factualConsistency'),
                     weight: '20%'
                   },
                   domainCoverage: {
-                    name: '领域覆盖度',
-                    desc: '响应涵盖的知识领域广度',
+                    name: t('confidence.factors.domainCoverage'),
+                    desc: t('confidence.factorDesc.domainCoverage'),
                     weight: '10%'
                   },
                   responseCoherence: {
-                    name: '响应连贯性',
-                    desc: '逻辑连贯性和语义流畅度',
+                    name: t('confidence.factors.responseCoherence'),
+                    desc: t('confidence.factorDesc.responseCoherence'),
                     weight: '20%'
                   }
                 }[key]!;
@@ -181,7 +177,7 @@ export default function ConfidenceDemoPage() {
                         <p className="text-sm text-muted-foreground mt-1">{info.desc}</p>
                       </div>
                       <Badge variant="outline" className="ml-2">
-                        权重: {info.weight}
+                        {t('confidence.weight')}: {info.weight}
                       </Badge>
                     </div>
                     <div className="flex items-center gap-3 mt-3">
@@ -210,7 +206,7 @@ export default function ConfidenceDemoPage() {
           {/* Level Guide */}
           <Card className="border-2">
             <CardHeader>
-              <CardTitle>置信度级别</CardTitle>
+              <CardTitle>{t('confidence.levelGuide')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               <div className="rounded-lg bg-green-50 border border-green-200 p-3">
@@ -219,7 +215,7 @@ export default function ConfidenceDemoPage() {
                   <span className="font-semibold text-green-900">HIGH (≥85%)</span>
                 </div>
                 <p className="text-sm text-green-800">
-                  响应高度可信，可以直接使用
+                  {t('confidence.levels.highDesc')}
                 </p>
               </div>
 
@@ -229,7 +225,7 @@ export default function ConfidenceDemoPage() {
                   <span className="font-semibold text-yellow-900">MODERATE (70-85%)</span>
                 </div>
                 <p className="text-sm text-yellow-800">
-                  建议进行验证确认
+                  {t('confidence.levels.moderateDesc')}
                 </p>
               </div>
 
@@ -239,7 +235,7 @@ export default function ConfidenceDemoPage() {
                   <span className="font-semibold text-orange-900">LOW (50-70%)</span>
                 </div>
                 <p className="text-sm text-orange-800">
-                  需要谨慎对待并验证
+                  {t('confidence.levels.lowDesc')}
                 </p>
               </div>
 
@@ -249,7 +245,7 @@ export default function ConfidenceDemoPage() {
                   <span className="font-semibold text-red-900">CRITICAL (&lt;50%)</span>
                 </div>
                 <p className="text-sm text-red-800">
-                  强烈建议人工验证
+                  {t('confidence.levels.criticalDesc')}
                 </p>
               </div>
             </CardContent>
@@ -258,11 +254,11 @@ export default function ConfidenceDemoPage() {
           {/* Calculation Method */}
           <Card className="border-2">
             <CardHeader>
-              <CardTitle>计算方法</CardTitle>
+              <CardTitle>{t('confidence.calculationMethod')}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-3 text-sm">
-                <p>总分 = Σ (因素得分 × 权重)</p>
+                <p>{t('confidence.calculationFormula')}</p>
                 <div className="rounded bg-muted p-3 font-mono text-xs">
                   score = <br />
                   &nbsp;&nbsp;modelConf × 0.2 +<br />
@@ -272,7 +268,7 @@ export default function ConfidenceDemoPage() {
                   &nbsp;&nbsp;coherence × 0.2
                 </div>
                 <p className="text-muted-foreground">
-                  各因素权重可根据应用场景调整
+                  {t('confidence.weightAdjustable')}
                 </p>
               </div>
             </CardContent>
@@ -281,19 +277,19 @@ export default function ConfidenceDemoPage() {
           {/* Statistics */}
           <Card className="border-2">
             <CardHeader>
-              <CardTitle>系统统计</CardTitle>
+              <CardTitle>{t('confidence.systemStats')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2 text-sm">
               <div className="flex justify-between">
-                <span className="text-muted-foreground">平均置信度</span>
+                <span className="text-muted-foreground">{t('confidence.avgConfidence')}</span>
                 <span className="font-bold">78.5%</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-muted-foreground">高置信响应</span>
+                <span className="text-muted-foreground">{t('confidence.highConfidenceRate')}</span>
                 <span className="font-bold">62.3%</span>
               </div>
               <div className="flex justify-between">
-                <span className="text-muted-foreground">评估样本数</span>
+                <span className="text-muted-foreground">{t('confidence.sampleCount')}</span>
                 <span className="font-bold">3,428</span>
               </div>
             </CardContent>

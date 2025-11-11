@@ -1,6 +1,6 @@
 import { useTranslation } from 'react-i18next';
 import { Languages } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
+import Button from '@/components/ui/Button';
 
 export default function LanguageSwitcher() {
   const { i18n } = useTranslation();

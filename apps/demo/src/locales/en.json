@@ -23,7 +23,356 @@
       "version": "v1.0.0 Demo",
       "noDatabase": "No Database Required",
       "title": "Metacognitive Collaborative Agent System",
-      "subtitle": "Interactive Function Prototype - Explore All Core Features of AI-Assisted Learning"
+      "subtitle": "Interactive Function Prototype - Explore All Core Features of AI-Assisted Learning",
+      "testScenarios": "Test Scenarios",
+      "startChat": "Start Chat"
+    },
+    "stats": {
+      "patterns": {
+        "label": "Supported Patterns",
+        "value": "6 Types",
+        "subtext": "A-F User Classification"
+      },
+      "confidenceFactors": {
+        "label": "Confidence Factors",
+        "value": "5 Factors",
+        "subtext": "Multi-dimensional Assessment"
+      },
+      "privacyLevels": {
+        "label": "Privacy Levels",
+        "value": "3 Tiers",
+        "subtext": "Flexible & Controllable"
+      },
+      "scenarios": {
+        "label": "Test Scenarios",
+        "value": "6+",
+        "subtext": "Comprehensive Coverage"
+      }
+    },
+    "featuresSection": {
+      "title": "Feature Modules",
+      "subtitle": "Click to explore interactive prototypes for each feature",
+      "tryNow": "Try Now",
+      "chat": {
+        "title": "Chat Demo",
+        "description": "Experience real conversation scenarios with 6 user patterns",
+        "highlight1": "Real-time Confidence",
+        "highlight2": "Pattern Recognition",
+        "highlight3": "Interactive Dialogue"
+      },
+      "patterns": {
+        "title": "Pattern Recognition",
+        "description": "Deep dive into 6 user behavior pattern classifications",
+        "highlight1": "A-F Patterns",
+        "highlight2": "Feature Analysis",
+        "highlight3": "Dynamic Scoring"
+      },
+      "confidence": {
+        "title": "Confidence Scoring",
+        "description": "Multi-factor confidence calculation and visualization",
+        "highlight1": "5 Key Factors",
+        "highlight2": "Real-time Assessment",
+        "highlight3": "Detailed Explanation"
+      },
+      "skills": {
+        "title": "Skill Monitoring",
+        "description": "Track user skills and independence changes",
+        "highlight1": "Trend Analysis",
+        "highlight2": "Alert Mechanism",
+        "highlight3": "Capability Building"
+      },
+      "calibration": {
+        "title": "Confidence Calibration",
+        "description": "View ECE calibration and accuracy analysis",
+        "highlight1": "ECE Calculation",
+        "highlight2": "Calibration Curve",
+        "highlight3": "Performance Metrics"
+      },
+      "privacy": {
+        "title": "Privacy Protection",
+        "description": "Experience the differences in three-tier privacy architecture",
+        "highlight1": "3-Tier Architecture",
+        "highlight2": "Data Anonymization",
+        "highlight3": "Controllable Analysis"
+      }
+    },
+    "systemFeatures": {
+      "title": "System Features",
+      "frontend": {
+        "title": "Pure Frontend Demo",
+        "description": "No backend server required, all data simulated"
+      },
+      "interactive": {
+        "title": "Interactive Prototype",
+        "description": "Rich animations and interactions for authentic experience"
+      },
+      "complete": {
+        "title": "Complete Feature Display",
+        "description": "Covers 6 patterns, confidence, privacy and other core features"
+      },
+      "scenarios": {
+        "title": "Test Scenarios",
+        "description": "6+ preset scenarios demonstrating system capabilities"
+      },
+      "charts": {
+        "title": "Visualization Charts",
+        "description": "Using Recharts to display data trends"
+      },
+      "responsive": {
+        "title": "Responsive Design",
+        "description": "Supports both desktop and mobile access"
+      }
+    },
+    "quickStart": {
+      "title": "Quick Start",
+      "subtitle": "Recommended path to explore the MCA system",
+      "step1": {
+        "title": "Choose Test Scenario",
+        "description": "Select a preset scenario from the Test Scenarios page to begin"
+      },
+      "step2": {
+        "title": "Experience Dialogue Interaction",
+        "description": "View different user pattern interactions in the Chat Demo"
+      },
+      "step3": {
+        "title": "Explore Advanced Features",
+        "description": "Explore pattern recognition, confidence scoring, skill monitoring and more"
+      }
     }
+  },
+  "chat": {
+    "title": "Intelligent Dialogue Demo",
+    "description": "Engage in real conversation with AI, the system will analyze your behavior patterns in real-time and provide personalized responses",
+    "welcomeMessage": "Hello! I'm an AI assistant based on the MCA Framework. I will analyze your metacognitive behavior patterns in real-time and provide personalized support. Feel free to ask questions, and I will identify your Planning, Monitoring, Evaluation, and Regulation abilities.",
+    "patternDetection": {
+      "title": "Real-time Pattern Recognition",
+      "pattern": "Pattern",
+      "description": "Five-dimensional behavioral feature analysis based on MCA Framework"
+    }
+  },
+  "patterns": {
+    "title": "Pattern Recognition",
+    "description": "Deep dive into 6 user behavior patterns and their characteristic analysis",
+    "patternLabel": "Pattern",
+    "riskLevel": "Risk Level",
+    "characteristics": "Behavioral Characteristics",
+    "classificationScores": "Classification Score Details",
+    "reasoning": "Analysis Reasoning",
+    "confidenceTitle": "Classification Confidence",
+    "confidenceDescription": "Based on multi-dimensional behavioral feature analysis",
+    "recommendations": "Intervention Recommendations",
+    "statistics": "Pattern Statistics",
+    "accuracyRate": "Recognition Accuracy",
+    "avgConfidence": "Average Confidence",
+    "sampleCount": "Analysis Samples",
+    "risk": {
+      "low": "Low Risk",
+      "medium": "Medium Risk",
+      "high": "Extremely High Risk"
+    },
+    "recommendA1": "✅ Maintain current learning approach",
+    "recommendA2": "✅ Can handle more complex tasks",
+    "recommendA3": "✅ Suitable as a role model for other users",
+    "recommendB1": "✅ Encourage maintaining balance",
+    "recommendB2": "📊 Monitor learning progress",
+    "recommendB3": "💡 Provide advanced challenges",
+    "recommendC1": "📚 Provide multi-option comparative learning",
+    "recommendC2": "💡 Encourage deep understanding and experimentation",
+    "recommendC3": "⚠️ Remind to verify results timely",
+    "recommendD1": "✅ Maintain cautious verification habits",
+    "recommendD2": "✅ Provide verifiable information sources",
+    "recommendD3": "💡 Encourage high-quality analysis",
+    "recommendE1": "💡 Monitor long-term skill development",
+    "recommendE2": "📊 Encourage moderate thinking process",
+    "recommendE3": "⚖️ Balance efficiency and learning",
+    "recommendF1": "🚨 Mandatory thinking guidance",
+    "recommendF2": "🚨 Protective friction mechanism",
+    "recommendF3": "🚨 Prevent skill degradation"
+  },
+  "confidence": {
+    "title": "Confidence Scoring",
+    "description": "Multi-factor confidence calculation and visualization",
+    "presetsTitle": "Quick Presets",
+    "presetsDescription": "Select preset scenarios to view different confidence levels",
+    "randomGenerate": "Random Generate",
+    "overallConfidence": "Overall Confidence",
+    "overallDescription": "Weighted score combining multiple factors",
+    "factorBreakdown": "Factor Breakdown",
+    "factorDescription": "Detailed scores for each assessment factor",
+    "detailedFactors": "Detailed Factor Description",
+    "weight": "Weight",
+    "levelGuide": "Confidence Levels",
+    "calculationMethod": "Calculation Method",
+    "calculationFormula": "Total Score = Σ (Factor Score × Weight)",
+    "weightAdjustable": "Factor weights can be adjusted based on application scenario",
+    "systemStats": "System Statistics",
+    "avgConfidence": "Average Confidence",
+    "highConfidenceRate": "High Confidence Responses",
+    "sampleCount": "Assessment Samples",
+    "presets": {
+      "high": "High Confidence",
+      "moderate": "Moderate Confidence",
+      "low": "Low Confidence",
+      "critical": "Critically Low"
+    },
+    "factors": {
+      "modelConfidence": "Model Confidence",
+      "crossValidation": "Cross Validation",
+      "factualConsistency": "Factual Consistency",
+      "domainCoverage": "Domain Coverage",
+      "responseCoherence": "Response Coherence"
+    },
+    "factorDesc": {
+      "modelConfidence": "Internal probability assessment based on language model",
+      "crossValidation": "Consistency assessment across multiple models",
+      "factualConsistency": "Degree of match with known fact database",
+      "domainCoverage": "Breadth of knowledge domains covered in response",
+      "responseCoherence": "Logical coherence and semantic fluency"
+    },
+    "levels": {
+      "highDesc": "Response is highly reliable and can be used directly",
+      "moderateDesc": "Verification and confirmation recommended",
+      "lowDesc": "Treat with caution and verify",
+      "criticalDesc": "Manual verification strongly recommended"
+    }
+  },
+  "skills": {
+    "title": "Skill Monitoring",
+    "description": "Track user skill development and independence change trends",
+    "pattern": "Pattern",
+    "independenceTrend": "Independence Trend (Last 14 Days)",
+    "independenceDescription": "Changes in user's ratio of independently completed tasks",
+    "skillBreakdown": "Skill Breakdown",
+    "skillBreakdownDescription": "Current levels of key skills",
+    "skillDetails": "Skill Details",
+    "improving": "Improving",
+    "declining": "Declining",
+    "stable": "Stable",
+    "average": "Average",
+    "currentStatus": "Current Status",
+    "independenceRatio": "Independence Ratio",
+    "upTrend": "Upward Trend",
+    "downTrend": "Downward Trend",
+    "stableTrend": "Stable Trend",
+    "daysAgo": "Days Ago",
+    "change": "Change",
+    "alertSystem": "Alert System",
+    "skillDegradation": "Skill Degradation Warning",
+    "skillDegradationDesc": "Multiple skills showing downward trends, intervention recommended",
+    "overDependence": "Over Dependence",
+    "overDependenceDesc": "Independence ratio too low",
+    "goodStatus": "Good Status",
+    "goodStatusDesc": "All indicators normal",
+    "improvements": "Improvement Suggestions",
+    "improve1": "Maintain current learning pace",
+    "improve2": "Can try more complex tasks",
+    "improve3": "Increase independent thinking time",
+    "improve4": "Actively verify AI responses",
+    "improve5": "Reduce dependence on AI",
+    "improve6": "Develop habit of solving problems independently"
+  },
+  "calibration": {
+    "title": "Confidence Calibration",
+    "description": "Expected Calibration Error (ECE) analysis and calibration curves",
+    "eceTitle": "Expected Calibration Error",
+    "basedOnSamples": "Based on {count} samples",
+    "excellent": "Excellent",
+    "good": "Good",
+    "needsImprovement": "Needs Improvement",
+    "calibrationCurve": "Calibration Curve",
+    "calibrationDescription": "Comparison of confidence vs actual accuracy",
+    "predictedConfidence": "Predicted Confidence",
+    "actualAccuracy": "Actual Accuracy",
+    "idealLine": "Ideal Line",
+    "gapAnalysis": "Calibration Gap",
+    "gapDescription": "Confidence deviation in each range",
+    "gap": "Gap",
+    "detailedDistribution": "Detailed Distribution",
+    "distributionDescription": "Statistical data for each confidence range",
+    "confidenceRange": "Confidence Range",
+    "sampleCount": "Sample Count",
+    "predicted": "Predicted Confidence",
+    "actual": "Actual Accuracy",
+    "status": "Status",
+    "largeDev": "Large Deviation",
+    "whatIsECE": "What is ECE?",
+    "eceExplanation1": "Expected Calibration Error (ECE) is a metric that measures the calibration degree of model confidence.",
+    "eceExplanation2": "Perfect calibration means: when the model says it has 80% confidence, it should be correct 80% of the time.",
+    "eceExplanation3": "Lower ECE is better. ECE < 5% is considered excellent calibration.",
+    "eceFormula": "ECE = Σ |confidence - accuracy| × weight",
+    "systemPerformance": "System Performance",
+    "calibrationStatus": "Calibration Status",
+    "calibrationStatusGood": "Excellent",
+    "calibrationStatusDesc": "ECE below 5% threshold",
+    "continuousImprovement": "Continuous Improvement",
+    "continuousDesc": "Automatic calibration every 1000 samples",
+    "largeScaleValidation": "Large-scale Validation",
+    "validationSamples": "{count} assessment samples"
+  },
+  "privacy": {
+    "title": "Privacy Protection",
+    "description": "Three-tier privacy architecture - flexible control over data collection and usage",
+    "tier": "Tier",
+    "tierNames": {
+      "tier1": "Maximum Privacy",
+      "tier2": "Balanced Mode",
+      "tier3": "Complete Analysis"
+    },
+    "tierDescriptions": {
+      "tier1": "Content-blind tracking - no content storage",
+      "tier2": "Limited content storage - keywords and summaries",
+      "tier3": "Full data - complete content storage and analysis"
+    },
+    "featureLabels": {
+      "messageContent": "Message Content",
+      "taskType": "Task Type",
+      "interactionTime": "Interaction Time",
+      "complexityScore": "Complexity Score",
+      "aiResponse": "AI Response",
+      "patternAnalysis": "Pattern Analysis"
+    },
+    "dataExample": "Data Example",
+    "dataExampleDesc": "Actual data format stored at this tier",
+    "privacyVsFunction": "Privacy vs Functionality",
+    "privacyProtection": "Privacy Protection",
+    "analysisCapability": "Analysis Capability",
+    "personalizationLevel": "Personalization Level",
+    "highest": "Highest",
+    "medium": "Medium",
+    "standard": "Standard",
+    "basic": "Basic",
+    "moderate": "Moderate",
+    "complete": "Complete",
+    "limited": "Limited",
+    "optimal": "Optimal",
+    "useCases": "Use Cases",
+    "security": "Security Assurance",
+    "securityItem1": "✓ End-to-end encryption for all data",
+    "securityItem2": "✓ Users can switch tiers at any time",
+    "securityItem3": "✓ Support data export and deletion",
+    "securityItem4": "✓ Regular security audits"
+  },
+  "scenarios": {
+    "title": "Test Scenarios",
+    "description": "Preset interaction scenarios demonstrating various MCA system capabilities",
+    "running": "Scenario executing...",
+    "scenario": "Scenario",
+    "runScenario": "Run Scenario",
+    "executing": "Executing...",
+    "userPattern": "User Pattern",
+    "scenarioExplanation": "Scenario Explanation",
+    "scenarioDescription": "Detailed information for each test scenario",
+    "sampleInteraction": "Sample Interaction:",
+    "user": "User",
+    "ai": "AI",
+    "patternRecognition": "Pattern Recognition",
+    "confidenceScore": "Confidence",
+    "featurePoints": "Feature Points",
+    "quickNav": "Quick Navigation",
+    "quickNavDesc": "After running scenarios, you can visit these pages to view detailed results",
+    "chatDemo": "Chat Demo",
+    "patternRecog": "Pattern Recognition",
+    "confidenceScoring": "Confidence Scoring",
+    "skillMonitoring": "Skill Monitoring"
   }
 }

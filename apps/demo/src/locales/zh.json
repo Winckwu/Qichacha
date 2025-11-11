@@ -23,7 +23,356 @@
       "version": "v1.0.0 演示版",
       "noDatabase": "无需数据库",
       "title": "元认知协作智能体系统",
-      "subtitle": "交互式功能原型 - 探索AI辅助学习的所有核心功能"
+      "subtitle": "交互式功能原型 - 探索AI辅助学习的所有核心功能",
+      "testScenarios": "测试场景",
+      "startChat": "开始对话"
+    },
+    "stats": {
+      "patterns": {
+        "label": "支持模式",
+        "value": "6种",
+        "subtext": "A-F用户分类"
+      },
+      "confidenceFactors": {
+        "label": "置信度因素",
+        "value": "5个",
+        "subtext": "多维度评估"
+      },
+      "privacyLevels": {
+        "label": "隐私层级",
+        "value": "3层",
+        "subtext": "灵活可控"
+      },
+      "scenarios": {
+        "label": "测试场景",
+        "value": "6+",
+        "subtext": "全面覆盖"
+      }
+    },
+    "featuresSection": {
+      "title": "功能模块",
+      "subtitle": "点击探索各个功能的交互式原型",
+      "tryNow": "立即体验",
+      "chat": {
+        "title": "对话演示",
+        "description": "体验6种用户模式的真实对话场景",
+        "highlight1": "实时置信度",
+        "highlight2": "模式识别",
+        "highlight3": "交互式对话"
+      },
+      "patterns": {
+        "title": "模式识别",
+        "description": "深入了解6种用户行为模式分类",
+        "highlight1": "A-F模式",
+        "highlight2": "特征分析",
+        "highlight3": "动态评分"
+      },
+      "confidence": {
+        "title": "置信度评分",
+        "description": "多因素置信度计算和可视化",
+        "highlight1": "5大因素",
+        "highlight2": "实时评估",
+        "highlight3": "详细解释"
+      },
+      "skills": {
+        "title": "技能监控",
+        "description": "追踪用户技能和独立性变化",
+        "highlight1": "趋势分析",
+        "highlight2": "预警机制",
+        "highlight3": "能力建设"
+      },
+      "calibration": {
+        "title": "置信度校准",
+        "description": "查看ECE校准和准确性分析",
+        "highlight1": "ECE计算",
+        "highlight2": "校准曲线",
+        "highlight3": "性能指标"
+      },
+      "privacy": {
+        "title": "隐私保护",
+        "description": "体验三层隐私架构的差异",
+        "highlight1": "3层架构",
+        "highlight2": "数据脱敏",
+        "highlight3": "可控分析"
+      }
+    },
+    "systemFeatures": {
+      "title": "系统特色",
+      "frontend": {
+        "title": "纯前端演示",
+        "description": "无需后端服务器，所有数据模拟生成"
+      },
+      "interactive": {
+        "title": "交互式原型",
+        "description": "丰富的动画和交互，真实体验感"
+      },
+      "complete": {
+        "title": "完整功能展示",
+        "description": "覆盖6种模式、置信度、隐私等核心功能"
+      },
+      "scenarios": {
+        "title": "测试场景",
+        "description": "6+预设场景，演示系统各种能力"
+      },
+      "charts": {
+        "title": "可视化图表",
+        "description": "使用Recharts展示数据趋势"
+      },
+      "responsive": {
+        "title": "响应式设计",
+        "description": "支持桌面端和移动端访问"
+      }
+    },
+    "quickStart": {
+      "title": "快速开始",
+      "subtitle": "探索MCA系统的推荐路径",
+      "step1": {
+        "title": "选择测试场景",
+        "description": "从测试场景页面选择一个预设场景开始体验"
+      },
+      "step2": {
+        "title": "体验对话交互",
+        "description": "在对话演示中查看不同用户模式的交互方式"
+      },
+      "step3": {
+        "title": "探索深度功能",
+        "description": "逐一探索模式识别、置信度评分、技能监控等功能"
+      }
     }
+  },
+  "chat": {
+    "title": "智能对话演示",
+    "description": "与AI进行真实对话，系统将实时分析您的行为模式并提供个性化响应",
+    "welcomeMessage": "您好！我是基于MCA框架的AI助手。我会实时分析您的元认知行为模式，提供个性化支持。请随意提问，我将识别您的Planning（规划）、Monitoring（监控）、Evaluation（评估）和Regulation（调节）能力。",
+    "patternDetection": {
+      "title": "实时模式识别",
+      "pattern": "模式",
+      "description": "基于MCA框架的五维行为特征分析"
+    }
+  },
+  "patterns": {
+    "title": "模式识别",
+    "description": "深入了解6种用户行为模式及其特征分析",
+    "patternLabel": "模式",
+    "riskLevel": "风险等级",
+    "characteristics": "行为特征",
+    "classificationScores": "分类评分明细",
+    "reasoning": "分析推理",
+    "confidenceTitle": "分类置信度",
+    "confidenceDescription": "基于多维行为特征分析",
+    "recommendations": "干预建议",
+    "statistics": "模式统计",
+    "accuracyRate": "识别准确率",
+    "avgConfidence": "平均置信度",
+    "sampleCount": "分析样本数",
+    "risk": {
+      "low": "低风险",
+      "medium": "中等风险",
+      "high": "极高风险"
+    },
+    "recommendA1": "✅ 保持当前学习方式",
+    "recommendA2": "✅ 可以承担更复杂任务",
+    "recommendA3": "✅ 适合作为其他用户的榜样",
+    "recommendB1": "✅ 鼓励继续保持平衡",
+    "recommendB2": "📊 监控学习进度",
+    "recommendB3": "💡 提供进阶挑战",
+    "recommendC1": "📚 提供多方案对比学习",
+    "recommendC2": "💡 鼓励深度理解和实验",
+    "recommendC3": "⚠️ 提醒适时验证结果",
+    "recommendD1": "✅ 保持谨慎验证习惯",
+    "recommendD2": "✅ 提供可验证的信息来源",
+    "recommendD3": "💡 鼓励高质量分析",
+    "recommendE1": "💡 监控长期技能发展",
+    "recommendE2": "📊 鼓励适度思考过程",
+    "recommendE3": "⚖️ 平衡效率与学习",
+    "recommendF1": "🚨 强制性思考引导",
+    "recommendF2": "🚨 保护性摩擦机制",
+    "recommendF3": "🚨 防止技能退化"
+  },
+  "confidence": {
+    "title": "置信度评分",
+    "description": "多因素置信度计算和可视化展示",
+    "presetsTitle": "快速预设",
+    "presetsDescription": "选择预设场景查看不同置信度级别",
+    "randomGenerate": "随机生成",
+    "overallConfidence": "总体置信度",
+    "overallDescription": "综合多个因素的加权评分",
+    "factorBreakdown": "因素分解",
+    "factorDescription": "各项评估因素的详细得分",
+    "detailedFactors": "详细因素说明",
+    "weight": "权重",
+    "levelGuide": "置信度级别",
+    "calculationMethod": "计算方法",
+    "calculationFormula": "总分 = Σ (因素得分 × 权重)",
+    "weightAdjustable": "各因素权重可根据应用场景调整",
+    "systemStats": "系统统计",
+    "avgConfidence": "平均置信度",
+    "highConfidenceRate": "高置信响应",
+    "sampleCount": "评估样本数",
+    "presets": {
+      "high": "高置信度",
+      "moderate": "中等置信度",
+      "low": "低置信度",
+      "critical": "严重不足"
+    },
+    "factors": {
+      "modelConfidence": "模型置信度",
+      "crossValidation": "交叉验证",
+      "factualConsistency": "事实一致性",
+      "domainCoverage": "领域覆盖度",
+      "responseCoherence": "响应连贯性"
+    },
+    "factorDesc": {
+      "modelConfidence": "基于语言模型的内部概率评估",
+      "crossValidation": "多模型响应的一致性评估",
+      "factualConsistency": "与已知事实库的匹配程度",
+      "domainCoverage": "响应涵盖的知识领域广度",
+      "responseCoherence": "逻辑连贯性和语义流畅度"
+    },
+    "levels": {
+      "highDesc": "响应高度可信，可以直接使用",
+      "moderateDesc": "建议进行验证确认",
+      "lowDesc": "需要谨慎对待并验证",
+      "criticalDesc": "强烈建议人工验证"
+    }
+  },
+  "skills": {
+    "title": "技能监控",
+    "description": "追踪用户技能发展和独立性变化趋势",
+    "pattern": "模式",
+    "independenceTrend": "独立性趋势 (最近14天)",
+    "independenceDescription": "用户独立完成任务的比例变化",
+    "skillBreakdown": "技能分解",
+    "skillBreakdownDescription": "各项关键技能的当前水平",
+    "skillDetails": "技能详情",
+    "improving": "提升中",
+    "declining": "下降中",
+    "stable": "稳定",
+    "average": "平均",
+    "currentStatus": "当前状态",
+    "independenceRatio": "独立性比率",
+    "upTrend": "上升趋势",
+    "downTrend": "下降趋势",
+    "stableTrend": "保持稳定",
+    "daysAgo": "天前",
+    "change": "变化",
+    "alertSystem": "预警系统",
+    "skillDegradation": "技能退化警告",
+    "skillDegradationDesc": "多项技能呈下降趋势，建议干预",
+    "overDependence": "过度依赖",
+    "overDependenceDesc": "独立性比率过低",
+    "goodStatus": "状态良好",
+    "goodStatusDesc": "各项指标正常",
+    "improvements": "改进建议",
+    "improve1": "保持当前学习节奏",
+    "improve2": "可以尝试更复杂的任务",
+    "improve3": "增加独立思考时间",
+    "improve4": "主动验证AI响应",
+    "improve5": "减少对AI的依赖",
+    "improve6": "建立独立解决问题的习惯"
+  },
+  "calibration": {
+    "title": "置信度校准",
+    "description": "Expected Calibration Error (ECE) 分析与校准曲线",
+    "eceTitle": "Expected Calibration Error",
+    "basedOnSamples": "基于 {count} 个样本",
+    "excellent": "优秀",
+    "good": "良好",
+    "needsImprovement": "需要改进",
+    "calibrationCurve": "校准曲线",
+    "calibrationDescription": "置信度与实际准确率的对比",
+    "predictedConfidence": "预测置信度",
+    "actualAccuracy": "实际准确率",
+    "idealLine": "理想线",
+    "gapAnalysis": "校准差距",
+    "gapDescription": "各区间的置信度偏差",
+    "gap": "差距",
+    "detailedDistribution": "详细分布",
+    "distributionDescription": "各置信度区间的统计数据",
+    "confidenceRange": "置信度区间",
+    "sampleCount": "样本数",
+    "predicted": "预测置信度",
+    "actual": "实际准确率",
+    "status": "状态",
+    "largeDev": "偏差大",
+    "whatIsECE": "什么是ECE?",
+    "eceExplanation1": "Expected Calibration Error (ECE) 是衡量模型置信度校准程度的指标。",
+    "eceExplanation2": "完美校准意味着：当模型说有80%置信度时，它应该在80%的情况下是正确的。",
+    "eceExplanation3": "ECE越低越好。ECE < 5%被认为是优秀的校准。",
+    "eceFormula": "ECE = Σ |confidence - accuracy| × weight",
+    "systemPerformance": "系统性能",
+    "calibrationStatus": "校准状态",
+    "calibrationStatusGood": "优秀",
+    "calibrationStatusDesc": "ECE低于5%阈值",
+    "continuousImprovement": "持续改进",
+    "continuousDesc": "自动校准每1000个样本",
+    "largeScaleValidation": "大规模验证",
+    "validationSamples": "{count}个评估样本"
+  },
+  "privacy": {
+    "title": "隐私保护",
+    "description": "三层隐私架构 - 灵活控制数据收集和使用",
+    "tier": "层级",
+    "tierNames": {
+      "tier1": "最大隐私",
+      "tier2": "平衡模式",
+      "tier3": "完整分析"
+    },
+    "tierDescriptions": {
+      "tier1": "内容盲追踪 - 不存储任何内容",
+      "tier2": "有限内容存储 - 关键词和摘要",
+      "tier3": "全量数据 - 完整内容存储和分析"
+    },
+    "featureLabels": {
+      "messageContent": "消息内容",
+      "taskType": "任务类型",
+      "interactionTime": "交互时间",
+      "complexityScore": "复杂度评分",
+      "aiResponse": "AI响应",
+      "patternAnalysis": "模式分析"
+    },
+    "dataExample": "数据示例",
+    "dataExampleDesc": "该层级下实际存储的数据格式",
+    "privacyVsFunction": "隐私 vs 功能",
+    "privacyProtection": "隐私保护",
+    "analysisCapability": "分析能力",
+    "personalizationLevel": "个性化程度",
+    "highest": "最高",
+    "medium": "中等",
+    "standard": "标准",
+    "basic": "基础",
+    "moderate": "中等",
+    "complete": "完整",
+    "limited": "有限",
+    "optimal": "最优",
+    "useCases": "适用场景",
+    "security": "安全保障",
+    "securityItem1": "✓ 所有数据端到端加密",
+    "securityItem2": "✓ 用户可随时切换层级",
+    "securityItem3": "✓ 支持数据导出和删除",
+    "securityItem4": "✓ 定期安全审计"
+  },
+  "scenarios": {
+    "title": "测试场景",
+    "description": "预设的交互场景，展示MCA系统的各种能力",
+    "running": "场景执行中...",
+    "scenario": "场景",
+    "runScenario": "运行场景",
+    "executing": "执行中...",
+    "userPattern": "用户模式",
+    "scenarioExplanation": "场景说明",
+    "scenarioDescription": "每个测试场景的详细信息",
+    "sampleInteraction": "示例交互:",
+    "user": "用户",
+    "ai": "AI",
+    "patternRecognition": "模式识别",
+    "confidenceScore": "置信度",
+    "featurePoints": "特征点",
+    "quickNav": "快速导航",
+    "quickNavDesc": "运行场景后，您可以访问这些页面查看详细结果",
+    "chatDemo": "对话演示",
+    "patternRecog": "模式识别",
+    "confidenceScoring": "置信度评分",
+    "skillMonitoring": "技能监控"
   }
 }

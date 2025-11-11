@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
 import { Shield, Eye, EyeOff, Lock } from 'lucide-react';
@@ -7,22 +8,23 @@ import { cn } from '@/lib/utils';
 type PrivacyTier = 1 | 2 | 3;
 
 export default function PrivacyDemoPage() {
+  const { t } = useTranslation();
   const [selectedTier, setSelectedTier] = useState<PrivacyTier>(2);
 
   const tiers = [
     {
       tier: 1 as PrivacyTier,
-      name: '最大隐私',
+      name: t('privacy.tierNames.tier1'),
       icon: Lock,
       color: 'red',
-      description: '内容盲追踪 - 不存储任何内容',
+      description: t('privacy.tierDescriptions.tier1'),
       features: [
-        { label: '消息内容', status: 'hidden', detail: '仅存储内容哈希' },
-        { label: '任务类型', status: 'tracked', detail: '记录任务类别' },
-        { label: '交互时间', status: 'tracked', detail: '记录时间戳' },
-        { label: '复杂度评分', status: 'tracked', detail: '自动计算' },
-        { label: 'AI响应', status: 'hidden', detail: '不存储响应内容' },
-        { label: '模式分析', status: 'limited', detail: '基于元数据' }
+        { label: t('privacy.featureLabels.messageContent'), status: 'hidden', detail: t('privacy.featureDetails.tier1.messageContent') },
+        { label: t('privacy.featureLabels.taskType'), status: 'tracked', detail: t('privacy.featureDetails.tier1.taskType') },
+        { label: t('privacy.featureLabels.interactionTime'), status: 'tracked', detail: t('privacy.featureDetails.tier1.interactionTime') },
+        { label: t('privacy.featureLabels.complexityScore'), status: 'tracked', detail: t('privacy.featureDetails.tier1.complexityScore') },
+        { label: t('privacy.featureLabels.aiResponse'), status: 'hidden', detail: t('privacy.featureDetails.tier1.aiResponse') },
+        { label: t('privacy.featureLabels.patternAnalysis'), status: 'limited', detail: t('privacy.featureDetails.tier1.patternAnalysis') }
       ],
       dataExample: {
         timestamp: '2024-01-15 10:30:00',
@@ -36,17 +38,17 @@ export default function PrivacyDemoPage() {
     },
     {
       tier: 2 as PrivacyTier,
-      name: '平衡模式',
+      name: t('privacy.tierNames.tier2'),
       icon: Shield,
       color: 'yellow',
-      description: '有限内容存储 - 关键词和摘要',
+      description: t('privacy.tierDescriptions.tier2'),
       features: [
-        { label: '消息内容', status: 'partial', detail: '存储关键词和主题' },
-        { label: '任务类型', status: 'tracked', detail: '详细分类' },
-        { label: '交互时间', status: 'tracked', detail: '完整时间序列' },
-        { label: '复杂度评分', status: 'tracked', detail: '多维度评估' },
-        { label: 'AI响应', status: 'partial', detail: '存储摘要' },
-        { label: '模式分析', status: 'tracked', detail: '完整特征提取' }
+        { label: t('privacy.featureLabels.messageContent'), status: 'partial', detail: t('privacy.featureDetails.tier2.messageContent') },
+        { label: t('privacy.featureLabels.taskType'), status: 'tracked', detail: t('privacy.featureDetails.tier2.taskType') },
+        { label: t('privacy.featureLabels.interactionTime'), status: 'tracked', detail: t('privacy.featureDetails.tier2.interactionTime') },
+        { label: t('privacy.featureLabels.complexityScore'), status: 'tracked', detail: t('privacy.featureDetails.tier2.complexityScore') },
+        { label: t('privacy.featureLabels.aiResponse'), status: 'partial', detail: t('privacy.featureDetails.tier2.aiResponse') },
+        { label: t('privacy.featureLabels.patternAnalysis'), status: 'tracked', detail: t('privacy.featureDetails.tier2.patternAnalysis') }
       ],
       dataExample: {
         timestamp: '2024-01-15 10:30:00',
@@ -66,17 +68,17 @@ export default function PrivacyDemoPage() {
     },
     {
       tier: 3 as PrivacyTier,
-      name: '完整分析',
+      name: t('privacy.tierNames.tier3'),
       icon: Eye,
       color: 'green',
-      description: '全量数据 - 完整内容存储和分析',
+      description: t('privacy.tierDescriptions.tier3'),
       features: [
-        { label: '消息内容', status: 'tracked', detail: '完整存储' },
-        { label: '任务类型', status: 'tracked', detail: '详细分类' },
-        { label: '交互时间', status: 'tracked', detail: '精确到毫秒' },
-        { label: '复杂度评分', status: 'tracked', detail: '多维度详细分析' },
-        { label: 'AI响应', status: 'tracked', detail: '完整存储' },
-        { label: '模式分析', status: 'tracked', detail: '深度分析' }
+        { label: t('privacy.featureLabels.messageContent'), status: 'tracked', detail: t('privacy.featureDetails.tier3.messageContent') },
+        { label: t('privacy.featureLabels.taskType'), status: 'tracked', detail: t('privacy.featureDetails.tier3.taskType') },
+        { label: t('privacy.featureLabels.interactionTime'), status: 'tracked', detail: t('privacy.featureDetails.tier3.interactionTime') },
+        { label: t('privacy.featureLabels.complexityScore'), status: 'tracked', detail: t('privacy.featureDetails.tier3.complexityScore') },
+        { label: t('privacy.featureLabels.aiResponse'), status: 'tracked', detail: t('privacy.featureDetails.tier3.aiResponse') },
+        { label: t('privacy.featureLabels.patternAnalysis'), status: 'tracked', detail: t('privacy.featureDetails.tier3.patternAnalysis') }
       ],
       dataExample: {
         timestamp: '2024-01-15 10:30:00',
@@ -104,9 +106,9 @@ export default function PrivacyDemoPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold">隐私保护</h1>
+        <h1 className="text-3xl font-bold">{t('privacy.title')}</h1>
         <p className="mt-2 text-muted-foreground">
-          三层隐私架构 - 灵活控制数据收集和使用
+          {t('privacy.description')}
         </p>
       </div>
 
@@ -146,7 +148,7 @@ export default function PrivacyDemoPage() {
                     <TierIcon className="h-6 w-6" />
                   </div>
                   <Badge className={cn(isSelected ? 'bg-white/20 text-white border-white/30' : 'bg-gray-200')}>
-                    层级 {tier.tier}
+                    {t('privacy.tier')} {tier.tier}
                   </Badge>
                 </div>
 
@@ -169,7 +171,7 @@ export default function PrivacyDemoPage() {
               <div className="flex items-center gap-3">
                 <Icon className={cn('h-6 w-6', tiers.find(t => t.tier === selectedTier)!.color === 'red' ? 'text-red-600' : tiers.find(t => t.tier === selectedTier)!.color === 'yellow' ? 'text-yellow-600' : 'text-green-600')} />
                 <div>
-                  <CardTitle>层级 {selectedTier}: {selectedTierData.name}</CardTitle>
+                  <CardTitle>{t('privacy.tier')} {selectedTier}: {selectedTierData.name}</CardTitle>
                   <CardDescription>{selectedTierData.description}</CardDescription>
                 </div>
               </div>
@@ -196,9 +198,9 @@ export default function PrivacyDemoPage() {
                         </div>
                       </div>
                       <Badge variant="outline" className={statusConfig.color}>
-                        {feature.status === 'tracked' ? '完整' :
-                         feature.status === 'partial' ? '部分' :
-                         feature.status === 'hidden' ? '隐藏' : '有限'}
+                        {feature.status === 'tracked' ? t('privacy.statusLabels.complete') :
+                         feature.status === 'partial' ? t('privacy.statusLabels.partial') :
+                         feature.status === 'hidden' ? t('privacy.statusLabels.hidden') : t('privacy.statusLabels.limited')}
                       </Badge>
                     </div>
                   );
@@ -210,8 +212,8 @@ export default function PrivacyDemoPage() {
           {/* Data Example */}
           <Card className="border-2">
             <CardHeader>
-              <CardTitle>数据示例</CardTitle>
-              <CardDescription>该层级下实际存储的数据格式</CardDescription>
+              <CardTitle>{t('privacy.dataExample')}</CardTitle>
+              <CardDescription>{t('privacy.dataExampleDesc')}</CardDescription>
             </CardHeader>
             <CardContent>
               <div className="rounded-lg bg-slate-900 p-4 overflow-x-auto">
@@ -228,14 +230,14 @@ export default function PrivacyDemoPage() {
           {/* Comparison */}
           <Card className="border-2">
             <CardHeader>
-              <CardTitle>隐私 vs 功能</CardTitle>
+              <CardTitle>{t('privacy.privacyVsFunction')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div>
                 <div className="flex justify-between mb-2">
-                  <span className="text-sm font-medium">隐私保护</span>
+                  <span className="text-sm font-medium">{t('privacy.privacyProtection')}</span>
                   <span className="text-sm font-bold">
-                    {selectedTier === 1 ? '最高' : selectedTier === 2 ? '中等' : '标准'}
+                    {selectedTier === 1 ? t('privacy.highest') : selectedTier === 2 ? t('privacy.medium') : t('privacy.standard')}
                   </span>
                 </div>
                 <div className="h-2 rounded-full bg-gray-200">
@@ -252,9 +254,9 @@ export default function PrivacyDemoPage() {
 
               <div>
                 <div className="flex justify-between mb-2">
-                  <span className="text-sm font-medium">分析能力</span>
+                  <span className="text-sm font-medium">{t('privacy.analysisCapability')}</span>
                   <span className="text-sm font-bold">
-                    {selectedTier === 1 ? '基础' : selectedTier === 2 ? '中等' : '完整'}
+                    {selectedTier === 1 ? t('privacy.basic') : selectedTier === 2 ? t('privacy.moderate') : t('privacy.complete')}
                   </span>
                 </div>
                 <div className="h-2 rounded-full bg-gray-200">
@@ -271,9 +273,9 @@ export default function PrivacyDemoPage() {
 
               <div>
                 <div className="flex justify-between mb-2">
-                  <span className="text-sm font-medium">个性化程度</span>
+                  <span className="text-sm font-medium">{t('privacy.personalizationLevel')}</span>
                   <span className="text-sm font-bold">
-                    {selectedTier === 1 ? '有限' : selectedTier === 2 ? '良好' : '最优'}
+                    {selectedTier === 1 ? t('privacy.limited') : selectedTier === 2 ? t('privacy.good') : t('privacy.optimal')}
                   </span>
                 </div>
                 <div className="h-2 rounded-full bg-gray-200">
@@ -293,32 +295,32 @@ export default function PrivacyDemoPage() {
           {/* Recommendations */}
           <Card className="border-2">
             <CardHeader>
-              <CardTitle>适用场景</CardTitle>
+              <CardTitle>{t('privacy.useCases')}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-3 text-sm">
                 {selectedTier === 1 && (
                   <>
-                    <p>✓ 高度敏感的工作环境</p>
-                    <p>✓ 严格的数据合规要求</p>
-                    <p>✓ 优先考虑隐私保护</p>
-                    <p className="text-yellow-600">! 分析功能受限</p>
+                    <p>{t('privacy.useCases.tier1.item1')}</p>
+                    <p>{t('privacy.useCases.tier1.item2')}</p>
+                    <p>{t('privacy.useCases.tier1.item3')}</p>
+                    <p className="text-yellow-600">{t('privacy.useCases.tier1.item4')}</p>
                   </>
                 )}
                 {selectedTier === 2 && (
                   <>
-                    <p>✓ 教育学习场景</p>
-                    <p>✓ 一般企业环境</p>
-                    <p>✓ 平衡隐私与功能</p>
-                    <p className="text-green-600">✓ 推荐设置</p>
+                    <p>{t('privacy.useCases.tier2.item1')}</p>
+                    <p>{t('privacy.useCases.tier2.item2')}</p>
+                    <p>{t('privacy.useCases.tier2.item3')}</p>
+                    <p className="text-green-600">{t('privacy.useCases.tier2.item4')}</p>
                   </>
                 )}
                 {selectedTier === 3 && (
                   <>
-                    <p>✓ 研究和开发</p>
-                    <p>✓ 需要深度分析</p>
-                    <p>✓ 最佳个性化体验</p>
-                    <p className="text-blue-600">ℹ 需要明确授权</p>
+                    <p>{t('privacy.useCases.tier3.item1')}</p>
+                    <p>{t('privacy.useCases.tier3.item2')}</p>
+                    <p>{t('privacy.useCases.tier3.item3')}</p>
+                    <p className="text-blue-600">{t('privacy.useCases.tier3.item4')}</p>
                   </>
                 )}
               </div>
@@ -330,14 +332,14 @@ export default function PrivacyDemoPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2 text-blue-900">
                 <Lock className="h-5 w-5" />
-                安全保障
+                {t('privacy.security')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-2 text-sm text-blue-800">
-              <p>✓ 所有数据端到端加密</p>
-              <p>✓ 用户可随时切换层级</p>
-              <p>✓ 支持数据导出和删除</p>
-              <p>✓ 定期安全审计</p>
+              <p>{t('privacy.securityItem1')}</p>
+              <p>{t('privacy.securityItem2')}</p>
+              <p>{t('privacy.securityItem3')}</p>
+              <p>{t('privacy.securityItem4')}</p>
             </CardContent>
           </Card>
         </div>

@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import Button from '@/components/ui/Button';
 import Badge from '@/components/ui/Badge';
@@ -651,11 +652,12 @@ const generateConfidenceDetails = (
 };
 
 export default function ChatDemoPage() {
+  const { t } = useTranslation();
   const [messages, setMessages] = useState<Message[]>([
     {
       id: '1',
       role: 'assistant',
-      content: '您好！我是基于MCA框架的AI助手。我会实时分析您的元认知行为模式，提供个性化支持。请随意提问，我将识别您的Planning（规划）、Monitoring（监控）、Evaluation（评估）和Regulation（调节）能力。',
+      content: t('chat.welcomeMessage'),
       timestamp: new Date(),
     }
   ]);
@@ -806,9 +808,9 @@ export default function ChatDemoPage() {
     <div className="space-y-6">
       {/* Header */}
       <div>
-        <h1 className="text-3xl font-bold">智能对话演示</h1>
+        <h1 className="text-3xl font-bold">{t('chat.title')}</h1>
         <p className="mt-2 text-muted-foreground">
-          与AI进行真实对话，系统将实时分析您的行为模式并提供个性化响应
+          {t('chat.description')}
         </p>
       </div>
 
@@ -818,7 +820,7 @@ export default function ChatDemoPage() {
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2">
               <Brain className="h-5 w-5 text-primary animate-pulse" />
-              <CardTitle>实时模式识别</CardTitle>
+              <CardTitle>{t('chat.patternDetection.title')}</CardTitle>
             </div>
             <Badge className={cn(
               'text-white px-3 py-1',
@@ -829,22 +831,22 @@ export default function ChatDemoPage() {
               detectedPattern === 'E' && 'bg-orange-600',
               detectedPattern === 'F' && 'bg-red-600'
             )}>
-              模式 {detectedPattern}
+              {t('chat.patternDetection.pattern')} {detectedPattern}
             </Badge>
           </div>
-          <CardDescription>基于MCA框架的五维行为特征分析</CardDescription>
+          <CardDescription>{t('chat.patternDetection.description')}</CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-3">
             <div className="flex items-center justify-between">
               <div>
-                <div className="text-sm font-medium text-muted-foreground">当前识别模式</div>
+                <div className="text-sm font-medium text-muted-foreground">{t('chat.currentPattern')}</div>
                 <div className="text-lg font-bold mt-1">
                   {patternInfo.name}
                 </div>
               </div>
               <div className="text-right">
-                <div className="text-sm font-medium text-muted-foreground">识别置信度</div>
+                <div className="text-sm font-medium text-muted-foreground">{t('chat.recognitionConfidence')}</div>
                 <div className="text-2xl font-bold text-primary mt-1">
                   {Math.round(patternConfidence * 100)}%
                 </div>
@@ -1252,15 +1254,15 @@ export default function ChatDemoPage() {
             <CardHeader>
               <div className="flex items-center justify-between">
                 <div>
-                  <CardTitle>实时对话</CardTitle>
+                  <CardTitle>{t('chat.realTimeDialogue')}</CardTitle>
                   <CardDescription>
-                    输入您的问题，AI将根据您的模式提供个性化响应
+                    {t('chat.realTimeDescription')}
                   </CardDescription>
                 </div>
                 {isTyping && (
                   <div className="flex items-center gap-2 text-sm text-muted-foreground">
                     <Loader2 className="h-4 w-4 animate-spin" />
-                    <span>AI正在思考...</span>
+                    <span>{t('chat.aiThinking')}</span>
                   </div>
                 )}
               </div>
@@ -1445,7 +1447,7 @@ export default function ChatDemoPage() {
                     }
                     disabled={isTyping}
                     className="flex-1 rounded-md border border-gray-300 bg-white px-4 py-2.5 text-sm focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 disabled:opacity-50"
-                    aria-label="消息输入框"
+                    aria-label={t('chat.messageInput')}
                     aria-describedby="input-hint"
                   />
                   <Button
@@ -1453,7 +1455,7 @@ export default function ChatDemoPage() {
                     disabled={isTyping || !inputValue.trim() || (detectedPattern === 'F' && inputValue.length < 5)}
                     className="px-6"
                     title={detectedPattern === 'F' && inputValue.length < 5 ? "请输入至少5个字符" : ""}
-                    aria-label={isTyping ? "AI正在回复" : "发送消息"}
+                    aria-label={isTyping ? t('chat.aiReplying') : t('chat.sendMessage')}
                   >
                     {isTyping ? (
                       <Loader2 className="h-4 w-4 animate-spin" />

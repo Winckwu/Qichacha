@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
 import Progress from '@/components/ui/Progress';
@@ -9,6 +10,7 @@ import { LineChart, Line, BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, L
 import { format } from 'date-fns';
 
 export default function SkillMonitoringPage() {
+  const { t } = useTranslation();
   const [selectedPattern, setSelectedPattern] = useState<UserPattern>('A');
   const skills = generateSkillMetrics(selectedPattern);
   const timeline = generateIndependenceTimeline(selectedPattern);
@@ -25,8 +27,8 @@ export default function SkillMonitoringPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold">技能监控</h1>
-        <p className="mt-2 text-muted-foreground">追踪用户技能发展和独立性变化趋势</p>
+        <h1 className="text-3xl font-bold">{t('skills.title')}</h1>
+        <p className="mt-2 text-muted-foreground">{t('skills.description')}</p>
       </div>
 
       {/* Pattern Selector */}
@@ -42,7 +44,7 @@ export default function SkillMonitoringPage() {
                 : 'border-gray-200 bg-white hover:border-primary/50'
             )}
           >
-            <span className="font-bold">模式 {pattern}</span>
+            <span className="font-bold">{t('skills.pattern')} {pattern}</span>
             <span className="ml-2 text-sm opacity-80">{PATTERN_INFO[pattern].name}</span>
           </button>
         ))}
@@ -56,9 +58,9 @@ export default function SkillMonitoringPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Target className="h-5 w-5" />
-                独立性趋势 (最近14天)
+                {t('skills.independenceTrend')}
               </CardTitle>
-              <CardDescription>用户独立完成任务的比例变化</CardDescription>
+              <CardDescription>{t('skills.independenceDescription')}</CardDescription>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
@@ -83,8 +85,8 @@ export default function SkillMonitoringPage() {
           {/* Skill Breakdown */}
           <Card className="border-2">
             <CardHeader>
-              <CardTitle>技能分解</CardTitle>
-              <CardDescription>各项关键技能的当前水平</CardDescription>
+              <CardTitle>{t('skills.skillBreakdown')}</CardTitle>
+              <CardDescription>{t('skills.skillBreakdownDescription')}</CardDescription>
             </CardHeader>
             <CardContent>
               <ResponsiveContainer width="100%" height={300}>
@@ -102,7 +104,7 @@ export default function SkillMonitoringPage() {
           {/* Skill Details */}
           <Card className="border-2">
             <CardHeader>
-              <CardTitle>技能详情</CardTitle>
+              <CardTitle>{t('skills.skillDetails')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               {skills.map(skill => {
@@ -120,15 +122,15 @@ export default function SkillMonitoringPage() {
                             skill.trend === 'declining' ? 'destructive' : 'secondary'
                           } className="text-xs">
                             <TrendIcon className="mr-1 h-3 w-3" />
-                            {skill.trend === 'improving' ? '提升中' :
-                             skill.trend === 'declining' ? '下降中' : '稳定'}
+                            {skill.trend === 'improving' ? t('skills.improving') :
+                             skill.trend === 'declining' ? t('skills.declining') : t('skills.stable')}
                           </Badge>
                         </div>
                       </div>
                       <div className="text-right">
                         <div className="text-2xl font-bold">{Math.round(skill.level * 100)}%</div>
                         <div className="text-xs text-muted-foreground">
-                          平均: {Math.round(skill.historicalAvg * 100)}%
+                          {t('skills.average')}: {Math.round(skill.historicalAvg * 100)}%
                         </div>
                       </div>
                     </div>
@@ -153,27 +155,27 @@ export default function SkillMonitoringPage() {
           {/* Current Status */}
           <Card className="border-2">
             <CardHeader>
-              <CardTitle>当前状态</CardTitle>
+              <CardTitle>{t('skills.currentStatus')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-4">
               <div className="text-center py-4">
                 <div className="text-4xl font-bold text-primary mb-2">
                   {Math.round(currentRatio * 100)}%
                 </div>
-                <div className="text-sm text-muted-foreground">独立性比率</div>
+                <div className="text-sm text-muted-foreground">{t('skills.independenceRatio')}</div>
                 <div className={cn('mt-2 flex items-center justify-center gap-1 text-sm font-medium', getTrendColor(trend))}>
                   {getTrendIcon(trend)}
-                  <span>{trend === 'improving' ? '上升趋势' : trend === 'declining' ? '下降趋势' : '保持稳定'}</span>
+                  <span>{trend === 'improving' ? t('skills.upTrend') : trend === 'declining' ? t('skills.downTrend') : t('skills.stableTrend')}</span>
                 </div>
               </div>
 
               <div className="space-y-2 text-sm">
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">7天前</span>
+                  <span className="text-muted-foreground">7 {t('skills.daysAgo')}</span>
                   <span className="font-bold">{Math.round(previousRatio * 100)}%</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-muted-foreground">变化</span>
+                  <span className="text-muted-foreground">{t('skills.change')}</span>
                   <span className={cn('font-bold', getTrendColor(trend))}>
                     {((currentRatio - previousRatio) * 100).toFixed(1)}%
                   </span>
@@ -185,7 +187,7 @@ export default function SkillMonitoringPage() {
           {/* Alerts */}
           <Card className="border-2">
             <CardHeader>
-              <CardTitle>预警系统</CardTitle>
+              <CardTitle>{t('skills.alertSystem')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               {skills.some(s => s.trend === 'declining' && s.level < 0.5) && (
@@ -193,9 +195,9 @@ export default function SkillMonitoringPage() {
                   <div className="flex items-start gap-2">
                     <AlertTriangle className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5" />
                     <div>
-                      <div className="font-semibold text-red-900">技能退化警告</div>
+                      <div className="font-semibold text-red-900">{t('skills.skillDegradation')}</div>
                       <p className="text-sm text-red-800 mt-1">
-                        多项技能呈下降趋势，建议干预
+                        {t('skills.skillDegradationDesc')}
                       </p>
                     </div>
                   </div>
@@ -207,9 +209,9 @@ export default function SkillMonitoringPage() {
                   <div className="flex items-start gap-2">
                     <AlertTriangle className="h-5 w-5 text-orange-600 flex-shrink-0 mt-0.5" />
                     <div>
-                      <div className="font-semibold text-orange-900">过度依赖</div>
+                      <div className="font-semibold text-orange-900">{t('skills.overDependence')}</div>
                       <p className="text-sm text-orange-800 mt-1">
-                        独立性比率过低
+                        {t('skills.overDependenceDesc')}
                       </p>
                     </div>
                   </div>
@@ -221,9 +223,9 @@ export default function SkillMonitoringPage() {
                   <div className="flex items-start gap-2">
                     <TrendingUp className="h-5 w-5 text-green-600 flex-shrink-0 mt-0.5" />
                     <div>
-                      <div className="font-semibold text-green-900">状态良好</div>
+                      <div className="font-semibold text-green-900">{t('skills.goodStatus')}</div>
                       <p className="text-sm text-green-800 mt-1">
-                        各项指标正常
+                        {t('skills.goodStatusDesc')}
                       </p>
                     </div>
                   </div>
@@ -235,7 +237,7 @@ export default function SkillMonitoringPage() {
           {/* Recommendations */}
           <Card className="border-2">
             <CardHeader>
-              <CardTitle>改进建议</CardTitle>
+              <CardTitle>{t('skills.improvements')}</CardTitle>
             </CardHeader>
             <CardContent>
               <ul className="space-y-2 text-sm">
@@ -243,11 +245,11 @@ export default function SkillMonitoringPage() {
                   <>
                     <li className="flex items-start gap-2">
                       <span className="text-green-600">✓</span>
-                      <span>保持当前学习节奏</span>
+                      <span>{t('skills.improve1')}</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-green-600">✓</span>
-                      <span>可以尝试更复杂的任务</span>
+                      <span>{t('skills.improve2')}</span>
                     </li>
                   </>
                 )}
@@ -255,11 +257,11 @@ export default function SkillMonitoringPage() {
                   <>
                     <li className="flex items-start gap-2">
                       <span className="text-yellow-600">!</span>
-                      <span>增加独立思考时间</span>
+                      <span>{t('skills.improve3')}</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-yellow-600">!</span>
-                      <span>主动验证AI响应</span>
+                      <span>{t('skills.improve4')}</span>
                     </li>
                   </>
                 )}
@@ -267,11 +269,11 @@ export default function SkillMonitoringPage() {
                   <>
                     <li className="flex items-start gap-2">
                       <span className="text-red-600">⚠</span>
-                      <span>减少对AI的依赖</span>
+                      <span>{t('skills.improve5')}</span>
                     </li>
                     <li className="flex items-start gap-2">
                       <span className="text-red-600">⚠</span>
-                      <span>建立独立解决问题的习惯</span>
+                      <span>{t('skills.improve6')}</span>
                     </li>
                   </>
                 )}

@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/Card';
 import Badge from '@/components/ui/Badge';
 import Progress from '@/components/ui/Progress';
@@ -7,17 +8,18 @@ import { cn } from '@/lib/utils';
 import { Users, TrendingUp, AlertTriangle, CheckCircle2 } from 'lucide-react';
 
 export default function PatternDemoPage() {
+  const { t } = useTranslation();
   const [selectedPattern, setSelectedPattern] = useState<UserPattern>('A');
   const patternData = generatePatternData(selectedPattern);
   const patternInfo = PATTERN_INFO[selectedPattern];
 
   const riskLevels: Record<UserPattern, { level: string; color: string; icon: any }> = {
-    A: { level: '低风险', color: 'text-green-600', icon: CheckCircle2 },
-    B: { level: '低风险', color: 'text-green-600', icon: CheckCircle2 },
-    C: { level: '中等风险', color: 'text-yellow-600', icon: TrendingUp },
-    D: { level: '低风险', color: 'text-green-600', icon: CheckCircle2 },
-    E: { level: '中等风险', color: 'text-yellow-600', icon: TrendingUp },
-    F: { level: '极高风险', color: 'text-red-600', icon: AlertTriangle },
+    A: { level: t('patterns.risk.low'), color: 'text-green-600', icon: CheckCircle2 },
+    B: { level: t('patterns.risk.low'), color: 'text-green-600', icon: CheckCircle2 },
+    C: { level: t('patterns.risk.medium'), color: 'text-yellow-600', icon: TrendingUp },
+    D: { level: t('patterns.risk.low'), color: 'text-green-600', icon: CheckCircle2 },
+    E: { level: t('patterns.risk.medium'), color: 'text-yellow-600', icon: TrendingUp },
+    F: { level: t('patterns.risk.high'), color: 'text-red-600', icon: AlertTriangle },
   };
 
   const risk = riskLevels[selectedPattern];
@@ -26,9 +28,9 @@ export default function PatternDemoPage() {
   return (
     <div className="space-y-6">
       <div>
-        <h1 className="text-3xl font-bold">模式识别</h1>
+        <h1 className="text-3xl font-bold">{t('patterns.title')}</h1>
         <p className="mt-2 text-muted-foreground">
-          深入了解6种用户行为模式及其特征分析
+          {t('patterns.description')}
         </p>
       </div>
 
@@ -97,7 +99,7 @@ export default function PatternDemoPage() {
             <CardHeader>
               <CardTitle className="flex items-center gap-2">
                 <Users className="h-6 w-6" />
-                模式 {selectedPattern}: {patternInfo.name}
+                {t('patterns.patternLabel')} {selectedPattern}: {patternInfo.name}
               </CardTitle>
               <CardDescription>{patternInfo.description}</CardDescription>
             </CardHeader>
@@ -107,13 +109,13 @@ export default function PatternDemoPage() {
                 <div className="flex items-center gap-3">
                   <RiskIcon className={cn('h-8 w-8', risk.color)} />
                   <div>
-                    <div className="text-sm text-muted-foreground">风险等级</div>
+                    <div className="text-sm text-muted-foreground">{t('patterns.riskLevel')}</div>
                     <div className={cn('text-xl font-bold', risk.color)}>{risk.level}</div>
                   </div>
                 </div>
                 <Badge variant={
-                  risk.level === '低风险' ? 'success' :
-                  risk.level === '中等风险' ? 'warning' : 'destructive'
+                  risk.level === t('patterns.risk.low') ? 'success' :
+                  risk.level === t('patterns.risk.medium') ? 'warning' : 'destructive'
                 }>
                   {risk.level}
                 </Badge>
@@ -121,7 +123,7 @@ export default function PatternDemoPage() {
 
               {/* Characteristics */}
               <div>
-                <h4 className="mb-3 font-semibold">行为特征</h4>
+                <h4 className="mb-3 font-semibold">{t('patterns.characteristics')}</h4>
                 <ul className="grid gap-3 sm:grid-cols-2">
                   {patternInfo.characteristics.map((char, idx) => (
                     <li key={idx} className="flex items-start gap-2 rounded-lg bg-muted p-3">
@@ -134,7 +136,7 @@ export default function PatternDemoPage() {
 
               {/* Classification Scores */}
               <div>
-                <h4 className="mb-3 font-semibold">分类评分明细</h4>
+                <h4 className="mb-3 font-semibold">{t('patterns.classificationScores')}</h4>
                 <div className="space-y-3">
                   {Object.entries(patternData.scores)
                     .sort(([, a], [, b]) => b - a)
@@ -144,7 +146,7 @@ export default function PatternDemoPage() {
                         <div key={pattern} className="rounded-lg border p-3">
                           <div className="flex items-center justify-between mb-2">
                             <div className="flex items-center gap-2">
-                              <span className="font-medium">模式 {pattern}</span>
+                              <span className="font-medium">{t('patterns.patternLabel')} {pattern}</span>
                               <span className="text-sm text-muted-foreground">{info.name}</span>
                             </div>
                             <span className="text-sm font-mono font-bold">
@@ -166,7 +168,7 @@ export default function PatternDemoPage() {
 
               {/* Reasoning */}
               <div className="rounded-lg bg-blue-50 p-4 border-l-4 border-blue-600">
-                <h4 className="mb-2 font-semibold text-blue-900">分析推理</h4>
+                <h4 className="mb-2 font-semibold text-blue-900">{t('patterns.reasoning')}</h4>
                 <p className="text-sm leading-relaxed text-blue-800">
                   {patternData.reasoning}
                 </p>
@@ -180,7 +182,7 @@ export default function PatternDemoPage() {
           {/* Confidence */}
           <Card className="border-2">
             <CardHeader>
-              <CardTitle>分类置信度</CardTitle>
+              <CardTitle>{t('patterns.confidenceTitle')}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="text-center">
@@ -189,7 +191,7 @@ export default function PatternDemoPage() {
                 </div>
                 <Progress value={patternData.confidence * 100} className="mt-4 h-3" />
                 <p className="mt-3 text-sm text-muted-foreground">
-                  基于多维行为特征分析
+                  {t('patterns.confidenceDescription')}
                 </p>
               </div>
             </CardContent>
@@ -198,50 +200,50 @@ export default function PatternDemoPage() {
           {/* Recommendations */}
           <Card className="border-2">
             <CardHeader>
-              <CardTitle>干预建议</CardTitle>
+              <CardTitle>{t('patterns.recommendations')}</CardTitle>
             </CardHeader>
             <CardContent>
               <div className="space-y-3">
                 {selectedPattern === 'A' && (
                   <>
-                    <p className="text-sm">✅ 保持当前学习方式</p>
-                    <p className="text-sm">✅ 可以承担更复杂任务</p>
-                    <p className="text-sm">✅ 适合作为其他用户的榜样</p>
+                    <p className="text-sm">{t('patterns.recommendA1')}</p>
+                    <p className="text-sm">{t('patterns.recommendA2')}</p>
+                    <p className="text-sm">{t('patterns.recommendA3')}</p>
                   </>
                 )}
                 {selectedPattern === 'B' && (
                   <>
-                    <p className="text-sm">✅ 鼓励继续保持平衡</p>
-                    <p className="text-sm">📊 监控学习进度</p>
-                    <p className="text-sm">💡 提供进阶挑战</p>
+                    <p className="text-sm">{t('patterns.recommendB1')}</p>
+                    <p className="text-sm">{t('patterns.recommendB2')}</p>
+                    <p className="text-sm">{t('patterns.recommendB3')}</p>
                   </>
                 )}
                 {selectedPattern === 'C' && (
                   <>
-                    <p className="text-sm">📚 提供多方案对比学习</p>
-                    <p className="text-sm">💡 鼓励深度理解和实验</p>
-                    <p className="text-sm">⚠️ 提醒适时验证结果</p>
+                    <p className="text-sm">{t('patterns.recommendC1')}</p>
+                    <p className="text-sm">{t('patterns.recommendC2')}</p>
+                    <p className="text-sm">{t('patterns.recommendC3')}</p>
                   </>
                 )}
                 {selectedPattern === 'D' && (
                   <>
-                    <p className="text-sm">✅ 保持谨慎验证习惯</p>
-                    <p className="text-sm">✅ 提供可验证的信息来源</p>
-                    <p className="text-sm">💡 鼓励高质量分析</p>
+                    <p className="text-sm">{t('patterns.recommendD1')}</p>
+                    <p className="text-sm">{t('patterns.recommendD2')}</p>
+                    <p className="text-sm">{t('patterns.recommendD3')}</p>
                   </>
                 )}
                 {selectedPattern === 'E' && (
                   <>
-                    <p className="text-sm">💡 监控长期技能发展</p>
-                    <p className="text-sm">📊 鼓励适度思考过程</p>
-                    <p className="text-sm">⚖️ 平衡效率与学习</p>
+                    <p className="text-sm">{t('patterns.recommendE1')}</p>
+                    <p className="text-sm">{t('patterns.recommendE2')}</p>
+                    <p className="text-sm">{t('patterns.recommendE3')}</p>
                   </>
                 )}
                 {selectedPattern === 'F' && (
                   <>
-                    <p className="text-sm text-red-600">🚨 强制性思考引导</p>
-                    <p className="text-sm text-red-600">🚨 保护性摩擦机制</p>
-                    <p className="text-sm text-red-600">🚨 防止技能退化</p>
+                    <p className="text-sm text-red-600">{t('patterns.recommendF1')}</p>
+                    <p className="text-sm text-red-600">{t('patterns.recommendF2')}</p>
+                    <p className="text-sm text-red-600">{t('patterns.recommendF3')}</p>
                   </>
                 )}
               </div>
@@ -251,19 +253,19 @@ export default function PatternDemoPage() {
           {/* Statistics */}
           <Card className="border-2">
             <CardHeader>
-              <CardTitle>模式统计</CardTitle>
+              <CardTitle>{t('patterns.statistics')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">识别准确率</span>
+                <span className="text-muted-foreground">{t('patterns.accuracyRate')}</span>
                 <span className="font-bold">87.5%</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">平均置信度</span>
+                <span className="text-muted-foreground">{t('patterns.avgConfidence')}</span>
                 <span className="font-bold">82.3%</span>
               </div>
               <div className="flex justify-between text-sm">
-                <span className="text-muted-foreground">分析样本数</span>
+                <span className="text-muted-foreground">{t('patterns.sampleCount')}</span>
                 <span className="font-bold">1,247</span>
               </div>
             </CardContent>
